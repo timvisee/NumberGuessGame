@@ -91,10 +91,14 @@ void loop() {
     while(!timer.isFinished() || answer <= 0) {
         // Pulse the green light
         if(!greenLed.isFading()) {
-            if(greenLed.getBrightness() <= 10)
+            if(greenLed.getBrightness() <= 10) {
                 greenLed.fade(40, 1000);
-            else if(greenLed.getBrightness() >= 40)
+                redLed.fade(10, 1000);
+
+            } else if(greenLed.getBrightness() >= 40) {
                 greenLed.fade(10, 1000);
+                redLed.fade(40, 1000);
+            }
         }
 
         // Update everything
@@ -122,6 +126,7 @@ void loop() {
 
     // Turn of the green LED
     greenLed.setState(false);
+    redLed.setState(false);
 
     // Show the result the user has entered
     showNumber(answer);
