@@ -103,6 +103,10 @@ void Led::fade(int brightness, int duration) {
     this->state = ((double) brightness / (double) (BRIGHTNESS_HIGH - BRIGHTNESS_LOW)) >= 0.5;
 }
 
+bool Led::isFading() {
+    return (this->toTime > millis() && this->brightness != this->toBrightness);
+}
+
 int Led::getBrightness() {
     return this->brightness;
 }

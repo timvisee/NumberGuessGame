@@ -46,6 +46,8 @@ public:
 
     void fade(int brightness, int duration);
 
+    bool isFading();
+
     int getBrightness();
 
     void setBrightness(int brightness);
