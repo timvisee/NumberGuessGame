@@ -3,7 +3,7 @@
 #include "Timer.h"
 #include "Led.h"
 
-/** Screen LED count. */
+/**Screen LED count. */
 const int SCREEN_LED_COUNT = 4;
 /** Screen LED pins. */
 const int SCREEN_LED_PINS[] = {3, 5, 6, 9};
