@@ -135,20 +135,9 @@ void loop() {
         greenLed.setState(true);
 
         showNumber(num, 50, 200);
-        smartDelay(200);
+        smartDelay(500);
         showNumber(num, 10, 200);
         smartDelay(200);
-
-        showNumber(num, 50, 200);
-        smartDelay(200);
-        showNumber(num, 10, 200);
-        smartDelay(200);
-
-        showNumber(num, 50, 200);
-        smartDelay(200);
-        showNumber(num, 10, 200);
-        smartDelay(200);
-
         showNumber(0);
 
     } else
@@ -160,8 +149,10 @@ void loop() {
     greenLed.setState(false);
     redLed.setState(false);
 
-    // Wait a second before showing a new number
-    smartDelay(1000);
+    // Show the slide animation before continuing to the next wave
+    smartDelay(200);
+    slide();
+    smartDelay(400);
 }
 
 void update() {
@@ -197,34 +188,37 @@ void smartDelay(int delay) {
 
 void showStartupAnimation() {
     // Loop the animation three times
-    for(int a = 0; a < 3; a++) {
-        // Enable the LEDs
-        for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
-            // Handle the LED
-            if(i < SCREEN_LED_COUNT)
-                screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
-            else if(i == SCREEN_LED_COUNT)
-                greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
-            else if(i == SCREEN_LED_COUNT + 1)
-                redLed.fade(Led::BRIGHTNESS_HIGH, 250);
+    for(int i = 0; i < 3; i++)
+        slide();
+}
 
-            // Wait a little before handling the next LED
-            smartDelay(75);
-        }
+void slide() {
+    // Enable the LEDs
+    for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
+        // Handle the LED
+        if(i < SCREEN_LED_COUNT)
+            screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
+        else if(i == SCREEN_LED_COUNT)
+            greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
+        else if(i == SCREEN_LED_COUNT + 1)
+            redLed.fade(Led::BRIGHTNESS_HIGH, 250);
 
-        // Disable the LEDs
-        for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
-            // Handle the LED
-            if(i < SCREEN_LED_COUNT)
-                screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
-            else if(i == SCREEN_LED_COUNT)
-                greenLed.fade(Led::BRIGHTNESS_LOW, 250);
-            else if(i == SCREEN_LED_COUNT + 1)
-                redLed.fade(Led::BRIGHTNESS_LOW, 250);
+        // Wait a little before handling the next LED
+        smartDelay(75);
+    }
 
-            // Wait a little before handling the next LED
-            smartDelay(75);
-        }
+    // Disable the LEDs
+    for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
+        // Handle the LED
+        if(i < SCREEN_LED_COUNT)
+            screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
+        else if(i == SCREEN_LED_COUNT)
+            greenLed.fade(Led::BRIGHTNESS_LOW, 250);
+        else if(i == SCREEN_LED_COUNT + 1)
+            redLed.fade(Led::BRIGHTNESS_LOW, 250);
+
+        // Wait a little before handling the next LED
+        smartDelay(75);
     }
 }
 
