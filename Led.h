@@ -1,3 +1,11 @@
+/**
+ * NumberGuessGame.
+ * An Arduino challenge for HHS by Tim Visee.
+ *
+ * @author Tim Visee
+ * @website http://timvisee.com/
+ */
+
 #ifndef NUMBERGUESSGAME_LED_H
 #define NUMBERGUESSGAME_LED_H
 

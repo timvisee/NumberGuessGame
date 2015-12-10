@@ -1,6 +1,13 @@
+/**
+ * NumberGuessGame.
+ * An Arduino challenge for HHS by Tim Visee.
+ *
+ * @author Tim Visee
+ * @website http://timvisee.com/
+ */
+
 #include "Led.h"
 
-// Constants
 const int Led::BRIGHTNESS_LOW = 0;
 const int Led::BRIGHTNESS_HIGH = 255;
 
