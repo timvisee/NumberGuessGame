@@ -93,15 +93,15 @@ void loop() {
         if(!greenLed.isFading()) {
             // Fade the lights in or out
             if(greenLed.getBrightness() <= 8) {
-                greenLed.fade(60, 1000);
+                greenLed.fade(40, 1000);
 
                 // Only fade red out if it is currently on
                 if(redLed.getBrightness() != 0)
                     redLed.fade(8, 1000);
 
-            } else if(greenLed.getBrightness() >= 60) {
+            } else if(greenLed.getBrightness() >= 40) {
                 greenLed.fade(8, 1000);
-                redLed.fade(60, 1000);
+                redLed.fade(40, 1000);
             }
         }
 
