@@ -65,7 +65,7 @@ void Led::update() {
     int brightness = this->fromBrightness + (brightnessDelta * factor);
 
     // Set the brightness of the led
-    analogWrite(this->pin, brightness);
+    this->setBrightness(brightness);
 }
 
 bool Led::getState() {
@@ -91,4 +91,16 @@ void Led::setState(bool state) {
         // Update the LED
         update();
     }
+}
+
+int Led::getBrightness() {
+    return this->brightness;
+}
+
+void Led::setBrightness(int brightness) {
+    // Store the brightness
+    this->brightness = brightness;
+
+    // Set the actual brightness
+    analogWrite(this->pin, brightness);
 }

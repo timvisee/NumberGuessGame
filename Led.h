@@ -14,6 +14,7 @@ private:
     int toBrightness;
     long fromTime;
     long toTime;
+    int brightness;
 
     static const int BRIGHTNESS_LOW;
     static const int BRIGHTNESS_HIGH;
@@ -40,6 +41,10 @@ public:
     bool getState();
 
     void setState(bool state);
+
+    int getBrightness();
+
+    void setBrightness(int brightness);
 };
 
 
