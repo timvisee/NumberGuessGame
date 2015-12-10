@@ -62,8 +62,6 @@ void setup() {
     btn.setupPin();
 }
 
-int counter = 0;
-
 /**
  * Called each loop.
  */
