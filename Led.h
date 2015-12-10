@@ -4,6 +4,10 @@
 #include <Arduino.h>
 
 class Led {
+public:
+    static const int BRIGHTNESS_LOW;
+    static const int BRIGHTNESS_HIGH;
+
 private:
     int pin;
     bool state;
@@ -15,9 +19,6 @@ private:
     long fromTime;
     long toTime;
     int brightness;
-
-    static const int BRIGHTNESS_LOW;
-    static const int BRIGHTNESS_HIGH;
 
 public:
     Led();
