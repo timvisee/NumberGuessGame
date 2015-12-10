@@ -90,6 +90,11 @@ void loop() {
     smartDelay(LED_DURATION);
     showNumber(0);
 
+
+    redLed.setState(true);
+    smartDelay(1000);
+    return;
+
     // Start the timer
     timer.start(TIMER_WAIT_DELAY);
 

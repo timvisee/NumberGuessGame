@@ -10,7 +10,7 @@ Led::Led(int pin, bool analogMode) {
     // Set the default variable values
     this->state = false;
     this->analogMode = analogMode;
-    this->fadeDuration = 200;
+    this->fadeDuration = 180;
     this->fromBrightness = 0;
     this->fromTime = -1;
     this->toBrightness = 0;
