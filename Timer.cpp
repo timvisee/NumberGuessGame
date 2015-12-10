@@ -1,5 +1,13 @@
 #include "Timer.h"
 
+Timer::Timer() {
+    // Set the timeout to it's default
+    this->timeout = -1;
+
+    // Set the timeout variable
+    this->timeoutDelay = 1000;
+}
+
 Timer::Timer(int timeout) {
     // Set the timeout to it's default
     this->timeout = -1;

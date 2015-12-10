@@ -9,6 +9,8 @@ private:
     long timeout;
 
 public:
+    Timer();
+
     Timer(int timeout);
 
     int getTimeoutDelay();
