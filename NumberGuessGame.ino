@@ -32,9 +32,6 @@ Led redLed(RED_LED_PIN, true);
 /** Button instance. */
 Button btn(BUTTON_PIN);
 
-/** Timer instance. */
-Timer timer;
-
 /**
  * Called once on set up.
  */
@@ -74,26 +71,22 @@ void loop() {
     // Generate a random number
     int num  = generateRandomNumber();
 
-    // Show the actual number, and wait for a little while
+    // Show the number as binary for the specified duration
     showNumber(num);
     smartDelay(LED_DURATION);
     showNumber(0);
 
-
-    redLed.setState(true);
-    smartDelay(1000);
-    return;
-
     // Start the timer
-    timer.start(TIMER_WAIT_DELAY);
+    Timer timer(TIMER_WAIT_DELAY);
+    timer.start();
 
     // Define a variable to store the number in the user has entered
     int answer = 0;
 
     // Use a while loop to handle the button presses
     while(!timer.isFinished()) {
-        // Update the button state
-        btn.update();
+        // Update everything
+        update();
 
         // Handle button presses
         if(btn.isPressedOnce()) {
@@ -120,43 +113,14 @@ void loop() {
     smartDelay(TIMER_SHOW_ANSWER_DURATION);
 
     // Verify the answer
-    if(num == answer) {
+    if(num == answer)
         // Enable the green LED
         greenLed.setState(true);
 
-        // FLash the answer
-        for(int i = 0; i < 3; i++) {
-            /*showNumber(num);
-            smartDelay(100);
-            showNumber(0);
-            smartDelay(100);*/
-            for(int i = 0; i < 256; i++) {
-                analogWrite(redLed.getPin(), i);
-                smartDelay(1);
-            }
-            for(int i = 255; i >= 0; i--) {
-                analogWrite(redLed.getPin(), i);
-                smartDelay(1);
-            }
-        }
-
-    } else {
+    else
         redLed.setState(true);
-        showNumber(15);
-        smartDelay(100);
-        showNumber(0);
-        smartDelay(100);
 
-        showNumber(15);
-        smartDelay(100);
-        showNumber(0);
-        smartDelay(100);
-
-        showNumber(15);
-        smartDelay(100);
-        showNumber(0);
-        smartDelay(100);
-    }
+    smartDelay(1000);
 
     // Disable the green and red LED
     greenLed.setState(false);
@@ -171,6 +135,9 @@ void update() {
     // Update the green and red LED
     greenLed.update();
     redLed.update();
+
+    // Update the button state
+    btn.update();
 }
 
 /**
