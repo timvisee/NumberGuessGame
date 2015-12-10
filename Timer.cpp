@@ -29,7 +29,11 @@ void Timer::start() {
 }
 
 void Timer::start(int timeoutDelay) {
+    // Set the timeout
     this->timeout = millis() + timeoutDelay;
+
+    // Update the timeout delay
+    this->timeoutDelay = timeoutDelay;
 }
 
 bool Timer::isFinished() {
