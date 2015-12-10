@@ -13,6 +13,12 @@ const int GREEN_LED_PIN = 10;
 const int RED_LED_PIN = 11;
 /** Button pin. */
 const int BUTTON_PIN = 2;
+/** Pulse duration in milliseconds. */
+const int PULSE_DURATION = 1000;
+/** Pulse brightness lowest. */
+const int PULSE_BRIGHTNESS_LOW = 8;
+/** Pulse brightness highest. */
+const int PULSE_BRIGHTNESS_HIGH = 40;
 
 
 
@@ -92,16 +98,16 @@ void loop() {
         // Pulse the green light
         if(!greenLed.isFading()) {
             // Fade the lights in or out
-            if(greenLed.getBrightness() <= 8) {
-                greenLed.fade(40, 1000);
+            if(greenLed.getBrightness() <= PULSE_BRIGHTNESS_LOW) {
+                greenLed.fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
 
                 // Only fade red out if it is currently on
-                if(redLed.getBrightness() != 0)
-                    redLed.fade(8, 1000);
+                if(redLed.getBrightness() != Led::BRIGHTNESS_LOW)
+                    redLed.fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
 
-            } else if(greenLed.getBrightness() >= 40) {
-                greenLed.fade(8, 1000);
-                redLed.fade(40, 1000);
+            } else if(greenLed.getBrightness() >= PULSE_BRIGHTNESS_HIGH) {
+                greenLed.fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+                redLed.fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
             }
         }
 
