@@ -161,7 +161,7 @@ void loop() {
 
     // Show the slide animation before continuing to the next wave
     smartDelay(200);
-    slide();
+    showSlideAnimation();
     smartDelay(400);
 }
 
