@@ -60,6 +60,12 @@ void setup() {
 
     // Set up the button pin
     btn.setupPin();
+
+    // Show a startup animation
+    showStartupAnimation();
+
+    // Wait a little before starting
+    smartDelay(2000);
 }
 
 /**
@@ -187,6 +193,39 @@ void smartDelay(int delay) {
     // Call the update method until the timer has passed the specified delay
     while(!timer.isFinished())
         update();
+}
+
+void showStartupAnimation() {
+    // Loop the animation three times
+    for(int a = 0; a < 3; a++) {
+        // Enable the LEDs
+        for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
+            // Handle the LED
+            if(i < SCREEN_LED_COUNT)
+                screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
+            else if(i == SCREEN_LED_COUNT)
+                greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
+            else if(i == SCREEN_LED_COUNT + 1)
+                redLed.fade(Led::BRIGHTNESS_HIGH, 250);
+
+            // Wait a little before handling the next LED
+            smartDelay(75);
+        }
+
+        // Disable the LEDs
+        for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
+            // Handle the LED
+            if(i < SCREEN_LED_COUNT)
+                screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
+            else if(i == SCREEN_LED_COUNT)
+                greenLed.fade(Led::BRIGHTNESS_LOW, 250);
+            else if(i == SCREEN_LED_COUNT + 1)
+                redLed.fade(Led::BRIGHTNESS_LOW, 250);
+
+            // Wait a little before handling the next LED
+            smartDelay(75);
+        }
+    }
 }
 
 /**
