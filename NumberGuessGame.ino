@@ -8,7 +8,8 @@ const int LED_COUNT = 4;
 /** LED pins. */
 const int LED_PINS[] = {8, 9, 10, 11};
 
-Led answerLeds[4];
+/** Screen LED instances. */
+Led screenLeds[LED_COUNT];
 
 /** Button pin. */
 const int BUTTON_PIN = 2;
@@ -31,10 +32,10 @@ void setup() {
     // Set up the answer LEDs
     for(int i = 0; i < LED_COUNT; i++) {
         // Construct the LED
-        answerLeds[i] = Led(LED_PINS[i]);
+        screenLeds[i] = Led(LED_PINS[i]);
 
         // Set up the LED pin
-        answerLeds[i].setupPin();
+        screenLeds[i].setupPin();
     }
 
     // Set up the button pin
@@ -125,7 +126,7 @@ void loop() {
 void showNumber(int number) {
     for(byte i = 0; i < LED_COUNT; i++) {
         // Turn the LED on or off, based on the number
-        digitalWrite(LED_PINS[i], number & 1);
+        screenLeds[i].setState(number & 1);
         number /= 2;
     }
 }

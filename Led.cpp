@@ -1,5 +1,7 @@
 #include "Led.h"
 
+Led::Led() { }
+
 Led::Led(int pin) {
     // Set the default variable values
     this->state = false;

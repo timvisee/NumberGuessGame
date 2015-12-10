@@ -9,6 +9,8 @@ private:
     bool state;
 
 public:
+    Led();
+
     Led(int pin);
 
     void setupPin();
