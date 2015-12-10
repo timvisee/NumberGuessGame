@@ -85,11 +85,11 @@ void loop() {
 
     // Use a while loop to handle the button presses
     while(!timer.isFinished() || answer <= 0) {
-        // Fade the green light
+        // Pulse the green light
         if(!greenLed.isFading()) {
             if(greenLed.getBrightness() <= 10)
-                greenLed.fade(50, 1000);
-            else if(greenLed.getBrightness() >= 50)
+                greenLed.fade(40, 1000);
+            else if(greenLed.getBrightness() >= 40)
                 greenLed.fade(10, 1000);
         }
 
