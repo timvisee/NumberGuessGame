@@ -18,7 +18,7 @@ const int BUTTON_PIN = 2;
 
 const int LED_DURATION = 1500;
 const int TIMER_WAIT_DELAY = 2000;
-const int TIMER_SHOW_ANSWER_DURATION = 500;
+const int TIMER_SHOW_ANSWER_DURATION = 1000;
 
 
 
@@ -132,29 +132,24 @@ void loop() {
     greenLed.setState(false);
     redLed.setState(false);
 
+    // Wait a second before showing the input
+    smartDelay(500);
+
     // Show the result the user has entered
     showNumber(answer);
     smartDelay(TIMER_SHOW_ANSWER_DURATION);
-    showNumber(0);
-    smartDelay(TIMER_SHOW_ANSWER_DURATION);
 
     // Verify the answer
-    if(num == answer) {
-        // Enable the green LED
+    if(num == answer)
         greenLed.setState(true);
-
-        showNumber(num, 50, 200);
-        smartDelay(500);
-        showNumber(num, 10, 200);
-        smartDelay(200);
-        showNumber(0);
-
-    } else
+    else
         redLed.setState(true);
 
-    smartDelay(1000);
+    // Wait before turning all LEDs off again
+    smartDelay(1500);
 
-    // Disable the green and red LED
+    // Disable all LEDs
+    showNumber(0);
     greenLed.setState(false);
     redLed.setState(false);
 
