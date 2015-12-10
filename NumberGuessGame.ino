@@ -13,20 +13,26 @@ const int GREEN_LED_PIN = 10;
 const int RED_LED_PIN = 11;
 /** Button pin. */
 const int BUTTON_PIN = 2;
+/** The delay in milliseconds for the game to start. */
+const int START_DELAY = 2000;
 /** Pulse duration in milliseconds. */
 const int PULSE_DURATION = 1000;
 /** Pulse brightness lowest. */
 const int PULSE_BRIGHTNESS_LOW = 8;
 /** Pulse brightness highest. */
 const int PULSE_BRIGHTNESS_HIGH = 40;
-
-
-
-const int LED_DURATION = 1500;
-const int TIMER_WAIT_DELAY = 2000;
-const int TIMER_SHOW_ANSWER_DURATION = 1000;
-
-
+/** The time in milliseconds to show the answer. */
+const int ANSWER_VISIBLE_DURATION = 1500;
+/** The time in milliseconds for the input timeout. */
+const int INPUT_TIMEOUT = 2000;
+/** The feedback low brightness value. */
+const int FEEDBACK_BRIGHTNESS_LOW = 0;
+/** The feedback high brightness value. */
+const int FEEDBACK_BRIGHTNESS_HIGH = 10;
+/** The feedback visible duration in milliseconds. */
+const int FEEDBACK_VISIBLE_DURATION = 100;
+/** The number of milliseconds the user's input is visible. */
+const int USER_INPUT_VISIBLE_DURATION = 1000;
 
 /** Screen LED instances. */
 Led screenLeds[SCREEN_LED_COUNT];
@@ -71,7 +77,7 @@ void setup() {
     showStartupAnimation();
 
     // Wait a little before starting
-    smartDelay(2000);
+    smartDelay(START_DELAY);
 }
 
 /**
@@ -83,11 +89,11 @@ void loop() {
 
     // Show the number as binary for the specified duration
     showNumber(num);
-    smartDelay(LED_DURATION);
+    smartDelay(ANSWER_VISIBLE_DURATION);
     showNumber(0);
 
     // Start the timer
-    Timer timer(TIMER_WAIT_DELAY);
+    Timer timer(INPUT_TIMEOUT);
     timer.start();
 
     // Define a variable to store the number in the user has entered
@@ -124,10 +130,10 @@ void loop() {
 
             // Show some feedback, a button is pressed
             for(int i = 0; i < SCREEN_LED_COUNT; i++)
-                screenLeds[i].fade(10, 100);
-            smartDelay(100);
+                screenLeds[i].fade(FEEDBACK_BRIGHTNESS_HIGH, FEEDBACK_VISIBLE_DURATION);
+            smartDelay(FEEDBACK_VISIBLE_DURATION);
             for(int i = 0; i < SCREEN_LED_COUNT; i++)
-                screenLeds[i].fade(0, 100);
+                screenLeds[i].fade(FEEDBACK_BRIGHTNESS_LOW, FEEDBACK_VISIBLE_DURATION);
         }
     }
 
@@ -143,7 +149,7 @@ void loop() {
 
     // Show the result the user has entered
     showNumber(answer);
-    smartDelay(TIMER_SHOW_ANSWER_DURATION);
+    smartDelay(USER_INPUT_VISIBLE_DURATION);
 
     // Verify the answer
     if(num == answer)
