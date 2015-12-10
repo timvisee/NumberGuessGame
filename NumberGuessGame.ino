@@ -230,5 +230,5 @@ bool getButtonState() {
  * @return Random number.
  */
 int generateRandomNumber() {
-    return random(pow(2, SCREEN_LED_COUNT));
+    return random(pow(2, SCREEN_LED_COUNT) - 1) + 1;
 }
