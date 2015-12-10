@@ -74,17 +74,6 @@ void loop() {
     // Generate a random number
     int num  = generateRandomNumber();
 
-
-
-//    greenLed.setState(!greenLed.getState());
-//    smartDelay(250);
-//    redLed.setState(!redLed.getState());
-//    smartDelay(250);
-//
-//    return;
-
-
-
     // Show the actual number, and wait for a little while
     showNumber(num);
     smartDelay(LED_DURATION);
