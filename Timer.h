@@ -1,17 +1,19 @@
 #ifndef NUMBERGUESSGAME_TIMER_H
 #define NUMBERGUESSGAME_TIMER_H
 
+#include <Arduino.h>
 
 class Timer {
 private:
-    int timeout;
+    int timeoutDelay;
+    long timeout;
 
 public:
     Timer(int timeout);
 
-    int getTimeout();
+    int getTimeoutDelay();
 
-    int setTimeout(int timeout);
+    void setTimeoutDelay(int timeout);
 
     void start();
 
