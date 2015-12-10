@@ -85,6 +85,12 @@ void loop() {
 
     // Use a while loop to handle the button presses
     while(!timer.isFinished()) {
+        // Fade the green light
+        if(greenLed.getBrightness() <= 10)
+            greenLed.fade(50, 1000);
+        else if(greenLed.getBrightness() >= 50)
+            greenLed.fade(10, 1000);
+
         // Update everything
         update();
 
@@ -97,14 +103,19 @@ void loop() {
             timer.start();
 
             // Show some feedback, a button is pressed
-            showNumber(15);
+            for(int i = 0; i < SCREEN_LED_COUNT; i++)
+                screenLeds[i].fade(10, 100);
             smartDelay(100);
-            showNumber(0);
+            for(int i = 0; i < SCREEN_LED_COUNT; i++)
+                screenLeds[i].fade(0, 100);
         }
     }
 
     // Stop the timer
     timer.stop();
+
+    // Turn of the green LED
+    greenLed.setState(false);
 
     // Show the result the user has entered
     showNumber(answer);
