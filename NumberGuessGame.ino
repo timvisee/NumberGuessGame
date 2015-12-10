@@ -25,9 +25,9 @@ const int TIMER_SHOW_ANSWER_DURATION = 500;
 /** Screen LED instances. */
 Led screenLeds[SCREEN_LED_COUNT];
 /** Green LED instance. */
-Led greenLed(GREEN_LED_PIN);
+Led greenLed(GREEN_LED_PIN, true);
 /** Red LED instance. */
-Led redLed(RED_LED_PIN);
+Led redLed(RED_LED_PIN, true);
 
 /** Button instance. */
 Button btn(BUTTON_PIN);
@@ -51,7 +51,7 @@ void setup() {
     // Set up the answer LEDs
     for(int i = 0; i < SCREEN_LED_COUNT; i++) {
         // Construct the LED
-        screenLeds[i] = Led(SCREEN_LED_PINS[i]);
+        screenLeds[i] = Led(SCREEN_LED_PINS[i], true);
 
         // Set up the LED pin
         screenLeds[i].setupPin();
@@ -76,21 +76,18 @@ void loop() {
 
 
 
-    greenLed.setAnalogMode(true);
-    redLed.setAnalogMode(true);
-
-    greenLed.setState(!greenLed.getState());
-    smartDelay(250);
-    redLed.setState(!redLed.getState());
-    smartDelay(250);
-
-    return;
+//    greenLed.setState(!greenLed.getState());
+//    smartDelay(250);
+//    redLed.setState(!redLed.getState());
+//    smartDelay(250);
+//
+//    return;
 
 
 
     // Show the actual number, and wait for a little while
     showNumber(num);
-    delay(LED_DURATION);
+    smartDelay(LED_DURATION);
     showNumber(0);
 
     // Start the timer
@@ -114,7 +111,7 @@ void loop() {
 
             // Show some feedback, a button is pressed
             showNumber(15);
-            delay(100);
+            smartDelay(100);
             showNumber(0);
         }
     }
@@ -124,9 +121,9 @@ void loop() {
 
     // Show the result the user has entered
     showNumber(answer);
-    delay(TIMER_SHOW_ANSWER_DURATION);
+    smartDelay(TIMER_SHOW_ANSWER_DURATION);
     showNumber(0);
-    delay(TIMER_SHOW_ANSWER_DURATION);
+    smartDelay(TIMER_SHOW_ANSWER_DURATION);
 
     // Verify the answer
     if(num == answer) {
@@ -136,35 +133,35 @@ void loop() {
         // FLash the answer
         for(int i = 0; i < 3; i++) {
             /*showNumber(num);
-            delay(100);
+            smartDelay(100);
             showNumber(0);
-            delay(100);*/
+            smartDelay(100);*/
             for(int i = 0; i < 256; i++) {
                 analogWrite(redLed.getPin(), i);
-                delay(1);
+                smartDelay(1);
             }
             for(int i = 255; i >= 0; i--) {
                 analogWrite(redLed.getPin(), i);
-                delay(1);
+                smartDelay(1);
             }
         }
 
     } else {
         redLed.setState(true);
         showNumber(15);
-        delay(100);
+        smartDelay(100);
         showNumber(0);
-        delay(100);
+        smartDelay(100);
 
         showNumber(15);
-        delay(100);
+        smartDelay(100);
         showNumber(0);
-        delay(100);
+        smartDelay(100);
 
         showNumber(15);
-        delay(100);
+        smartDelay(100);
         showNumber(0);
-        delay(100);
+        smartDelay(100);
     }
 
     // Disable the green and red LED

@@ -6,10 +6,11 @@ const int Led::BRIGHTNESS_HIGH = 255;
 
 Led::Led() { }
 
-Led::Led(int pin) {
+Led::Led(int pin, bool analogMode) {
     // Set the default variable values
     this->state = false;
-    this->analogMode = false;
+    this->analogMode = analogMode;
+    this->fadeDuration = 200;
     this->fromBrightness = 0;
     this->fromTime = -1;
     this->toBrightness = 0;
@@ -33,6 +34,14 @@ bool Led::inAnalogMode() {
 
 void Led::setAnalogMode(bool analogMode) {
     this->analogMode = analogMode;
+}
+
+int Led::getFadeDuration() {
+    return this->fadeDuration;
+}
+
+void Led::setFadeDuration(int fadeDuration) {
+    this->fadeDuration = fadeDuration;
 }
 
 void Led::update() {
@@ -77,7 +86,7 @@ void Led::setState(bool state) {
         this->fromBrightness = !state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW;
         this->toBrightness = state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW;
         this->fromTime = millis();
-        this->toTime = millis() + 500;
+        this->toTime = millis() + fadeDuration;
 
         // Update the LED
         update();

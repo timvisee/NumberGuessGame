@@ -8,6 +8,7 @@ private:
     int pin;
     bool state;
     bool analogMode;
+    int fadeDuration;
 
     int fromBrightness;
     int toBrightness;
@@ -20,7 +21,7 @@ private:
 public:
     Led();
 
-    Led(int pin);
+    Led(int pin, bool analogMode);
 
     void setupPin();
 
@@ -29,6 +30,10 @@ public:
     bool inAnalogMode();
 
     void setAnalogMode(bool analogMode);
+
+    int getFadeDuration();
+
+    void setFadeDuration(int fadeDuration);
 
     void update();
 
