@@ -6,11 +6,11 @@
 /** Screen LED count. */
 const int SCREEN_LED_COUNT = 4;
 /** Screen LED pins. */
-const int SCREEN_LED_PINS[] = {8, 9, 10, 11};
+const int SCREEN_LED_PINS[] = {3, 5, 6, 9};
 /** Green LED pin. */
-const int GREEN_LED_PIN = 12;
+const int GREEN_LED_PIN = 10;
 /** Red LED pin */
-const int RED_LED_PIN = 13;
+const int RED_LED_PIN = 11;
 /** Button pin. */
 const int BUTTON_PIN = 2;
 
@@ -116,11 +116,27 @@ void loop() {
 
     // Verify the answer
     if(num == answer) {
-        for(int i = 0; i < 16; i++) {
-            showNumber(i);
+        // Enable the green LED
+        greenLed.setState(true);
+
+        // FLash the answer
+        for(int i = 0; i < 3; i++) {
+            /*showNumber(num);
             delay(100);
+            showNumber(0);
+            delay(100);*/
+            for(int i = 0; i < 256; i++) {
+                analogWrite(redLed.getPin(), i);
+                delay(1);
+            }
+            for(int i = 255; i >= 0; i--) {
+                analogWrite(redLed.getPin(), i);
+                delay(1);
+            }
         }
+
     } else {
+        redLed.setState(true);
         showNumber(15);
         delay(100);
         showNumber(0);
@@ -136,6 +152,10 @@ void loop() {
         showNumber(0);
         delay(100);
     }
+
+    // Disable the green and red LED
+    greenLed.setState(false);
+    redLed.setState(false);
 }
 
 /**
