@@ -74,6 +74,26 @@ void loop() {
     // Generate a random number
     int num  = generateRandomNumber();
 
+
+
+
+
+
+    greenLed.setAnalogMode(true);
+
+    timer.start();
+    greenLed.setState(!greenLed.getState());
+
+    while(!timer.isFinished())
+        greenLed.update();
+
+
+return;
+
+
+
+
+
     // Show the actual number, and wait for a little while
     showNumber(num);
     delay(LED_DURATION);
