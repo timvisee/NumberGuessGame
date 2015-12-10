@@ -126,11 +126,28 @@ void loop() {
     smartDelay(TIMER_SHOW_ANSWER_DURATION);
 
     // Verify the answer
-    if(num == answer)
+    if(num == answer) {
         // Enable the green LED
         greenLed.setState(true);
 
-    else
+        showNumber(num, 50, 200);
+        smartDelay(200);
+        showNumber(num, 10, 200);
+        smartDelay(200);
+
+        showNumber(num, 50, 200);
+        smartDelay(200);
+        showNumber(num, 10, 200);
+        smartDelay(200);
+
+        showNumber(num, 50, 200);
+        smartDelay(200);
+        showNumber(num, 10, 200);
+        smartDelay(200);
+
+        showNumber(0);
+
+    } else
         redLed.setState(true);
 
     smartDelay(1000);
@@ -138,6 +155,9 @@ void loop() {
     // Disable the green and red LED
     greenLed.setState(false);
     redLed.setState(false);
+
+    // Wait a second before showing a new number
+    smartDelay(1000);
 }
 
 void update() {
@@ -180,6 +200,22 @@ void showNumber(int number) {
     for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
         // Turn the LED on or off, based on the number
         screenLeds[i].setState(number & 1);
+        number /= 2;
+    }
+}
+
+/**
+ * Show a number, using the four LEDs.
+ *
+ * @param number The number to show the LEDs for.
+ */
+void showNumber(int number, int brightness, int duration) {
+    for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
+        // Turn the LED on or off, based on the number
+        if(number & 1)
+            screenLeds[i].fade(brightness, duration);
+        else
+            screenLeds[i].setState(false);
         number /= 2;
     }
 }
