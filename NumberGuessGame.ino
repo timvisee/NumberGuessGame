@@ -205,7 +205,7 @@ void smartDelay(int delay) {
 void showStartupAnimation() {
     // Loop the animation three times
     for(int i = 0; i < 3; i++)
-        slide();
+        showSlideAnimation();
 }
 
 /**
