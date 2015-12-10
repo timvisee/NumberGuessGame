@@ -77,9 +77,12 @@ void loop() {
 
 
     greenLed.setAnalogMode(true);
+    redLed.setAnalogMode(true);
 
     greenLed.setState(!greenLed.getState());
-    smartDelay(500);
+    smartDelay(250);
+    redLed.setState(!redLed.getState());
+    smartDelay(250);
 
     return;
 
