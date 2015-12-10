@@ -67,6 +67,11 @@ void loop() {
 
             // Reset the answer
             timer.start();
+
+            // Show some feedback, a button is pressed
+            showNumber(15);
+            delay(100);
+            showNumber(0);
         }
     }
 
@@ -77,6 +82,30 @@ void loop() {
     showNumber(answer);
     delay(TIMER_SHOW_ANSWER_DURATION);
     showNumber(0);
+    delay(TIMER_SHOW_ANSWER_DURATION);
+
+    // Verify the answer
+    if(num == answer) {
+        for(int i = 0; i < 16; i++) {
+            showNumber(i);
+            delay(100);
+        }
+    } else {
+        showNumber(15);
+        delay(100);
+        showNumber(0);
+        delay(100);
+
+        showNumber(15);
+        delay(100);
+        showNumber(0);
+        delay(100);
+
+        showNumber(15);
+        delay(100);
+        showNumber(0);
+        delay(100);
+    }
 }
 
 /**
