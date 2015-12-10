@@ -3,21 +3,31 @@
 #include "Timer.h"
 #include "Led.h"
 
-/** LED count. */
-const int LED_COUNT = 4;
-/** LED pins. */
-const int LED_PINS[] = {8, 9, 10, 11};
-
-/** Screen LED instances. */
-Led screenLeds[LED_COUNT];
-
+/** Screen LED count. */
+const int SCREEN_LED_COUNT = 4;
+/** Screen LED pins. */
+const int SCREEN_LED_PINS[] = {8, 9, 10, 11};
+/** Green LED pin. */
+const int GREEN_LED_PIN = 12;
+/** Red LED pin */
+const int RED_LED_PIN = 13;
 /** Button pin. */
 const int BUTTON_PIN = 2;
 
-const int LED_DURATION = 1500;
 
+
+const int LED_DURATION = 1500;
 const int TIMER_WAIT_DELAY = 2000;
 const int TIMER_SHOW_ANSWER_DURATION = 500;
+
+
+
+/** Screen LED instances. */
+Led screenLeds[SCREEN_LED_COUNT];
+/** Green LED instance. */
+Led greenLed(GREEN_LED_PIN);
+/** Red LED instance. */
+Led redLed(RED_LED_PIN);
 
 /** Button instance. */
 Button btn(BUTTON_PIN);
@@ -30,9 +40,9 @@ Timer timer(TIMER_WAIT_DELAY);
  */
 void setup() {
     // Set up the answer LEDs
-    for(int i = 0; i < LED_COUNT; i++) {
+    for(int i = 0; i < SCREEN_LED_COUNT; i++) {
         // Construct the LED
-        screenLeds[i] = Led(LED_PINS[i]);
+        screenLeds[i] = Led(SCREEN_LED_PINS[i]);
 
         // Set up the LED pin
         screenLeds[i].setupPin();
@@ -124,7 +134,7 @@ void loop() {
  * @param number The number to show the LEDs for.
  */
 void showNumber(int number) {
-    for(byte i = 0; i < LED_COUNT; i++) {
+    for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
         // Turn the LED on or off, based on the number
         screenLeds[i].setState(number & 1);
         number /= 2;
@@ -146,5 +156,5 @@ bool getButtonState() {
  * @return Random number.
  */
 int generateRandomNumber() {
-    return random(pow(2, LED_COUNT));
+    return random(pow(2, SCREEN_LED_COUNT));
 }
