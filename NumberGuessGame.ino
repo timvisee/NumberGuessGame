@@ -76,22 +76,12 @@ void loop() {
 
 
 
-
-
-
     greenLed.setAnalogMode(true);
 
-
     greenLed.setState(!greenLed.getState());
-
-    timer.start(500);
-    while(!timer.isFinished())
-        update();
-
+    smartDelay(500);
 
     return;
-
-
 
 
 
