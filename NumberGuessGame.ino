@@ -165,6 +165,9 @@ void loop() {
     smartDelay(400);
 }
 
+/**
+ * Update method, should be called often to update things like the animation controllers of the LEDs.
+ */
 void update() {
     // Update the screen LEDs
     for(int i = 0; i < SCREEN_LED_COUNT; i++)
@@ -196,13 +199,19 @@ void smartDelay(int delay) {
         update();
 }
 
+/**
+ * Show the startup animation.
+ */
 void showStartupAnimation() {
     // Loop the animation three times
     for(int i = 0; i < 3; i++)
         slide();
 }
 
-void slide() {
+/**
+ * Show the slide animation.
+ */
+void showSlideAnimation() {
     // Enable the LEDs
     for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
         // Handle the LED
@@ -239,24 +248,26 @@ void slide() {
  */
 void showNumber(int number) {
     for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
-        // Turn the LED on or off, based on the number
         screenLeds[i].setState(number & 1);
         number /= 2;
     }
 }
 
 /**
- * Show a number, using the four LEDs.
+ * Show a number, using the four LEDs, with a custom brightness and fade duration.
  *
  * @param number The number to show the LEDs for.
+ * @param brightness The target brightness.
+ * @param duration The target duration in milliseconds.
  */
 void showNumber(int number, int brightness, int duration) {
     for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
-        // Turn the LED on or off, based on the number
+        // Turn the LED on or off, based on the number with the specified brightness and duration
         if(number & 1)
             screenLeds[i].fade(brightness, duration);
         else
             screenLeds[i].setState(false);
+
         number /= 2;
     }
 }
