@@ -273,15 +273,6 @@ void showNumber(int number, int brightness, int duration) {
 }
 
 /**
- * Get the current button state.
- *
- * @return True if pressed, false if not.
- */
-bool getButtonState() {
-    return digitalRead(BUTTON_PIN) == HIGH;
-}
-
-/**
  * Generate a random number, that is suitable for the number of available LEDs.
  *
  * @return Random number.
