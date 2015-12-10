@@ -33,7 +33,7 @@ Led redLed(RED_LED_PIN);
 Button btn(BUTTON_PIN);
 
 /** Timer instance. */
-Timer timer();
+Timer timer;
 
 /**
  * Called once on set up.
@@ -89,7 +89,7 @@ void loop() {
         update();
 
 
-return;
+    return;
 
 
 
@@ -187,6 +187,18 @@ void update() {
     // Update the green and red LED
     greenLed.update();
     redLed.update();
+}
+
+void smartDelay(int delay) {
+    // Create a timer, to track the passed time
+    Timer timer(delay);
+
+    // Start the timer
+    timer.start();
+
+    // Call the update method until the timer has passed the specified delay
+    while(!timer.isFinished())
+        update();
 }
 
 /**
