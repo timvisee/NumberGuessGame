@@ -80,17 +80,23 @@ void Led::setState(bool state) {
     if(!this->inAnalogMode())
         digitalWrite(this->pin, state ? HIGH : LOW);
 
-    else {
-        // TODO: Use the current brightness value!
-        // TODO: Use some method for this!
-        this->fromBrightness = !state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW;
-        this->toBrightness = state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW;
-        this->fromTime = millis();
-        this->toTime = millis() + fadeDuration;
+    else
+        this->fade(state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW);
+}
 
-        // Update the LED
-        update();
-    }
+void Led::fade(int brightness) {
+    this->fade(brightness, this->getFadeDuration());
+}
+
+void Led::fade(int brightness, int duration) {
+    // Set the animation variables
+    this->fromBrightness = this->getBrightness();
+    this->toBrightness = brightness;
+    this->fromTime = millis();
+    this->toTime = millis() + duration;
+
+    // Update
+    this->update();
 }
 
 int Led::getBrightness() {

@@ -42,6 +42,10 @@ public:
 
     void setState(bool state);
 
+    void fade(int brightness);
+
+    void fade(int brightness, int duration);
+
     int getBrightness();
 
     void setBrightness(int brightness);
