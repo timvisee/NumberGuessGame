@@ -48,6 +48,10 @@ void setup() {
         screenLeds[i].setupPin();
     }
 
+    // Set up the green and red LED
+    greenLed.setupPin();
+    redLed.setupPin();
+
     // Set up the button pin
     btn.setupPin();
 
