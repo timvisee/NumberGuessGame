@@ -8,6 +8,9 @@ const int LED_PINS[] = {8, 9, 10, 11};
 /** Button pin. */
 const int BUTTON_PIN = 2;
 
+const int LED_DURATION = 1500;
+
+/** Button instance. */
 Button btn(BUTTON_PIN);
 
 /**
@@ -25,6 +28,8 @@ void setup() {
     Serial.begin(9600);
 }
 
+int counter = 0;
+
 /**
  * Called each loop.
  */
@@ -32,32 +37,29 @@ void loop() {
     // Generate a random number
     int num  = generateRandomNumber();
 
-    // Update the button
+    // Show the actual number, and wait for a little while
+    showNumber(num);
+    delay(LED_DURATION);
+
+    // Update the button state
     btn.update();
 
+
+
+    // Increase the counter if the button is pressed
     if(btn.isPressedOnce())
-        Serial.println("Pressed!");
-    if(btn.isReleasedOnce())
-        Serial.println("Released!");
+        counter++;
+}
 
-    return;
-
-//    for(int i = 0; i < LED_COUNT; i++) {
-//        digitalWrite(LED_PINS[i], HIGH);
-//
-//        // Update the button state
-//        btn.update();
-//
-//        if(btn.isPressed())
-//            break;
-//    }
-//    for(int i = 0; i < LED_COUNT; i++) {
-//        digitalWrite(LED_PINS[i], LOW);
-//
-//
-//        if(!btn.isPressed())
-//            break;
-//    }
+/**
+ * Show a number, using the four LEDs.
+ */
+void showNumber(int n) {
+    for(byte i = 0; i < LED_COUNT; i++) {
+        // Turn the LED on or off, based on the number
+        digitalWrite(LED_PINS[i], n & 1);
+        n /= 2;
+    }
 }
 
 /**
@@ -75,5 +77,5 @@ bool getButtonState() {
  * @return Random number.
  */
 int generateRandomNumber() {
-    random(0, LED_COUNT * LED_COUNT);
+    return random(pow(2, LED_COUNT));
 }

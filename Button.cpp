@@ -5,7 +5,7 @@ Button::Button(uint8_t pin) {
     // Initialize the default values
     this->pressedOnce = false;
     this->releasedOnce = false;
-    this->lockDelay = 50;
+    this->lockDelay = 25;
     this->lockUntil = -1L;
 
     // Set the button pin
