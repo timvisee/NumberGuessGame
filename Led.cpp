@@ -15,6 +15,7 @@ Led::Led(int pin, bool analogMode) {
     this->fromTime = -1;
     this->toBrightness = 0;
     this->toTime = -1;
+    this->brightness = 0;
 
     // Set the button pin
     this->pin = pin;
@@ -97,6 +98,9 @@ void Led::fade(int brightness, int duration) {
 
     // Update
     this->update();
+
+    // Update the state flag
+    this->state = ((double) brightness / (double) (BRIGHTNESS_HIGH - BRIGHTNESS_LOW)) >= 0.5;
 }
 
 int Led::getBrightness() {
