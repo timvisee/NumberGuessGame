@@ -84,7 +84,7 @@ void loop() {
     int answer = 0;
 
     // Use a while loop to handle the button presses
-    while(!timer.isFinished()) {
+    while(!timer.isFinished() || answer <= 0) {
         // Fade the green light
         if(greenLed.getBrightness() <= 10)
             greenLed.fade(50, 1000);
