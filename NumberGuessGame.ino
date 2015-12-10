@@ -1,11 +1,15 @@
 #include <Arduino.h>
 #include "Button.h"
 #include "Timer.h"
+#include "Led.h"
 
 /** LED count. */
 const int LED_COUNT = 4;
 /** LED pins. */
 const int LED_PINS[] = {8, 9, 10, 11};
+
+Led answerLeds[4];
+
 /** Button pin. */
 const int BUTTON_PIN = 2;
 
@@ -24,11 +28,16 @@ Timer timer(TIMER_WAIT_DELAY);
  * Called once on set up.
  */
 void setup() {
-    // Set up the LED pins
-    for(int i = 0; i < LED_COUNT; i++)
-        pinMode(LED_PINS[i], OUTPUT);
+    // Set up the answer LEDs
+    for(int i = 0; i < LED_COUNT; i++) {
+        // Construct the LED
+        answerLeds[i] = Led(LED_PINS[i]);
 
-    // Set up the button
+        // Set up the LED pin
+        answerLeds[i].setupPin();
+    }
+
+    // Set up the button pin
     btn.setupPin();
 
     // Enable serial port
