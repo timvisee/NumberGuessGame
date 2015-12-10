@@ -68,5 +68,18 @@ void Led::setState(bool state) {
     this->state = state;
 
     // Update the led
-    digitalWrite(this->pin, state ? HIGH : LOW);
+    if(!this->inAnalogMode())
+        digitalWrite(this->pin, state ? HIGH : LOW);
+
+    else {
+        // TODO: Use the current brightness value!
+        // TODO: Use some method for this!
+        this->fromBrightness = !state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW;
+        this->toBrightness = state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW;
+        this->fromTime = millis();
+        this->toTime = millis() + 500;
+
+        // Update the LED
+        update();
+    }
 }
