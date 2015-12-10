@@ -39,6 +39,9 @@ Timer timer(TIMER_WAIT_DELAY);
  * Called once on set up.
  */
 void setup() {
+    // Initial startup delay
+    delay(200);
+
     // Randomize the random seed
     randomSeed(analogRead(0));
 
