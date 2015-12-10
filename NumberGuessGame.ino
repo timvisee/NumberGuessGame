@@ -39,6 +39,9 @@ Timer timer(TIMER_WAIT_DELAY);
  * Called once on set up.
  */
 void setup() {
+    // Randomize the random seed
+    randomSeed(analogRead(0));
+
     // Set up the answer LEDs
     for(int i = 0; i < SCREEN_LED_COUNT; i++) {
         // Construct the LED
