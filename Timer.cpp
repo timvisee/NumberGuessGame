@@ -17,7 +17,11 @@ void Timer::setTimeoutDelay(int timeout) {
 }
 
 void Timer::start() {
-    this->timeout = millis() + this->getTimeoutDelay();
+    this->start(this->getTimeoutDelay());
+}
+
+void Timer::start(int timeoutDelay) {
+    this->timeout = millis() + timeoutDelay;
 }
 
 bool Timer::isFinished() {

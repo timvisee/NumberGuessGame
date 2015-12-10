@@ -17,6 +17,8 @@ public:
 
     void start();
 
+    void start(int timeoutDelay);
+
     bool isFinished();
 
     void stop();
