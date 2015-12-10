@@ -33,7 +33,7 @@ Led redLed(RED_LED_PIN);
 Button btn(BUTTON_PIN);
 
 /** Timer instance. */
-Timer timer(TIMER_WAIT_DELAY);
+Timer timer();
 
 /**
  * Called once on set up.
@@ -81,11 +81,12 @@ void loop() {
 
     greenLed.setAnalogMode(true);
 
-    timer.start();
+
     greenLed.setState(!greenLed.getState());
 
+    timer.start(500);
     while(!timer.isFinished())
-        greenLed.update();
+        update();
 
 
 return;
@@ -100,7 +101,7 @@ return;
     showNumber(0);
 
     // Start the timer
-    timer.start();
+    timer.start(TIMER_WAIT_DELAY);
 
     // Define a variable to store the number in the user has entered
     int answer = 0;
@@ -176,6 +177,16 @@ return;
     // Disable the green and red LED
     greenLed.setState(false);
     redLed.setState(false);
+}
+
+void update() {
+    // Update the screen LEDs
+    for(int i = 0; i < SCREEN_LED_COUNT; i++)
+        screenLeds[i].update();
+
+    // Update the green and red LED
+    greenLed.update();
+    redLed.update();
 }
 
 /**
