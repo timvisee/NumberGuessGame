@@ -7,6 +7,15 @@ class Led {
 private:
     int pin;
     bool state;
+    bool analogMode;
+
+    int fromBrightness;
+    int toBrightness;
+    long fromTime;
+    long toTime;
+
+    static const int BRIGHTNESS_LOW;
+    static const int BRIGHTNESS_HIGH;
 
 public:
     Led();
@@ -16,6 +25,12 @@ public:
     void setupPin();
 
     int getPin();
+
+    bool inAnalogMode();
+
+    void setAnalogMode(bool analogMode);
+
+    void update();
 
     bool getState();
 
