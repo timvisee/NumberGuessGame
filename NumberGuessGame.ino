@@ -42,6 +42,9 @@ void setup() {
     // Initial startup delay
     delay(200);
 
+    // Enable serial port
+    Serial.begin(9600);
+
     // Randomize the random seed
     randomSeed(analogRead(0));
 
@@ -60,9 +63,6 @@ void setup() {
 
     // Set up the button pin
     btn.setupPin();
-
-    // Enable serial port
-    Serial.begin(9600);
 }
 
 int counter = 0;
