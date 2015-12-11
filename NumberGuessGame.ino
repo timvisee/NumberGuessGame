@@ -74,7 +74,7 @@ const int FEEDBACK_BRIGHTNESS_LOW = 0;
 /**
  * The feedback high brightness value.
  */
-const int FEEDBACK_BRIGHTNESS_HIGH = 10;
+const int FEEDBACK_BRIGHTNESS_HIGH = 80;
 
 /**
  * The feedback visible duration in milliseconds.
@@ -326,7 +326,7 @@ void showNumber(int number) {
  *
  * @param number The number to show the LEDs for.
  * @param brightness The target brightness.
- * @param duration The target duration in milliseconds.
+ * @param duration The target duration in millisecondt.
  */
 void showNumber(int number, int brightness, int duration) {
     for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
