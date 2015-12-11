@@ -28,7 +28,7 @@ const int PULSE_DURATION = 1000;
 /** Pulse brightness lowest. */
 const int PULSE_BRIGHTNESS_LOW = 8;
 /** Pulse brightness highest. */
-const int PULSE_BRIGHTNESS_HIGH = 40;
+const int PULSE_BRIGHTNESS_HIGH = 80;
 /** The time in milliseconds to show the answer. */
 const int ANSWER_VISIBLE_DURATION = 1500;
 /** The time in milliseconds for the input timeout. */
