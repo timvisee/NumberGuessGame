@@ -30,6 +30,7 @@ const int GREEN_LED_PIN = 10;
  * Red LED pin.
  */
 const int RED_LED_PIN = 11;
+
 /**
  * Button pin.
  */
