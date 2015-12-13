@@ -12,7 +12,7 @@
 #include "Led.h"
 
 /**
- * creen LED count.
+ * Screen LED count.
  */
 const int SCREEN_LED_COUNT = 4;
 
