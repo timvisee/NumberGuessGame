@@ -12,7 +12,7 @@ Core::Core() :
         greenLed(GREEN_LED_PIN, true),
         redLed(RED_LED_PIN, true),
         statusLed(Led::STATUS_LED_PIN, true),
-        btn(BUTTON_PIN),
+        button(BUTTON_PIN),
         other(SERIAL_RX_PIN, SERIAL_TX_PIN) {
 
     // Initialize the screen LED array
@@ -36,11 +36,9 @@ void Core::setup() {
     // Randomize the random seed
     Random::randomize();
 
-    // Set up the answer LEDs
-    for(int i = 0; i < SCREEN_LED_COUNT; i++) {
-        // Set up the LED pin
+    // Set up the answer LED pins
+    for(int i = 0; i < SCREEN_LED_COUNT; i++)
         screenLeds[i].setupPin();
-    }
 
     // Set up all other LEDs
     greenLed.setupPin();
@@ -48,7 +46,7 @@ void Core::setup() {
     statusLed.setupPin();
 
     // Set up the button pin
-    btn.setupPin();
+    button.setupPin();
 
     // Show a startup animation
     showStartupAnimation();
@@ -98,7 +96,7 @@ void Core::loop() {
         update();
 
         // Handle button presses
-        if(btn.isPressedOnce()) {
+        if(button.isPressedOnce()) {
             // Increase the answer
             answer++;
 
@@ -192,7 +190,7 @@ void Core::update() {
     redLed.update();
 
     // Update the button state
-    btn.update();
+    button.update();
 }
 
 /**

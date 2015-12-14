@@ -46,7 +46,7 @@ private:
     /**
      * Button instance.
      */
-    Button btn;
+    Button button;
 
     /**
      * Software serial instance, to communicate to the other Arduino when doing a multiplayer game.

@@ -39,7 +39,7 @@ const int BUTTON_PIN = 2;
 /**
  * The delay in milliseconds for the game to start.
  */
-const int START_DELAY = 2000;
+const int START_DELAY = 1000;
 
 /**
  * Pulse duration in milliseconds.
