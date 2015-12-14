@@ -11,6 +11,7 @@
 const int Led::BRIGHTNESS_LOW = 0;
 const int Led::BRIGHTNESS_HIGH = 255;
 const uint8_t Led::STATUS_LED_PIN = 13;
+const bool Led::STATUS_LED_ANALOG = false;
 
 Led::Led() {
     this->pin = Led::STATUS_LED_PIN;

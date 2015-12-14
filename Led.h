@@ -32,6 +32,12 @@ public:
      */
     static const uint8_t STATUS_LED_PIN;
 
+    /**
+     * Status LED mode.
+     * Define whether the status LED is in analog or digital mode.
+     */
+    static const bool STATUS_LED_ANALOG;
+
 private:
     /**
      * The pin used for the LED.

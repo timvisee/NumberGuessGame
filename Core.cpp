@@ -9,9 +9,9 @@
 #include "Core.h"
 
 Core::Core() :
-        greenLed(GREEN_LED_PIN, true),
-        redLed(RED_LED_PIN, true),
-        statusLed(Led::STATUS_LED_PIN, false),
+        greenLed(GREEN_LED_PIN, GREEN_LED_ANALOG),
+        redLed(RED_LED_PIN, RED_LED_ANALOG),
+        statusLed(Led::STATUS_LED_PIN, Led::STATUS_LED_ANALOG),
         button(BUTTON_PIN),
         con(SERIAL_RX_PIN, SERIAL_TX_PIN) {
 
@@ -20,7 +20,7 @@ Core::Core() :
 
     // Construct the screen LED instances
     for(int i = 0; i < SCREEN_LED_COUNT; i++)
-        screenLeds[i] = Led(SCREEN_LED_PINS[i], true);
+        screenLeds[i] = Led(SCREEN_LED_PINS[i], SCREEN_LED_ANALOG);
 }
 
 void Core::setup() {

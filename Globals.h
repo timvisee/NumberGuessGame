@@ -19,17 +19,32 @@ const int SCREEN_LED_COUNT = 4;
 /**
  * Screen LED pins.
  */
-const uint8_t SCREEN_LED_PINS[] = {3, 5, 6, 9};
+const uint8_t SCREEN_LED_PINS[] = {3, 5, 6, 11};
+
+/**
+ * Define whether the screen LED is analog or digital.
+ */
+const bool SCREEN_LED_ANALOG = true;
 
 /**
  * Green LED pin.
  */
-const int GREEN_LED_PIN = 10;
+const int GREEN_LED_PIN = 12;
+
+/**
+ * Define whether the green LED is analog or digital.
+ */
+const bool GREEN_LED_ANALOG = false;
 
 /**
  * Red LED pin.
  */
-const int RED_LED_PIN = 11;
+const int RED_LED_PIN = 13;
+
+/**
+ * Define whether the green LED is analog or digital.
+ */
+const bool RED_LED_ANALOG = false;
 
 /**
  * Button pin.
