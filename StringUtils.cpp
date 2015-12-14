@@ -14,7 +14,16 @@ std::vector<String> StringUtils::split(String str, char splitChar) {
 
     // DEBUG: Finish this code below!
     int beginIdx = 0;
-    int idx = str.indexOf(splitChar);
+    int idx = 0;
+    while(true) {
+        idx = str.indexOf(splitChar, idx);
+
+        if(idx <= 0)
+            break;
+
+        if(str.charAt(idx - 1) != '\\')
+            break;
+    }
 
     String arg;
     char charBuffer[16];
@@ -27,30 +36,21 @@ std::vector<String> StringUtils::split(String str, char splitChar) {
         // TODO: Use atoi method? Like: http://stackoverflow.com/a/11916125/1000145
         strs.push_back(charBuffer);
         beginIdx = idx + 1;
-        idx = str.indexOf(splitChar, beginIdx);
+
+        while(true) {
+            idx = str.indexOf(splitChar, beginIdx);
+
+            if(idx < 0)
+                break;
+
+            if(str.charAt(idx - 1) != '\\')
+                break;
+
+            beginIdx = idx;
+        }
     }
 
     strs.push_back(str.substring(beginIdx));
-
-    // DEBUG: Remove this bullshit code, what the fucking hell?OIJW)E(UR()_W@$#IRT)*(U
-	/*int index = 0;
-	int index2;
- 
-	//for(int i = 0; i < splitCount + 1; i++) {
-    while(true) {
-        if(index != 0)
-		index = str.indexOf(splitChar, index + 1);
-		index2 = str.indexOf(splitChar, index + 1);
-		
-		// Ensure there isn't a backslash before the split char
-		if(str.charAt(index - 1) == '\\')
-			continue;
-
-		if(index2 < 0)
-			index2 = str.length() - 1;
-
-		strs.push_back(str.substring(index, index2));
-	}*/
 
 	// Return the string vector
 	return strs;
