@@ -12,7 +12,7 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 #include "Globals.h"
-#include "Core.h"
+#include "Random.h"
 #include "Button.h"
 #include "Timer.h"
 #include "Led.h"
@@ -26,6 +26,7 @@ private:
     /**
      * Screen LED instances.
      */
+    // TODO: Take a look at this!
 //    Led screenLeds[SCREEN_LED_COUNT];
     Led * screenLeds;
 
