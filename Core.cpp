@@ -8,6 +8,8 @@
 
 #include "Core.h"
 
+void Core::Core() { }
+
 void Core::setup() {
 
 }

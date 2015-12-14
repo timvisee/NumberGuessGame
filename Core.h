@@ -15,6 +15,11 @@
 class Core {
 public:
     /**
+     * Constructor.
+     */
+    Core();
+
+    /**
      * Called once on set up.
      */
     void setup();

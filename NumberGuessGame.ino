@@ -18,6 +18,7 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 #include "Globals.h"
+#include "Core.h"
 #include "Button.h"
 #include "Timer.h"
 #include "Led.h"
@@ -53,9 +54,17 @@ Button btn(BUTTON_PIN);
 SoftwareSerial other(7, 8);
 
 /**
+ * Core instance. For all basic logic.
+ */
+Core core();
+
+/**
  * Called once on set up.
  */
 void setup() {
+    // Route the setup call to the Core class
+    core.setup();
+
     // Initial startup delay
     delay(200);
 
@@ -128,6 +137,9 @@ void connect() {
  * Called each loop.
  */
 void loop() {
+    // Route the loop call to the Core class
+    core.loop();
+
     // Generate a random number
     int num  = generateRandomNumber();
 
