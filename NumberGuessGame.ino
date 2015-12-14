@@ -7,6 +7,7 @@
  */
 
 #include <Arduino.h>
+#include <SoftwareSerial>
 #include "Button.h"
 #include "Timer.h"
 #include "Led.h"
@@ -105,6 +106,11 @@ Led redLed(RED_LED_PIN, true);
  * Button instance.
  */
 Button btn(BUTTON_PIN);
+
+/**
+ * Software serial instance, to communicate to the other Arduino when doing a multiplayer game.
+ */
+SoftwareSerial other(12, 13);
 
 /**
  * Called once on set up.
