@@ -26,6 +26,12 @@ public:
      */
     static const int BRIGHTNESS_HIGH;
 
+    /**
+     * Status LED pin.
+     * This is the status LED on the Arduino board itself, usually connected to port 13.
+     */
+    static const int STATUS_LED_PIN;
+
 private:
     /**
      * The pin used for the LED.

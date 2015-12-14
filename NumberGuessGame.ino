@@ -33,12 +33,6 @@ const int GREEN_LED_PIN = 10;
 const int RED_LED_PIN = 11;
 
 /**
- * Status LED pin.
- * This is the status LED on the Arduino board itself, usually connected to port 13.
- */
-const int STATUS_LED_PIN = 13;
-
-/**
  * Button pin.
  */
 const int BUTTON_PIN = 2;
@@ -116,7 +110,7 @@ Led redLed(RED_LED_PIN, true);
 /**
  * Status LED instance.
  */
-Led statusLed(STATUS_LED_PIN, true);
+Led statusLed(Led::STATUS_LED_PIN, true);
 
 /**
  * Button instance.
