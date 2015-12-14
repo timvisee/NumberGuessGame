@@ -171,13 +171,24 @@ void connect() {
 
     // Loop and ask for a connection request, until a connection has been made
     while(true) {
+        // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
+            // Enable the green status LED
+            greenLed.setState(true);
+
             // Send a connection request
             other.print("C");
 
             // Restart the connect timer
-            connectTimer.start(500);
+            connectTimer.start(1000);
+
+            smartDelay(100);
+
+            greenLed.setState(false);
         }
+
+        // Update everything
+        update();
     }
 }
 
@@ -288,6 +299,9 @@ void update() {
     btn.update();
 }
 
+// TODO: Debug stuff, remove this!
+bool debugConnected = false;
+
 /**
  * A smart delay method.
  * This method is similar to Arduino's delay method, but it keeps calling the update() method while the delay method is executed instead of freezing the Arduino.
@@ -304,6 +318,16 @@ void smartDelay(int delay) {
     // Call the update method until the timer has passed the specified delay
     while(!timer.isFinished())
         update();
+
+    // TODO: Debug stuff below here, remove this!
+    while(otherDebug.available() || random(0, 10) == 0) {
+        // TODO: Read the input received!
+        otherDebug.read();
+
+        redLed.setState(true);
+        smartDelay(100);
+        redLed.setState(false);
+    }
 }
 
 /**
