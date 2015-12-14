@@ -7,7 +7,7 @@
  */
 
 #include <Arduino.h>
-#include <SoftwareSerial>
+#include <SoftwareSerial.h>
 #include "Button.h"
 #include "Timer.h"
 #include "Led.h"
