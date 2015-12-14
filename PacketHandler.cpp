@@ -9,19 +9,19 @@ void PacketHandler::setConnectionStream(SoftwareSerial &con) {
 	PacketHandler::con = con;
 }
 
-void PacketHandler::sendPacket(Packet p) {
+void PacketHandler::sendPacket(Packet packet) {
 	// Serialize and send the packet
-    PacketHandler::sendPacket(Protocol::serialize(p));
+    PacketHandler::sendPacket(Protocol::serialize(packet));
 }
 
-void PacketHandler::sendPacket(String p) {
+void PacketHandler::sendPacket(String packet) {
     // Set the status of the activity LED
 	// TODO: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_BLINK);
 
 	// Convert the serialized packet into a char array
-	char *charArr=new char[p.length()+1];
-	charArr[p.length()]=0;
-	memcpy(charArr,p.c_str(),p.length());
+	char * charArr = new char[packet.length() + 1];
+	charArr[packet.length()] = 0;
+	memcpy(charArr, packet.c_str(), packet.length());
 
 	// Serialize and send the packet
     PacketHandler::con.write(charArr);
@@ -54,8 +54,8 @@ void PacketHandler::receive(char c) {
     }
 }
 
-bool PacketHandler::receivedPacket(Packet p) {
-	switch(p.getPacketType()) {
+bool PacketHandler::receivedPacket(Packet packet) {
+	switch(packet.getPacketType()) {
 	case Protocol::PACKET_TYPE_CONNECT_REQ:
 		// Send a connection confirm packet
         PacketHandler::sendPacket(Packet(0, Protocol::PACKET_TYPE_CONNECT));

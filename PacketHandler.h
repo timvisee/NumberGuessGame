@@ -17,10 +17,10 @@ private:
 
 public:
 	static void setConnectionStream(SoftwareSerial &con);
-	static void sendPacket(Packet p);
-	static void sendPacket(String p);
+	static void sendPacket(Packet packet);
+	static void sendPacket(String packet);
 	static void receive(char c);
-	static bool receivedPacket(Packet p);
+	static bool receivedPacket(Packet packet);
 };
 
 #endif
