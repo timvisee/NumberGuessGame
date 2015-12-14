@@ -157,26 +157,26 @@ void Core::connect() {
     connectTimer.start(0);
 
     // Loop and ask for a connection request, until a connection has been made
-//    while(true) {
-//        // Send a new connection request if one hasn't been send for half a second
-//        if(connectTimer.isFinished()) {
-//            // Enable the green status LED
-//            greenLed.setState(true);
-//
-//            // Send a connection request
-//            other.print("C");
-//
-//            // Restart the connect timer
-//            connectTimer.start(1000);
-//
-//            smartDelay(100);
-//
-//            greenLed.setState(false);
-//        }
-//
-//        // Update everything
-//        update();
-//    }
+    while(true) {
+        // Send a new connection request if one hasn't been send for half a second
+        if(connectTimer.isFinished()) {
+            // Enable the green status LED
+            greenLed.setState(true);
+
+            // Send a connection request
+            other.print("C");
+
+            // Restart the connect timer
+            connectTimer.start(1000);
+
+            smartDelay(100);
+
+            greenLed.setState(false);
+        }
+
+        // Update everything
+        update();
+    }
 }
 
 /**
@@ -217,9 +217,8 @@ void Core::smartDelay(int delay) {
  * Show the startup animation.
  */
 void Core::showStartupAnimation() {
-    // Loop the animation three times
-    for(int i = 0; i < 3; i++)
-        showSlideAnimation();
+    // Show the slide animation
+    showSlideAnimation();
 }
 
 /**
