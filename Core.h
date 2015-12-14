@@ -9,6 +9,9 @@
 #ifndef NUMBERGUESSGAME_CORE_H
 #define NUMBERGUESSGAME_CORE_H
 
+#include <Arduino.h>
+#include "Globals.h"
+
 /**
  * Core class.
  */
