@@ -115,10 +115,7 @@ Button btn(BUTTON_PIN);
 /**
  * Software serial instance, to communicate to the other Arduino when doing a multiplayer game.
  */
-SoftwareSerial other(12, 13);
-
-// TODO: Remove this debug instance!
-SoftwareSerial otherDebug(7, 8);
+SoftwareSerial other(7, 8);
 
 /**
  * Called once on set up.
@@ -299,9 +296,6 @@ void update() {
     btn.update();
 }
 
-// TODO: Debug stuff, remove this!
-bool debugConnected = false;
-
 /**
  * A smart delay method.
  * This method is similar to Arduino's delay method, but it keeps calling the update() method while the delay method is executed instead of freezing the Arduino.
@@ -318,16 +312,6 @@ void smartDelay(int delay) {
     // Call the update method until the timer has passed the specified delay
     while(!timer.isFinished())
         update();
-
-    // TODO: Debug stuff below here, remove this!
-    while(otherDebug.available() || random(0, 10) == 0) {
-        // TODO: Read the input received!
-        otherDebug.read();
-
-        redLed.setState(true);
-        smartDelay(100);
-        redLed.setState(false);
-    }
 }
 
 /**
