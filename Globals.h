@@ -87,9 +87,14 @@ const int FEEDBACK_VISIBLE_DURATION = 100;
 const int USER_INPUT_VISIBLE_DURATION = 1000;
 
 /**
- * The serial baud rate.
+ * The USB serial baud rate.
  */
-const int SERIAL_BAUD = 9600;
+const int SERIAL_USB_BAUD = 9600;
+
+/**
+ * The multiplayer serial baud rate.
+ */
+const int SERIAL_MULTIPLAYER_BAUD = 19200;
 
 /**
  * The serial RX (receive) pin used for multiplayer functionality.

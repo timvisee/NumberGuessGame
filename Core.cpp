@@ -13,16 +13,14 @@ Core::Core() :
         redLed(RED_LED_PIN, true),
         statusLed(Led::STATUS_LED_PIN, true),
         button(BUTTON_PIN),
-        other(SERIAL_RX_PIN, SERIAL_TX_PIN) {
+        con(SERIAL_RX_PIN, SERIAL_TX_PIN) {
 
     // Initialize the screen LED array
     this->screenLeds = new Led[SCREEN_LED_COUNT];
 
-    // Set up the answer LEDs
-    for(int i = 0; i < SCREEN_LED_COUNT; i++) {
-        // Construct the LED
+    // Construct the screen LED instances
+    for(int i = 0; i < SCREEN_LED_COUNT; i++)
         screenLeds[i] = Led(SCREEN_LED_PINS[i], true);
-    }
 }
 
 void Core::setup() {
@@ -30,8 +28,8 @@ void Core::setup() {
     delay(200);
 
     // Enable all serial connections
-    Serial.begin(SERIAL_BAUD);
-    other.begin(SERIAL_BAUD);
+    Serial.begin(SERIAL_USB_BAUD);
+    con.begin(SERIAL_MULTIPLAYER_BAUD);
 
     // Randomize the random seed
     Random::randomize();
@@ -155,14 +153,14 @@ void Core::connect() {
     connectTimer.start(0);
 
     // Loop and ask for a connection request, until a connection has been made
-    while(true) {
+    while(false) {
         // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
             // Enable the green status LED
             greenLed.setState(true);
 
             // Send a connection request
-            other.print("C");
+            con.print("C");
 
             // Restart the connect timer
             connectTimer.start(1000);
@@ -191,6 +189,22 @@ void Core::update() {
 
     // Update the button state
     button.update();
+
+    // Handle received data from the multiplayer connection
+    // TODO: Only if multiplayer is enabled?
+    while(con.available()) {
+        // Enable the activity light
+        statusLed.setState(true);
+        statusLed.setBrightness(Led::BRIGHTNESS_HIGH);
+
+        // Handle the new data
+        while(con.available())
+            PacketHandler::receive((char) con.read());
+
+        // Disable the activity light
+        statusLed.setState(false);
+        statusLed.setBrightness(Led::BRIGHTNESS_LOW);
+    }
 }
 
 /**

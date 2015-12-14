@@ -17,6 +17,9 @@
 #include "Timer.h"
 #include "Led.h"
 
+// TODO: These?
+#include "PacketHandler.h"
+
 /**
  * Core class.
  */
@@ -51,7 +54,7 @@ private:
     /**
      * Software serial instance, to communicate to the other Arduino when doing a multiplayer game.
      */
-    SoftwareSerial other;
+    SoftwareSerial con;
 
 public:
     /**
