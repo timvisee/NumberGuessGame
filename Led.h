@@ -30,13 +30,13 @@ public:
      * Status LED pin.
      * This is the status LED on the Arduino board itself, usually connected to port 13.
      */
-    static const int STATUS_LED_PIN;
+    static const uint8_t STATUS_LED_PIN;
 
 private:
     /**
      * The pin used for the LED.
      */
-    int pin;
+    uint8_t pin;
 
     /**
      * The current boolean state of the LED.
@@ -90,7 +90,7 @@ public:
      * @param pin The pin of the LED.
      * @param analogMode True if the analog mode of this LES is enabled, false if not.
      */
-    Led(int pin, bool analogMode);
+    Led(uint8_t pin, bool analogMode);
 
     /**
      * Set up the pin of the LED.
@@ -100,7 +100,7 @@ public:
     /**
      * Get the pin of the LED.
      */
-    int getPin();
+    uint8_t getPin();
 
     /**
      * Check whether this LED is in analog mode.

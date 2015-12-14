@@ -10,13 +10,13 @@
 
 const int Led::BRIGHTNESS_LOW = 0;
 const int Led::BRIGHTNESS_HIGH = 255;
-const int Led::STATUS_LED_PIN = 13;
+const uint8_t Led::STATUS_LED_PIN = 13;
 
 Led::Led() {
     this->pin = Led::STATUS_LED_PIN;
 }
 
-Led::Led(int pin, bool analogMode) {
+Led::Led(uint8_t pin, bool analogMode) {
     // Set the default variable values
     this->state = false;
     this->analogMode = analogMode;
@@ -35,7 +35,7 @@ void Led::setupPin() {
     pinMode(this->pin, OUTPUT);
 }
 
-int Led::getPin() {
+uint8_t Led::getPin() {
     return this->pin;
 }
 
