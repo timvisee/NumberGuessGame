@@ -88,6 +88,11 @@ const int FEEDBACK_VISIBLE_DURATION = 100;
 const int USER_INPUT_VISIBLE_DURATION = 1000;
 
 /**
+ * The serial boud rate.
+ */
+const int SERIAL_BAUD = 9600;
+
+/**
  * Screen LED instances.
  */
 Led screenLeds[SCREEN_LED_COUNT];
@@ -122,8 +127,10 @@ void setup() {
     // Initial startup delay
     delay(200);
 
-    // Enable serial port
-    Serial.begin(9600);
+    // Enable all serial connections
+    Serial.begin(SERIAL_BAUD);
+    other.begin(SERIAL_BAUD);
+    otherDebug.begin(SERIAL_BAUD);
 
     // Randomize the random seed
     randomSeed(analogRead(0));
@@ -149,6 +156,29 @@ void setup() {
 
     // Wait a little before starting
     smartDelay(START_DELAY);
+
+    // Connect to the other Arduino
+    connect();
+}
+
+/**
+ * Connect to a second Arduino, before starting a game.
+ */
+void connect() {
+    // Set up a timer to connect
+    Timer connectTimer(0);
+    connectTimer.start(0);
+
+    // Loop and ask for a connection request, until a connection has been made
+    while(true) {
+        if(connectTimer.isFinished()) {
+            // Send a connection request
+            other.print("C");
+
+            // Restart the connect timer
+            connectTimer.start(500);
+        }
+    }
 }
 
 /**
