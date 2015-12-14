@@ -112,6 +112,9 @@ Button btn(BUTTON_PIN);
  */
 SoftwareSerial other(12, 13);
 
+// TODO: Remove this debug instance!
+SoftwareSerial otherDebug(7, 8);
+
 /**
  * Called once on set up.
  */
