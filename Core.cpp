@@ -31,6 +31,9 @@ void Core::setup() {
     Serial.begin(SERIAL_USB_BAUD);
     con.begin(SERIAL_MULTIPLAYER_BAUD);
 
+    // Set the proper stream in the packet handler
+    PacketHandler::setConnectionStream(con);
+
     // Randomize the random seed
     Random::randomize();
 
@@ -175,6 +178,8 @@ void Core::connect() {
     }
 }
 
+Timer testPacketTimer(3000, true);
+
 /**
  * Update method, should be called often to update things like the animation controllers of the LEDs.
  */
@@ -202,6 +207,23 @@ void Core::update() {
 
         // Disable the activity light
         statusLed.setState(false);
+    }
+
+    // DEBUG: Send a test packet
+    if(testPacketTimer.isFinished()) {
+        // Create a test packet
+        Packet testPacket(2, 3);
+
+        // Create a vector with a string and add it to the packet
+        std::vector<String> strs;
+        strs.push_back("Str!");
+        testPacket.setStrings(strs);
+
+        // Send the actual packet
+        PacketHandler::sendPacket(testPacket);
+
+        // Reset the timer
+        testPacketTimer.start();
     }
 }
 

@@ -114,7 +114,7 @@ Packet Protocol::deserialize(String s) {
 	s.trim();
 
 	// Split the serialized packet
-	std::vector<String> parts = StringUtils::split(s, CHAR_PACKET_SEPARATOR, true);
+	std::vector<String> parts = StringUtils::split(s, CHAR_PACKET_SEPARATOR);
 
 	// Make sure either two or three parts are available 
 	/*if(parts.size() != 2 || parts.size() != 3)
@@ -137,7 +137,7 @@ Packet Protocol::deserialize(String s) {
 		String dataStr = parts[2];
 
 		// Split the data arrays into string parts
-		std::vector<String> dataParts = StringUtils::split(dataStr, CHAR_PACKET_DATA_SEPARATOR, true);
+		std::vector<String> dataParts = StringUtils::split(dataStr, CHAR_PACKET_DATA_SEPARATOR);
 
 		// Parse each array
 		for(int dataIndex = 0; dataIndex < dataParts.size(); dataIndex++) {
@@ -150,11 +150,11 @@ Packet Protocol::deserialize(String s) {
 				continue;
 
 			// Split the array string
-			std::vector<String> arrParts = StringUtils::split(arrStr, CHAR_PACKET_DATA_ARRAY_SEPARATOR, true);
+			std::vector<String> arrParts = StringUtils::split(arrStr, CHAR_PACKET_DATA_ARRAY_SEPARATOR);
 
 			// Get the array type
 			String arrTypeStr = arrParts[0];
-			int arrType = arrTypeStr.toInt();
+			int arrType = (int) arrTypeStr.toInt();
 
 			// Parse the integer arrays
 			if(arrType == DATA_ARR_TYPE_INT)

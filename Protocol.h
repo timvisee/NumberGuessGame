@@ -16,7 +16,7 @@ public:
 
     static const char CHAR_PACKET_BEGIN = 1;
     static const char CHAR_PACKET_END = 2;
-    static const char CHAR_PACKET_SEPARATOR = 3;
+    static const char CHAR_PACKET_SEPARATOR = 0x03;
     static const char CHAR_PACKET_DATA_SEPARATOR = 4;
     static const char CHAR_PACKET_DATA_ARRAY_SEPARATOR = 5;
 

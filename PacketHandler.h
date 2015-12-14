@@ -6,7 +6,6 @@
 #include "Globals.h"
 #include "Packet.h"
 #include "Protocol.h"
-#include "ConnectionManager.h"
 #include <vector>
 
 class PacketHandler {
@@ -20,7 +19,7 @@ public:
 	static void sendPacket(Packet packet);
 	static void sendPacket(String packet);
 	static void receive(char c);
-	static bool receivedPacket(Packet packet);
+	static void receivedPacket(Packet packet);
 };
 
 #endif
