@@ -11,7 +11,7 @@
 Core::Core() :
         greenLed(GREEN_LED_PIN, true),
         redLed(RED_LED_PIN, true),
-        statusLed(Led::STATUS_LED_PIN, true),
+        statusLed(Led::STATUS_LED_PIN, false),
         button(BUTTON_PIN),
         con(SERIAL_RX_PIN, SERIAL_TX_PIN) {
 
@@ -195,7 +195,6 @@ void Core::update() {
     while(con.available()) {
         // Enable the activity light
         statusLed.setState(true);
-        statusLed.setBrightness(Led::BRIGHTNESS_HIGH);
 
         // Handle the new data
         while(con.available())
@@ -203,7 +202,6 @@ void Core::update() {
 
         // Disable the activity light
         statusLed.setState(false);
-        statusLed.setBrightness(Led::BRIGHTNESS_LOW);
     }
 }
 
