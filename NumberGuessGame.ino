@@ -2,6 +2,15 @@
  * NumberGuessGame.
  * An Arduino challenge for HHS by Tim Visee.
  *
+ *
+ * This project requires some external libraries to be installed, in the Arduino libraries directory.
+ * - SoftwareSerial:
+ *   Installed with the default Arduino package, since 1.0.
+ * - StandardCplusplus:
+ *   Requires manual installation on the system, see:
+ *   https://github.com/maniacbug/StandardCplusplus
+ *
+ *
  * @author Tim Visee
  * @website http://timvisee.com/
  */
