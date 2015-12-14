@@ -56,7 +56,7 @@ SoftwareSerial other(7, 8);
 /**
  * Core instance. For all basic logic.
  */
-Core core();
+Core core;
 
 /**
  * Called once on set up.
