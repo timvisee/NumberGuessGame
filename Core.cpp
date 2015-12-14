@@ -8,7 +8,7 @@
 
 #include "Core.h"
 
-void Core::Core() { }
+Core::Core() { }
 
 void Core::setup() {
 
