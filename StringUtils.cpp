@@ -68,3 +68,17 @@ int StringUtils::getCharacterCount(String str, char c) {
     // Return the number of characters
 	return charCount;
 }
+
+bool StringUtils::isNumeric(String str) {
+    return StringUtils::isNumeric(str, str.length());
+}
+
+bool StringUtils::isNumeric(String str, int len) {
+    // Make sure all characters for the specified length are a digit, return false if nots
+    for(int i = 0; i < len; i++)
+        if(!isDigit(str.charAt(i)))
+            return false;
+
+    // All characters are a digit, return trues
+    return true;
+}

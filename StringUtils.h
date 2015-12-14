@@ -11,6 +11,7 @@
 
 #include "Arduino.h"
 #include "StandardCplusplus.h"
+#include <ctype.h>
 #include <vector>
 
 /**
@@ -40,6 +41,25 @@ public:
 	 * @return The number of characters, in the string.
 	 */
 	static int getCharacterCount(String str, char c);
+
+    /**
+     * Check whether a string only contains numeric characters (digits).
+     *
+     * @param str String to check.
+     *
+     * @return True if all characters are numeric (digits), false otherwise.
+     */
+    static bool isNumeric(String str);
+
+    /**
+     * Check whether a string only contains numeric characters (digits).
+     *
+     * @param str String to check.
+     * @param len Length of the string to check, from the beginning of the string.
+     *
+     * @return True if all characters are numeric (digits), false otherwise.
+     */
+    static bool isNumeric(String str, int len);
 };
 
 #endif // NUMBERGUESSGAME_STRINGUTILS_H
