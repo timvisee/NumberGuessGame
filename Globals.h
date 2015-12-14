@@ -110,7 +110,7 @@ const int SERIAL_USB_BAUD = 9600;
  * The multiplayer serial baud rate.
  */
 // TODO: Tweak this rate!
-const int SERIAL_MULTIPLAYER_BAUD = 9600;
+const int SERIAL_MULTIPLAYER_BAUD = 19200;
 
 /**
  * The serial RX (receive) pin used for multiplayer functionality.

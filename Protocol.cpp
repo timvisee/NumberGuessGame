@@ -116,6 +116,7 @@ Packet Protocol::deserialize(String s) {
 	// Split the serialized packet
 	std::vector<String> parts = StringUtils::split(s, CHAR_PACKET_SEPARATOR);
 
+    // DEBUG: Properly implement error checking!
 	// Make sure either two or three parts are available 
 	if(parts.size() != 2 && parts.size() != 3) {
         // Show an error message
