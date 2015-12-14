@@ -44,6 +44,7 @@ public:
 
     /**
      * Check whether a string only contains numeric characters (digits).
+     * The string must be at least one character long, or false will be returned.
      *
      * @param str String to check.
      *
@@ -53,6 +54,8 @@ public:
 
     /**
      * Check whether a string only contains numeric characters (digits).
+     * The specified length must be at least one, or false will be returned.
+     * If the length is greater than the actual string, false will be returned.
      *
      * @param str String to check.
      * @param len Length of the string to check, from the beginning of the string.

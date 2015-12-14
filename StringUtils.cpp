@@ -74,9 +74,17 @@ bool StringUtils::isNumeric(String str) {
 }
 
 bool StringUtils::isNumeric(String str, int len) {
+    // Make sure the length isn't greater than the length of the string
+    if(len > str.length())
+        return false;
+
+    // Make sure at least one character is checked
+    if(len < 1)
+        return false;
+
     // Make sure all characters for the specified length are a digit, return false if nots
     for(int i = 0; i < len; i++)
-        if(!isDigit(str.charAt(i)))
+        if(!isDigit(str.charAt((unsigned int) i)))
             return false;
 
     // All characters are a digit, return trues
