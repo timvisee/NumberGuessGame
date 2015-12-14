@@ -77,7 +77,7 @@ public:
     void showSlideAnimation();
     void showNumber(int number);
     void showNumber(int number, int brightness, int duration);
-    int generateRandomNumber();
+    long generateRandomNumber();
 };
 
 #endif //NUMBERGUESSGAME_CORE_H

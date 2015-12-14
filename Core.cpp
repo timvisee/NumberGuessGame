@@ -28,7 +28,7 @@ void Core::setup() {
     other.begin(SERIAL_BAUD);
 
     // Randomize the random seed
-    randomSeed(analogRead(0));
+    randomSeed((unsigned int) analogRead(0));
 
     // Set up the answer LEDs
     for(int i = 0; i < SCREEN_LED_COUNT; i++) {
@@ -59,7 +59,7 @@ void Core::setup() {
 
 void Core::loop() {
     // Generate a random number
-    int num  = generateRandomNumber();
+    int num = (int) generateRandomNumber();
 
     // Show the number as binary for the specified duration
     showNumber(num);
@@ -259,7 +259,7 @@ void Core::showSlideAnimation() {
  */
 void Core::showNumber(int number) {
     for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
-        screenLeds[i].setState(number & 1);
+        screenLeds[i].setState((bool) (number & 1));
         number /= 2;
     }
 }
@@ -288,6 +288,6 @@ void Core::showNumber(int number, int brightness, int duration) {
  *
  * @return Random number.
  */
-int Core::generateRandomNumber() {
-    return random(pow(2, SCREEN_LED_COUNT) - 1) + 1;
+long Core::generateRandomNumber() {
+    return random((long) (pow(2, SCREEN_LED_COUNT) - 1)) + 1;
 }
