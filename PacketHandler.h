@@ -1,21 +1,23 @@
 #ifndef SWAIPacketHandler_h
 #define SWAIPacketHandler_h
 
-#include "Arduino.h"
-#include "StandardCplusplus.h"
+#include <Arduino.h>
+#include <AltSoftSerial.h>
+#include <StandardCplusplus.h>
+#include <vector>
 #include "Globals.h"
 #include "Packet.h"
 #include "Protocol.h"
-#include <vector>
+
 
 class PacketHandler {
 private:
-	static SoftwareSerial con;
+	static AltSoftSerial con;
 	static bool skipNext;
 	static String buff;
 
 public:
-	static void setConnectionStream(SoftwareSerial &con);
+	static void setConnectionStream(AltSoftSerial &con);
 	static void sendPacket(Packet packet);
 	static void sendPacket(String packet);
 	static void receive(char c);

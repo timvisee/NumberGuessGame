@@ -1,11 +1,11 @@
 #include "PacketHandler.h"
 
 // Initialize class members
-SoftwareSerial PacketHandler::con = SoftwareSerial(7, 8); // TODO: Initialize this here?
+AltSoftSerial PacketHandler::con = AltSoftSerial(); // TODO: Initialize something here?
 bool PacketHandler::skipNext = false;
 String PacketHandler::buff = "";
 
-void PacketHandler::setConnectionStream(SoftwareSerial &con) {
+void PacketHandler::setConnectionStream(AltSoftSerial &con) {
 	PacketHandler::con = con;
 }
 
@@ -60,9 +60,17 @@ void PacketHandler::receive(char c) {
 }
 
 void PacketHandler::receivedPacket(Packet packet) {
-    // Debug: Print debug string
+    // Debug: Some code to print and debug the received packets!
+    Serial.print("Target device ID: ");
+    Serial.println(packet.getTargetDeviceId());
+
+    Serial.print("Type: ");
+    Serial.println(packet.getPacketType());
+
     if(packet.getPacketType() == 3)
         Serial.println(packet.getStrings().at(0));
+
+
 
     // TODO: Actually handle all received packets here!
     /*switch(packet.getPacketType()) {

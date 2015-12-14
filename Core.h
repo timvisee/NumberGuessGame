@@ -10,15 +10,15 @@
 #define NUMBERGUESSGAME_CORE_H
 
 #include <Arduino.h>
+#include <AltSoftSerial.h>
+// DEBUG: Still used?
 #include <SoftwareSerial.h>
 #include "Globals.h"
+#include "PacketHandler.h"
 #include "Random.h"
 #include "Button.h"
 #include "Timer.h"
 #include "Led.h"
-
-// TODO: These?
-#include "PacketHandler.h"
 
 /**
  * Core class.
@@ -54,7 +54,8 @@ private:
     /**
      * Software serial instance, to communicate to the other Arduino when doing a multiplayer game.
      */
-    SoftwareSerial con;
+    // DEBUG: SoftwareSerial con;
+    AltSoftSerial con;
 
 public:
     /**
