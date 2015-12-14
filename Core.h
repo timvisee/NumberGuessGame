@@ -26,8 +26,6 @@ private:
     /**
      * Screen LED instances.
      */
-    // TODO: Take a look at this!
-//    Led screenLeds[SCREEN_LED_COUNT];
     Led * screenLeds;
 
     /**

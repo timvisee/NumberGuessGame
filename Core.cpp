@@ -17,6 +17,12 @@ Core::Core() :
 
     // Initialize the screen LED array
     this->screenLeds = new Led[SCREEN_LED_COUNT];
+
+    // Set up the answer LEDs
+    for(int i = 0; i < SCREEN_LED_COUNT; i++) {
+        // Construct the LED
+        screenLeds[i] = Led(SCREEN_LED_PINS[i], true);
+    }
 }
 
 void Core::setup() {
@@ -28,13 +34,10 @@ void Core::setup() {
     other.begin(SERIAL_BAUD);
 
     // Randomize the random seed
-    randomSeed((unsigned int) analogRead(0));
+    Random::randomize();
 
     // Set up the answer LEDs
     for(int i = 0; i < SCREEN_LED_COUNT; i++) {
-        // Construct the LED
-        screenLeds[i] = Led(SCREEN_LED_PINS[i], true);
-
         // Set up the LED pin
         screenLeds[i].setupPin();
     }
@@ -154,26 +157,26 @@ void Core::connect() {
     connectTimer.start(0);
 
     // Loop and ask for a connection request, until a connection has been made
-    while(true) {
-        // Send a new connection request if one hasn't been send for half a second
-        if(connectTimer.isFinished()) {
-            // Enable the green status LED
-            greenLed.setState(true);
-
-            // Send a connection request
-            other.print("C");
-
-            // Restart the connect timer
-            connectTimer.start(1000);
-
-            smartDelay(100);
-
-            greenLed.setState(false);
-        }
-
-        // Update everything
-        update();
-    }
+//    while(true) {
+//        // Send a new connection request if one hasn't been send for half a second
+//        if(connectTimer.isFinished()) {
+//            // Enable the green status LED
+//            greenLed.setState(true);
+//
+//            // Send a connection request
+//            other.print("C");
+//
+//            // Restart the connect timer
+//            connectTimer.start(1000);
+//
+//            smartDelay(100);
+//
+//            greenLed.setState(false);
+//        }
+//
+//        // Update everything
+//        update();
+//    }
 }
 
 /**
@@ -289,5 +292,5 @@ void Core::showNumber(int number, int brightness, int duration) {
  * @return Random number.
  */
 long Core::generateRandomNumber() {
-    return random((long) (pow(2, SCREEN_LED_COUNT) - 1)) + 1;
+    return Random::nextInt((int) (pow(2, SCREEN_LED_COUNT) - 1)) + 1;
 }
