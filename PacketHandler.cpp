@@ -23,7 +23,7 @@ void PacketHandler::computerSendPacket(Packet p) {
 
 void PacketHandler::computerSendPacket(String p) {
     // Set the status of the activity LED
-	sm.setActivityStatus(SWAIStatusManager::ACTIVITY_BLINK);
+	// TODO: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_BLINK);
 
 	// Convert the serialized packet into a char array
 	char *charArr=new char[p.length()+1];
@@ -34,7 +34,7 @@ void PacketHandler::computerSendPacket(String p) {
 	PacketHandler::compStream.write(charArr);
 	
     // Disable the activity LED
-	sm.setActivityStatus(SWAIStatusManager::ACTIVITY_OFF);
+	// TODO: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_OFF);
 }
 
 void PacketHandler::computerReceive(char c) {
@@ -68,7 +68,7 @@ bool PacketHandler::computerReceivedPacket(Packet p) {
 
 	case Protocol::PACKET_TYPE_CONNECT:
 		// Set the connected state to true
-		SWAIConnectionManager::setComputerConnected(true);
+		ConnectionManager::setComputerConnected(true);
 		return false;
 		
 	case Protocol::PACKET_TYPE_DISCONNECT_REC:
@@ -77,7 +77,7 @@ bool PacketHandler::computerReceivedPacket(Packet p) {
 
 	case Protocol::PACKET_TYPE_DISCONNECT:
 		// Set the connected state to false
-		SWAIConnectionManager::setComputerConnected(false);
+		ConnectionManager::setComputerConnected(false);
 		break;
 
 	default:
@@ -94,7 +94,7 @@ void PacketHandler::robotSendPacket(Packet p) {
 
 void PacketHandler::robotSendPacket(String p) {
     // Set the status of the activity LED
-	sm.setActivityStatus(SWAIStatusManager::ACTIVITY_BLINK);
+	// TODO: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_BLINK);
 
 	// Convert the serialized packet into a char array
 	char *charArr=new char[p.length()+1];
@@ -105,7 +105,7 @@ void PacketHandler::robotSendPacket(String p) {
 	PacketHandler::robotStream.write(charArr);
 	
     // Disable the activity LED
-	sm.setActivityStatus(SWAIStatusManager::ACTIVITY_OFF);
+	// TODO: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_OFF);
 }
 
 void PacketHandler::robotReceive(char c) {
@@ -139,7 +139,7 @@ bool PacketHandler::robotReceivedPacket(Packet p) {
 
 	case Protocol::PACKET_TYPE_CONNECT:
 		// Set the connected state to true
-		SWAIConnectionManager::setRobotConnected(true);
+		ConnectionManager::setRobotConnected(true);
 		return false;
 		
 	case Protocol::PACKET_TYPE_DISCONNECT_REC:
@@ -148,7 +148,7 @@ bool PacketHandler::robotReceivedPacket(Packet p) {
 
 	case Protocol::PACKET_TYPE_DISCONNECT:
 		// Set the connected state to false
-		SWAIConnectionManager::setRobotConnected(false);
+		ConnectionManager::setRobotConnected(false);
 		break;
 
 	default:

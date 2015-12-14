@@ -6,22 +6,22 @@
 #include "Globals.h"
 #include "Packet.h"
 #include "Protocol.h"
-#include "SWAIStatusManager.h"
-#include "SWAIConnectionManager.h"
+// TODO: #include "SWAIStatusManager.h"
+#include "ConnectionManager.h"
 #include <vector>
 
 class PacketHandler {
 public:
 	static void setComputerStream(Stream& s);
 	static void setRobotStream(Stream& s);
-	static void computerSendPacket(SWAIPacket p);
+	static void computerSendPacket(Packet p);
 	static void computerSendPacket(String p);
 	static void computerReceive(char c);
-	static bool computerReceivedPacket(SWAIPacket p);
-	static void robotSendPacket(SWAIPacket p);
+	static bool computerReceivedPacket(Packet p);
+	static void robotSendPacket(Packet p);
 	static void robotSendPacket(String p);
 	static void robotReceive(char c);
-	static bool robotReceivedPacket(SWAIPacket p);
+	static bool robotReceivedPacket(Packet p);
 
 private:
 	static Stream& compStream;
