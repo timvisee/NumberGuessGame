@@ -67,13 +67,13 @@ void Led::update() {
     int brightnessDelta = this->toBrightness - this->fromBrightness;
 
     // Calculate the delta position
-    int timeDeltaPos = min(max(millis() - this->fromTime, 0), timeDelta);
+    long timeDeltaPos = min(max(millis() - this->fromTime, 0), timeDelta);
 
     // Calculate the current time factor
     double factor = (double) timeDeltaPos / (double) timeDelta;
 
     // Determine the brightness value
-    int brightness = this->fromBrightness + (brightnessDelta * factor);
+    int brightness = (int) (this->fromBrightness + (brightnessDelta * factor));
 
     // Set the brightness of the led
     this->setBrightness(brightness);
