@@ -19,7 +19,7 @@ const int SCREEN_LED_COUNT = 4;
 /**
  * Screen LED pins.
  */
-const int SCREEN_LED_PINS[] = {3, 5, 6, 9};
+const uint8_t SCREEN_LED_PINS[] = {3, 5, 6, 9};
 
 /**
  * Green LED pin.
@@ -90,5 +90,15 @@ const int USER_INPUT_VISIBLE_DURATION = 1000;
  * The serial baud rate.
  */
 const int SERIAL_BAUD = 9600;
+
+/**
+ * The serial RX (receive) pin used for multiplayer functionality.
+ */
+const int SERIAL_RX_PIN = 7;
+
+/**
+ * The serial TX (transmit) pin used for multiplayer functionality.
+ */
+const int SERIAL_TX_PIN = 8;
 
 #endif //NUMBERGUESSGAME_GLOBALS_H
