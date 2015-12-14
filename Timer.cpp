@@ -24,6 +24,18 @@ Timer::Timer(int timeout) {
     this->timeoutDelay = timeout;
 }
 
+Timer::Timer(int timeout, bool start) {
+    // Set the timeout to it's default
+    this->timeout = -1;
+
+    // Set the timeout variable
+    this->timeoutDelay = timeout;
+
+    // Start the timer
+    if(start)
+        this->start();
+}
+
 int Timer::getTimeoutDelay() {
     return this->timeoutDelay;
 }

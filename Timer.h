@@ -40,6 +40,14 @@ public:
     Timer(int timeout);
 
     /**
+     * Constructor.
+     *
+     * @param timeout Timeout in milliseconds.
+     * @param start True to immediately start the timer, false if not.
+     */
+    Timer(int timeout, bool start);
+
+    /**
      * Get the timeout delay in milliseconds.
      *
      * @return Timeout delay.
