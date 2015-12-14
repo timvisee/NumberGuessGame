@@ -127,7 +127,6 @@ void setup() {
     // Enable all serial connections
     Serial.begin(SERIAL_BAUD);
     other.begin(SERIAL_BAUD);
-    otherDebug.begin(SERIAL_BAUD);
 
     // Randomize the random seed
     randomSeed(analogRead(0));
