@@ -117,14 +117,56 @@ Packet Protocol::deserialize(String s) {
 	std::vector<String> parts = StringUtils::split(s, CHAR_PACKET_SEPARATOR);
 
 	// Make sure either two or three parts are available 
-	/*if(parts.size() != 2 || parts.size() != 3)
-		return null;*/
+	if(parts.size() != 2 && parts.size() != 3) {
+        // Show an error message
+        Serial.print("[ERROR] Malformed packet! (");
+        Serial.print(parts.size());
+        Serial.println(" packets)");
+
+        for(int i = 0; i < parts.size(); i++) {
+            Serial.print(" - ");
+            Serial.println(parts.at(i));
+        }
+
+        // Return the base packet
+        return Packet(0, 0);
+    }
+
+    if(!StringUtils::isNumeric(parts.at(0))) {
+        // Show an error message
+        Serial.println("[ERROR] Malformed packet! (part 0 not numeric)");
+
+        Serial.print(" - ");
+        Serial.println(parts.at(0));
+
+        // Return the base packet
+        return Packet(0, 0);
+    }
+
+    if(!StringUtils::isNumeric(parts.at(1))) {
+        // Show an error message
+        Serial.println("[ERROR] Malformed packet! (part 1 not numeric)");
+
+        Serial.print(" - ");
+        Serial.println(parts.at(1));
+
+        // Return the base packet
+        return Packet(0, 0);
+    }
 
 	// Get the packet target device ID
 	int targetDeviceId = parts[0].toInt();
 
+    // DEBUG:
+    Serial.print("0: ");
+    Serial.println(parts.at(0));
+
 	// Get the packet ID
 	int packetType = parts[1].toInt();
+
+    // DEBUG:
+    Serial.print("1: ");
+    Serial.println(parts.at(1));
 
 	// Define the three 
 	std::vector<int> ints;
