@@ -23,22 +23,23 @@ public:
 	/**
 	 * Split a string by the specified split character.
 	 *
-	 * @param s String to split.
+	 * @param str String to split.
 	 * @param splitChar The character to split the string at.
 	 * @param smart
 	 *
 	 * @return A vector of string parts.
 	 */
-    static std::vector<String> split(String s, char splitChar, bool smart);
+    static std::vector<String> split(String str, char splitChar);
 
 	/**
 	 * Get the number of specific characters in a string.
 	 *
+	 * @param str The string to count the characters in.
 	 * @param c Type of character to count.
 	 *
 	 * @return The number of characters, in the string.
 	 */
-	static int getCharacterCount(String s, char c);
+	static int getCharacterCount(String str, char c);
 };
 
 #endif // NUMBERGUESSGAME_STRINGUTILS_H
