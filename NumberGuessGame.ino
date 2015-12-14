@@ -88,7 +88,7 @@ const int FEEDBACK_VISIBLE_DURATION = 100;
 const int USER_INPUT_VISIBLE_DURATION = 1000;
 
 /**
- * The serial boud rate.
+ * The serial baud rate.
  */
 const int SERIAL_BAUD = 9600;
 
