@@ -11,14 +11,12 @@
 
 class PacketHandler {
 private:
-	static Stream& con;
-	static bool compSkipNext;
-	static String compBuff;
+	static SoftwareSerial con;
 	static bool skipNext;
 	static String buff;
 
 public:
-	static void setConnectionStream(Stream &con);
+	static void setConnectionStream(SoftwareSerial &con);
 	static void sendPacket(Packet p);
 	static void sendPacket(String p);
 	static void receive(char c);

@@ -1,11 +1,11 @@
 #include "PacketHandler.h"
 
 // Initialize class members
-Stream& PacketHandler::con = Serial;
+SoftwareSerial PacketHandler::con = SoftwareSerial(7, 8);
 bool PacketHandler::skipNext = false;
 String PacketHandler::buff = "";
 
-void PacketHandler::setConnectionStream(Stream &con) {
+void PacketHandler::setConnectionStream(SoftwareSerial &con) {
 	PacketHandler::con = con;
 }
 
@@ -24,7 +24,7 @@ void PacketHandler::sendPacket(String p) {
 	memcpy(charArr,p.c_str(),p.length());
 
 	// Serialize and send the packet
-	PacketHandler::con.write(charArr);
+    PacketHandler::con.write(charArr);
 	
     // Disable the activity LED
 	// TODO: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_OFF);
