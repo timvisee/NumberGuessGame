@@ -16,12 +16,12 @@ std::vector<String> StringUtils::split(String str, char splitChar) {
     int beginIdx = 0;
     int idx = 0;
     while(true) {
-        idx = str.indexOf(splitChar, idx);
+        idx = str.indexOf(splitChar, (unsigned int) idx);
 
         if(idx <= 0)
             break;
 
-        if(str.charAt(idx - 1) != '\\')
+        if(str.charAt((unsigned int) (idx - 1)) != '\\')
             break;
     }
 
@@ -29,7 +29,7 @@ std::vector<String> StringUtils::split(String str, char splitChar) {
     char charBuffer[16];
 
     while(idx != -1) {
-        arg = str.substring(beginIdx, idx);
+        arg = str.substring((unsigned int) beginIdx, (unsigned int) idx);
         arg.toCharArray(charBuffer, 16);
 
         // add error handling for atoi:
@@ -38,12 +38,12 @@ std::vector<String> StringUtils::split(String str, char splitChar) {
         beginIdx = idx + 1;
 
         while(true) {
-            idx = str.indexOf(splitChar, beginIdx);
+            idx = str.indexOf(splitChar, (unsigned int) beginIdx);
 
             if(idx < 0)
                 break;
 
-            if(str.charAt(idx - 1) != '\\')
+            if(str.charAt((unsigned int) (idx - 1)) != '\\')
                 break;
 
             beginIdx = idx;
