@@ -174,11 +174,11 @@ Packet Protocol::deserialize(String s) {
 
 	// Define the three data arrays
 	uint8_t intSize = 0;
-	int * intArr;
+	int * intArr = new int[0];
 	uint8_t boolSize = 0;
-	bool * boolArr;
+	bool * boolArr = new bool[0];
 	uint8_t strSize = 0;
-	String * strArr;
+	String * strArr = new String[0];
 
 	// Check whether there's any extra data available
 	if(partsSize == 3) {
@@ -236,10 +236,10 @@ Packet Protocol::deserialize(String s) {
 	}
 
 	// Construct and return a new packet
-	// FIXME: Fix returned statement here!
-	return Packet();
-	/*return Packet(
+	return Packet(
 		targetDeviceId, packetType,
-		ints, bools, strs
-		);*/
+		intSize, intArr,
+		boolSize, boolArr,
+        strSize, strArr
+		);
 }
