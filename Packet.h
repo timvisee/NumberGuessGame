@@ -15,13 +15,44 @@
 
 class Packet {
 private:
+    /**
+     * Get ID of the target device.
+     */
     byte targetDeviceId;
+
+    /**
+     * The type of the packet.
+     */
     byte packetType;
+
+    /**
+     * The number of integers in this packet.
+     */
 	uint8_t intSize;
+
+    /**
+     * The array of integers.
+     */
     int * intArr;
+
+    /**
+     * The number of booleans in this packet.
+     */
     uint8_t boolSize;
+
+    /**
+     * The array of booleans.
+     */
     bool * boolArr;
+
+    /**
+     * The number of strings in this packet.
+     */
     uint8_t strSize;
+
+    /**
+     * The array of strings.
+     */
     String * strArr;
 
 public:
