@@ -45,12 +45,12 @@ void PacketHandler::receive(char c) {
     if(PacketHandler::skipNext) {
         PacketHandler::buff.concat(c);
         PacketHandler::skipNext = false;
-                
+
     } else {
 		// Check whether the next character should be skipped due to a backslash
         if(c == '\\')
             PacketHandler::skipNext = true;
-                   
+
 		// Check whether the current packet is ending
         else if(c == Protocol::CHAR_PACKET_END) {
             // Deserialize the packet and call a method to handle the received packet
@@ -59,7 +59,7 @@ void PacketHandler::receive(char c) {
             // Clear the receive buffer
             PacketHandler::buff = "";
         }
-                
+
 		// Check whether a new packet is beginning
         else if(c == Protocol::CHAR_PACKET_BEGIN)
             PacketHandler::buff = "";

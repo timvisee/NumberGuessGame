@@ -128,7 +128,7 @@ Packet Protocol::deserialize(String str) {
 	String *parts = StringUtils::split(str, CHAR_PACKET_SEPARATOR, 3);
 
     // DEBUG: Properly implement error checking!
-	// Make sure either two or three parts are available 
+	// Make sure either two or three parts are available
 	if(partsSize < 2 || partsSize > 3) {
         // Show an error message
         Serial.print("[ERROR] Malformed packet! (");
@@ -186,11 +186,11 @@ Packet Protocol::deserialize(String str) {
 
 	// Define the three data arrays
 	uint8_t intSize = 0;
-	int * intArr = new int[0];
+	int * intArr = NULL;
 	uint8_t boolSize = 0;
-	bool * boolArr = new bool[0];
+	bool * boolArr = NULL;
 	uint8_t strSize = 0;
-	String * strArr = new String[0];
+	String * strArr = NULL;
 
 	// Check whether there's any extra data available
 	if(partsSize == 3) {
@@ -203,7 +203,7 @@ Packet Protocol::deserialize(String str) {
 
 		// Parse each array
 		for(int dataIndex = 0; dataIndex < dataPartsSize; dataIndex++) {
-			// Convert the object to a 
+			// Convert the object to a
 			String arrStr = dataParts[dataIndex];
 
 			// Check whether this part has a length of null
@@ -242,19 +242,43 @@ Packet Protocol::deserialize(String str) {
             }
 
 			// Parse the integer arrays
-			if(arrType == DATA_ARR_TYPE_INT)
-				for(int i = 0; i < arrSize; i++)
-					intArr[intSize++] = (int) arrParts[i + 2].toInt();
+			if(arrType == DATA_ARR_TYPE_INT) {
+                // Delete the current pointer from the memory
+                delete[] intArr;
+
+                // Create a new array
+                intArr = new int[arrSize];
+
+                // Fill the array
+                for(int i = 0; i < arrSize; i++)
+                    intArr[intSize++] = (int) arrParts[i + 2].toInt();
+            }
 
 			// Parse the boolean arrays
-			if(arrType == DATA_ARR_TYPE_BOOL)
-				for(int i = 0; i < arrSize; i++)
-					boolArr[boolSize++] = (arrParts[i + 2] == "1");
+			if(arrType == DATA_ARR_TYPE_BOOL) {
+                // Delete the current pointer from the memory
+                delete[] boolArr;
 
-			// Parse the string arrays
-			if(arrType == DATA_ARR_TYPE_STR)
-				for(int i = 0; i < arrSize; i++)
-					strArr[strSize++] = arrParts[i + 2];
+                // Create a new array
+                boolArr = new bool[arrSize];
+
+                // Fill the array
+                for(int i = 0; i < arrSize; i++)
+                    boolArr[boolSize++] = (arrParts[i + 2] == "1");
+            }
+
+            // Parse the string arrays
+			if(arrType == DATA_ARR_TYPE_STR) {
+                // Delete the current pointer from the memory
+                delete[] strArr;
+
+                // Create a new array
+                strArr = new String[arrSize];
+
+                // Fill the array
+                for(int i = 0; i < arrSize; i++)
+                    strArr[strSize++] = arrParts[i + 2];
+            }
 
             // Delete the parts array from memory
             delete[] arrParts;
