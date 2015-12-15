@@ -14,7 +14,7 @@ String *StringUtils::split(String str, char splitChar) {
 
 String *StringUtils::split(String str, char splitChar, int max) {
     // Count the number of elements the array will have
-    uint8_t splitParts = (uint8_t) StringUtils::getCharacterCountEscaped(str, splitChar);
+    uint8_t splitParts = (uint8_t) StringUtils::getCharacterCountEscaped(str, splitChar) + 1;
     if(splitParts > max && max >= 0)
         splitParts = (uint8_t) max;
 

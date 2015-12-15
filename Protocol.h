@@ -45,24 +45,24 @@ public:
     static const char CHAR_PACKET_DATA_ARRAY_SEPARATOR = 0x05;
 
     /**
-     * Character to define an unknown array type.
+     * ID to define an unknown array type.
      */
-    static const char DATA_ARR_TYPE_UNKNOWN = 0x00; // FIXME: Keep this one?
+    static const uint8_t DATA_ARR_TYPE_UNKNOWN = 0x00; // FIXME: Keep this one?
 
     /**
-     * Character to define the integer array type.
+     * ID to define the integer array type.
      */
-    static const char DATA_ARR_TYPE_INT = 0x01;
+    static const uint8_t DATA_ARR_TYPE_INT = 0x01;
 
     /**
-     * Character to define the boolean array type.
+     * ID to define the boolean array type.
      */
-    static const char DATA_ARR_TYPE_BOOL = 0x02;
+    static const uint8_t DATA_ARR_TYPE_BOOL = 0x02;
 
     /**
-     * Character to define the String array type.
+     * ID to define the String array type.
      */
-    static const char DATA_ARR_TYPE_STR = 0x03;
+    static const uint8_t DATA_ARR_TYPE_STR = 0x03;
 
     /**
      * Character to define the unknown packet type.

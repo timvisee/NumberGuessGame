@@ -122,7 +122,7 @@ Packet Protocol::deserialize(String str) {
 	str.trim();
 
 	// Split the serialized packet
-    uint8_t partsSize = (uint8_t) StringUtils::getCharacterCountEscaped(str, CHAR_PACKET_SEPARATOR);
+    uint8_t partsSize = (uint8_t) StringUtils::getCharacterCountEscaped(str, CHAR_PACKET_SEPARATOR) + 1;
     if(partsSize > 3)
         partsSize = 3;
 	String *parts = StringUtils::split(str, CHAR_PACKET_SEPARATOR, 3);
@@ -199,7 +199,7 @@ Packet Protocol::deserialize(String str) {
 
 		// Split the data arrays into string parts
 		String *dataParts = StringUtils::split(dataStr, CHAR_PACKET_DATA_SEPARATOR);
-		uint8_t dataPartsSize = (uint8_t) StringUtils::getCharacterCountEscaped(dataStr, CHAR_PACKET_DATA_SEPARATOR);
+		uint8_t dataPartsSize = (uint8_t) StringUtils::getCharacterCountEscaped(dataStr, CHAR_PACKET_DATA_SEPARATOR) + 1;
 
 		// Parse each array
 		for(int dataIndex = 0; dataIndex < dataPartsSize; dataIndex++) {
@@ -214,11 +214,11 @@ Packet Protocol::deserialize(String str) {
 			// Split the array string
 			String *arrParts = StringUtils::split(arrStr, CHAR_PACKET_DATA_ARRAY_SEPARATOR);
             uint8_t arrPartsSize = (uint8_t) StringUtils::getCharacterCountEscaped(arrStr,
-                                                                                   CHAR_PACKET_DATA_ARRAY_SEPARATOR);
+                                                                                   CHAR_PACKET_DATA_ARRAY_SEPARATOR) + 1;
 
 			// Get the array type
 			String arrTypeStr = arrParts[0];
-            byte arrType = (byte) arrTypeStr.toInt();
+            uint8_t arrType = (uint8_t) arrTypeStr.toInt();
 
             // Get the size of the array
             String arrSizeStr = arrParts[1];
@@ -226,9 +226,6 @@ Packet Protocol::deserialize(String str) {
 
             // Make sure the array doesn't go out of bound
             if(arrPartsSize < arrSize + 2) {
-                // Show an error message, and return the default packet
-                Serial.println("[ERROR] Malformed packet. Missing elements in data array!");
-
                 // Delete all dynamic arrays from memory
                 delete[] parts;
                 delete[] arrParts;
