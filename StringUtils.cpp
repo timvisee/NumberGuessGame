@@ -46,11 +46,11 @@ std::vector<String> StringUtils::split(String str, char splitChar) {
             if(str.charAt((unsigned int) (idx - 1)) != '\\')
                 break;
 
-            beginIdx = idx;
+            beginIdx = idx + 1;
         }
     }
 
-    strs.push_back(str.substring(beginIdx));
+    strs.push_back(str.substring((unsigned int) beginIdx));
 
 	// Return the string vector
 	return strs;
