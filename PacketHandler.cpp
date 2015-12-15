@@ -77,29 +77,6 @@ void PacketHandler::receivedPacket(Packet packet) {
     // Debug received packets
 //    Log::debug("P> R: " + String(packet.getPacketType()));
 
-    // Debug: Some code to print and debug the received packets!
-//    Serial.print("[PACKET] Packet received, type: ");
-//    Serial.println(packet.getPacketType());
-
-    // Code to print the packet contents
-//    Serial.println("Integers:");
-//    for(int i = 0s; i < packet.getIntegersCount(); i++) {
-//        Serial.print(" - ");
-//        Serial.println(packet.getIntegers()[i]);
-//    }
-//
-//    Serial.println("Booleans:");
-//    for(int i = 0; i < packet.getBooleansCount(); i++) {
-//        Serial.print(" - ");
-//        Serial.println(packet.getBooleans()[i]);
-//    }
-//
-//    Serial.println("Strings:");
-//    for(int i = 0; i < packet.getStringsCount(); i++) {
-//        Serial.print(" - ");
-//        Serial.println(packet.getStrings()[i]);
-//    }
-
     // Handle the packet
     switch(packet.getPacketType()) {
 	case Protocol::PACKET_TYPE_CONNECTION_REQUEST:
