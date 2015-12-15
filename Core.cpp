@@ -212,18 +212,35 @@ void Core::update() {
     // DEBUG: Send a test packet
     if(testPacketTimer.isFinished()) {
         // Create a test packet
-        Packet testPacket(2, 3);
+        Packet packet(2, 3);
 
         // Create an array with a string for testing purposes
-        String *strArr = new String[1];
-        strArr[0] = "Hello, World!";
-        testPacket.setStrings(strArr, 1);
+        int *intArr = new int[3];
+        intArr[0] = 3;
+        intArr[1] = -9;
+        intArr[2] = 29;
+        packet.setIntegers(intArr, 3);
+
+        // Create an array with a string for testing purposes
+        bool *boolArr = new bool[3];
+        boolArr[0] = true;
+        boolArr[1] = false;
+        boolArr[1] = false;
+        packet.setBooleans(boolArr, 3);
+
+        // Create an array with a string for testing purposes
+        String *strArr = new String[4];
+        strArr[0] = "A";
+        strArr[1] = "B";
+        strArr[2] = "";
+        strArr[3] = "CDEFG";
+        packet.setStrings(strArr, 4);
 
         // Send the actual packet
-        PacketHandler::sendPacket(testPacket);
+        PacketHandler::sendPacket(packet);
 
-        // Delete the string array from memory
-        delete[] strArr;
+        // Destroy the packet and it's data arrays
+        packet.destroy();
 
         // Reset the timer
         testPacketTimer.start();

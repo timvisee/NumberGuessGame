@@ -72,14 +72,28 @@ void PacketHandler::receive(char c) {
 
 void PacketHandler::receivedPacket(Packet packet) {
     // Debug: Some code to print and debug the received packets!
-    Serial.print("[PACKET] Packet received, type: ");
-    Serial.println(packet.getPacketType());
+//    Serial.print("[PACKET] Packet received, type: ");
+//    Serial.println(packet.getPacketType());
+
+    Serial.println("Integers:");
+    for(int i = 0; i < packet.getIntegersCount(); i++) {
+        Serial.print(" - ");
+        Serial.println(packet.getIntegers()[i]);
+    }
+
+    Serial.println("Booleans:");
+    for(int i = 0; i < packet.getBooleansCount(); i++) {
+        Serial.print(" - ");
+        Serial.println(packet.getBooleans()[i]);
+    }
 
     Serial.println("Strings:");
     for(int i = 0; i < packet.getStringsCount(); i++) {
         Serial.print(" - ");
         Serial.println(packet.getStrings()[i]);
     }
+
+    packet.destroy();
 
     // TODO: Actually handle all received packets here!
     /*switch(packet.getPacketType()) {

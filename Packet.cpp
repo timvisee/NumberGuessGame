@@ -17,6 +17,8 @@ Packet::Packet() {
 	this->boolSize = 0;
     this->strArr = NULL;
 	this->strSize = 0;
+
+	this->a = false;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType) {
@@ -28,18 +30,19 @@ Packet::Packet(byte targetDeviceId, byte packetType) {
     this->boolSize = 0;
     this->strArr = NULL;
     this->strSize = 0;
+
+	this->a = false;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType, int *intArr, uint8_t intSize, bool *boolArr, uint8_t boolSize,
                String *strArr, uint8_t strSize) {
-	this->targetDeviceId = targetDeviceId;
-	this->packetType = packetType;
-	this->intSize = intSize;
-	this->intArr = intArr;
-	this->boolSize = boolSize;
-	this->boolArr = boolArr;
-	this->strSize = strSize;
-	this->strArr = strArr;
+	this->a = false;
+
+	this->setTargetDeviceId(targetDeviceId);
+	this->setPacketType(packetType);
+	this->setIntegers(intArr, intSize);
+	this->setBooleans(boolArr, boolSize);
+	this->setStrings(strArr, strSize);
 }
 
 Packet::~Packet() {
@@ -47,7 +50,7 @@ Packet::~Packet() {
     // TODO: Should we enable this again? Or are these arrays already deleted after the packet definition?
 //	  delete[] intArr;
 //    delete[] boolArr;
-//    delete[] strArr;
+//	  delete[] strArr;
 }
 
 byte Packet::getTargetDeviceId() {
@@ -80,7 +83,7 @@ bool Packet::hasIntegers() {
 
 void Packet::setIntegers(int * intArr, uint8_t size) {
     // Delete the current array from memory
-    delete[] this->intArr;
+//    delete[] this->intArr;
 
     // Set the array and it's size
 	this->intArr = intArr;
@@ -101,7 +104,7 @@ bool Packet::hasBooleans() {
 
 void Packet::setBooleans(bool * boolArr, uint8_t size) {
     // Delete the current array from memory
-    delete[] this->boolArr;
+//    delete[] this->boolArr;
 
     // Set the array and it's size
 	this->boolArr = boolArr;
@@ -122,11 +125,14 @@ bool Packet::hasStrings() {
 
 void Packet::setStrings(String * strArr, uint8_t size) {
     // Delete the current array from memory
-    delete[] this->strArr;
+//    delete[] this->strArr;
 
     // Set the array and it's size
 	this->strArr = strArr;
 	this->strSize = size;
+
+	if(this->strSize > 0)
+		this->a = true;
 }
 
 uint8_t Packet::getArrayCount() {
@@ -141,4 +147,19 @@ uint8_t Packet::getArrayCount() {
 
 	// Return array count
 	return arrCount;
+}
+
+void Packet::destroy() {
+	// Delete the data arrays
+	if(hasIntegers())
+		delete[] intArr;
+	if(hasBooleans())
+		delete[] boolArr;
+	if(hasStrings())
+		delete[] strArr;
+
+	// Reset the sizes
+	this->intSize = 0;
+	this->boolSize = 0;
+	this->strSize = 0;
 }

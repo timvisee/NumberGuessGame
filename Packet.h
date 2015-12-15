@@ -53,6 +53,8 @@ private:
      */
     String * strArr;
 
+    bool a;
+
 public:
     /**
      * Constructor.
@@ -80,7 +82,7 @@ public:
      * @param strSize The size of the string array.
      */
     Packet(byte targetDeviceId, byte packetType, int *intArr, uint8_t intSize, bool *boolArr, uint8_t boolSize,
-String *strArr, uint8_t strSize);
+		   String *strArr, uint8_t strSize);
 
     /**
      * Destructor.
@@ -208,6 +210,11 @@ String *strArr, uint8_t strSize);
      * @return Data array type count.
      */
     uint8_t getArrayCount();
+
+    /**
+     * Destroy all inner data arrays. This method should be called at last, to destroy a packet.
+     */
+    void destroy();
 };
 
 #endif // NUMBERGUESSGAME_PACKET_H
