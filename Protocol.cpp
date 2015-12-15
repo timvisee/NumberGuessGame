@@ -1,3 +1,11 @@
+/**
+ * NumberGuessGame.
+ * An Arduino challenge for HHS by Tim Visee.
+ *
+ * @author Tim Visee
+ * @website http://timvisee.com/
+ */
+
 #include "Protocol.h"
 
 String Protocol::serialize(Packet p) {
