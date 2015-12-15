@@ -151,34 +151,34 @@ void Core::loop() {
  * Connect to a second Arduino, before starting a game.
  */
 void Core::connect() {
-//    // Set up a timer to connect
-//    Timer connectTimer(0);
-//    connectTimer.start(0);
-//
-//    // Loop and ask for a connection request, until a connection has been made
-//    while(true) {
-//        // Send a new connection request if one hasn't been send for half a second
-//        if(connectTimer.isFinished()) {
-//            // Enable the green status LED
-//            greenLed.setState(true);
-//
-//            // Send a connection request
-//            con.print("C");
-//
-//            // Restart the connect timer
-//            connectTimer.start(1000);
-//
-//            smartDelay(100);
-//
-//            greenLed.setState(false);
-//        }
-//
-//        // Update everything
-//        update();
-//    }
+    // Set up a timer to connect
+    Timer connectTimer(0);
+    connectTimer.start(0);
+
+    // Loop and ask for a connection request, until a connection has been made
+    while(true) {
+        // Send a new connection request if one hasn't been send for half a second
+        if(connectTimer.isFinished()) {
+            // Enable the green status LED
+            greenLed.setState(true);
+
+            // Create a packet to send a connection request
+            Packet packet = Packet(1, Protocol::PACKET_TYPE_CONNECTION_REQUEST);
+            PacketHandler::sendPacket(packet);
+            packet.destroy();
+
+            // Restart the connect timer
+            connectTimer.start(1000);
+
+            greenLed.setState(false);
+        }
+
+        // Update everything
+        update();
+    }
 }
 
-Timer testPacketTimer(3000, true);
+Timer testPacketTimer(3000, false);
 
 /**
  * Update method, should be called often to update things like the animation controllers of the LEDs.

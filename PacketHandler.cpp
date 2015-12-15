@@ -75,47 +75,36 @@ void PacketHandler::receivedPacket(Packet packet) {
 //    Serial.print("[PACKET] Packet received, type: ");
 //    Serial.println(packet.getPacketType());
 
-    Serial.println("Integers:");
-    for(int i = 0; i < packet.getIntegersCount(); i++) {
-        Serial.print(" - ");
-        Serial.println(packet.getIntegers()[i]);
-    }
+    // Code to print the packet contents
+//    Serial.println("Integers:");
+//    for(int i = 0; i < packet.getIntegersCount(); i++) {
+//        Serial.print(" - ");
+//        Serial.println(packet.getIntegers()[i]);
+//    }
+//
+//    Serial.println("Booleans:");
+//    for(int i = 0; i < packet.getBooleansCount(); i++) {
+//        Serial.print(" - ");
+//        Serial.println(packet.getBooleans()[i]);
+//    }
+//
+//    Serial.println("Strings:");
+//    for(int i = 0; i < packet.getStringsCount(); i++) {
+//        Serial.print(" - ");
+//        Serial.println(packet.getStrings()[i]);
+//    }
 
-    Serial.println("Booleans:");
-    for(int i = 0; i < packet.getBooleansCount(); i++) {
-        Serial.print(" - ");
-        Serial.println(packet.getBooleans()[i]);
-    }
-
-    Serial.println("Strings:");
-    for(int i = 0; i < packet.getStringsCount(); i++) {
-        Serial.print(" - ");
-        Serial.println(packet.getStrings()[i]);
-    }
-
-    packet.destroy();
-
-    // TODO: Actually handle all received packets here!
-    /*switch(packet.getPacketType()) {
-	case Protocol::PACKET_TYPE_CONNECT_REQ:
-		// Send a connection confirm packet
-        PacketHandler::sendPacket(Packet(0, Protocol::PACKET_TYPE_CONNECT));
-
-	case Protocol::PACKET_TYPE_CONNECT:
-		// Set the connected state to true
-		ConnectionManager::setRobotConnected(true);
-		return false;
-		
-	case Protocol::PACKET_TYPE_DISCONNECT_REC:
-		// Send a connection confirm packet
-        PacketHandler::sendPacket(Packet(0, Protocol::PACKET_TYPE_DISCONNECT));
-
-	case Protocol::PACKET_TYPE_DISCONNECT:
-		// Set the connected state to false
-		ConnectionManager::setRobotConnected(false);
+    // Handle the packet
+    switch(packet.getPacketType()) {
+	case Protocol::PACKET_TYPE_CONNECTION_REQUEST:
+        Serial.println("Got a connection request!");
 		break;
 
 	default:
+        Serial.println("[WARNING] Received unknown packet!");
 		break;
-	}*/
+	}
+
+    // Destroy the packet
+    packet.destroy();
 }

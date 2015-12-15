@@ -60,9 +60,14 @@ public:
     static const uint8_t DATA_ARR_TYPE_STR = 0x03;
 
     /**
-     * Character to define the unknown packet type.
+     * Value to define the unknown packet type.
      */
     static const int PACKET_TYPE_UNKNOWN = 0;
+
+    /**
+     * Value to define the connection request type.
+     */
+    static const int PACKET_TYPE_CONNECTION_REQUEST = 1;
 
 	/**
 	 * Serialize a packet as a string.
