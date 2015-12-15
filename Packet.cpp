@@ -79,6 +79,10 @@ bool Packet::hasIntegers() {
 }
 
 void Packet::setIntegers(int * intArr, uint8_t size) {
+    // Delete the current array from memory
+    delete[] this->intArr;
+
+    // Set the array and it's size
 	this->intArr = intArr;
 	this->intSize = size;
 }
@@ -96,6 +100,10 @@ bool Packet::hasBooleans() {
 }
 
 void Packet::setBooleans(bool * boolArr, uint8_t size) {
+    // Delete the current array from memory
+    delete[] this->boolArr;
+
+    // Set the array and it's size
 	this->boolArr = boolArr;
 	this->boolSize = size;
 }
@@ -113,6 +121,10 @@ bool Packet::hasStrings() {
 }
 
 void Packet::setStrings(String * strArr, uint8_t size) {
+    // Delete the current array from memory
+    delete[] this->strArr;
+
+    // Set the array and it's size
 	this->strArr = strArr;
 	this->strSize = size;
 }
