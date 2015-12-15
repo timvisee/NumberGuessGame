@@ -8,94 +8,104 @@
 
 #include "Packet.h"
 
+uint8_t Packet::intSize = 0;
+uint8_t Packet::boolSize = 0;
+uint8_t Packet::strSize = 0;
+
 Packet::Packet() {
 	this->targetDeviceId = 0;
 	this->packetType = 0;
 }
 
-Packet::Packet(int targetDeviceId, int packetType) {
+Packet::Packet(byte targetDeviceId, byte packetType) {
 	this->targetDeviceId = targetDeviceId;
 	this->packetType = packetType;
 }
 
-Packet::Packet(int targetDeviceId, int packetType,
-			   std::vector<int> ints,
-			   std::vector<bool> bools,
-			   std::vector<String> strs) {
+Packet::Packet(byte targetDeviceId, byte packetType,
+			   uint8_t intSize, int * intArr,
+			   uint8_t boolSize, bool * boolArr,
+			   uint8_t strSize, String * strArr) {
 	this->targetDeviceId = targetDeviceId;
 	this->packetType = packetType;
-	this->ints = ints;
-	this->bools = bools;
-	this->strs = strs;
+	this->intSize = intSize;
+	this->intArr = intArr;
+	this->boolSize = boolSize;
+	this->boolArr = boolArr;
+	this->strSize = strSize;
+	this->strArr = strArr;
 }
 
-int Packet::getTargetDeviceId() {
+byte Packet::getTargetDeviceId() {
 	return this->targetDeviceId;
 }
 
-void Packet::setTargetDeviceId(int id) {
+void Packet::setTargetDeviceId(byte id) {
 	this->targetDeviceId = id;
 }
 
-int Packet::getPacketType() {
+byte Packet::getPacketType() {
 	return this->packetType;
 }
 
-void Packet::setPacketType(int type) {
+void Packet::setPacketType(byte type) {
 	this->packetType = type;
 }
 
-std::vector<int> Packet::getIntegers() {
-	return this->ints;
+int * Packet::getIntegers() {
+	return this->intArr;
 }
 
-int Packet::getIntegersCount() {
-	return this->ints.size();
+uint8_t Packet::getIntegersCount() {
+	return this->intSize;
 }
 
 bool Packet::hasIntegers() {
-	return (getIntegersCount() > 0);
+	return getIntegersCount() > 0;
 }
 
-void Packet::setIntegers(std::vector<int> ints) {
-	this->ints = ints;
+void Packet::setIntegers(int * intArr, uint8_t size) {
+	this->intArr = intArr;
+	this->intSize = size;
 }
 
-std::vector<bool> Packet::getBooleans() {
-	return this->bools;
+bool * Packet::getBooleans() {
+	return this->boolArr;
 }
 
-int Packet::getBooleansCount() {
-	return this->bools.size();
+uint8_t Packet::getBooleansCount() {
+	return this->boolSize;
 }
 
 bool Packet::hasBooleans() {
-	return (getBooleansCount() > 0);
+	return getBooleansCount() > 0;
 }
 
-void Packet::setBooleans(std::vector<bool> bools) {
-	this->bools = bools;
+void Packet::setBooleans(bool * boolArr, uint8_t size) {
+	this->boolArr = boolArr;
+	this->boolSize = size;
 }
 
-std::vector<String> Packet::getStrings() {
-	return this->strs;
+String * Packet::getStrings() {
+	return this->strArr;
 }
 
-int Packet::getStringsCount() {
-	return this->strs.size();
+uint8_t Packet::getStringsCount() {
+	return this->strSize;
 }
 
 bool Packet::hasStrings() {
-	return (getStringsCount() > 0);
+	return getStringsCount() > 0;
 }
 
-void Packet::setStrings(std::vector<String> strs) {
-	this->strs = strs;
+void Packet::setStrings(String * strArr, uint8_t size) {
+	this->strArr = strArr;
+	this->strSize = size;
 }
 
-int Packet::getArrayCount() {
+uint8_t Packet::getArrayCount() {
 	// Count amount of arrays
-	int arrCount = 0;
+	uint8_t arrCount = 0;
 	if(hasIntegers() > 0)
 		arrCount++;
 	if(hasBooleans() > 0)
