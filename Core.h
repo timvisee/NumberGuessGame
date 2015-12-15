@@ -11,8 +11,7 @@
 
 #include <Arduino.h>
 #include <AltSoftSerial.h>
-// DEBUG: Still used?
-#include <SoftwareSerial.h>
+#include <MemoryFree.h>
 #include "Globals.h"
 #include "PacketHandler.h"
 #include "Random.h"
