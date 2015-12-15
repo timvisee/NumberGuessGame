@@ -9,6 +9,10 @@
 #include "StringUtils.h"
 
 std::vector<String> StringUtils::split(String str, char splitChar) {
+    return StringUtils::split(str, splitChar, -1);
+}
+
+std::vector<String> StringUtils::split(String str, char splitChar, int max) {
     // Create a vector of string to add all parts into
 	std::vector<String> strs;
 
@@ -39,6 +43,12 @@ std::vector<String> StringUtils::split(String str, char splitChar) {
 
         while(true) {
             idx = str.indexOf(splitChar, (unsigned int) beginIdx);
+
+            // If the last part must be added now, set the index to infinity
+            if(max != -1 && strs.size() >= max - 1) {
+                idx = -1;
+                break;
+            }
 
             if(idx < 0)
                 break;

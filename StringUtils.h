@@ -20,17 +20,26 @@
  */
 class StringUtils {
 public:
-    // TODO: Remove the 'smart' parameter, because it isn't used?
-	/**
-	 * Split a string by the specified split character.
-	 *
-	 * @param str String to split.
-	 * @param splitChar The character to split the string at.
-	 * @param smart
-	 *
-	 * @return A vector of string parts.
-	 */
+    /**
+     * Split a string by the specified split character.
+     *
+     * @param str String to split.
+     * @param splitChar The character to split the string at.
+     *
+     * @return A vector of string parts.
+     */
     static std::vector<String> split(String str, char splitChar);
+
+    /**
+     * Split a string by the specified split character.
+     *
+     * @param str String to split.
+     * @param splitChar The character to split the string at.
+     * @param max The maximum number of parts.
+     *
+     * @return A vector of string parts.
+     */
+    static std::vector<String> split(String str, char splitChar, int max);
 
 	/**
 	 * Get the number of specific characters in a string.
