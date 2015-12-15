@@ -72,20 +72,20 @@ public:
 	/**
 	 * Serialize a packet as a string.
 	 *
-	 * @param p Packet to serialize.
+	 * @param packet Packet to serialize.
 	 *
 	 * @return Serialized packet.
 	 */
-    static String serialize(Packet p);
+    static String serialize(Packet packet);
 
     /**
      * Deserialize a packet from a string.
      *
-     * @param s Packet as a string.
+     * @param str Packet as a string.
      *
      * @return The deserialized packet.
      */
-    static Packet deserialize(String s);
+    static Packet deserialize(String str);
 };
 
 #endif

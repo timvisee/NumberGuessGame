@@ -8,7 +8,7 @@
 
 #include "Protocol.h"
 
-String Protocol::serialize(Packet p) {
+String Protocol::serialize(Packet packet) {
 	// Create the serialization buffer
 	String s = "";
     
@@ -16,19 +16,19 @@ String Protocol::serialize(Packet p) {
 	s += CHAR_PACKET_BEGIN;
 
 	// Print the target device ID
-	s += p.getTargetDeviceId();
+	s += packet.getTargetDeviceId();
 
 	// Print the packet separation char
 	s += CHAR_PACKET_SEPARATOR;
 
 	// Print the packet type
-	s += p.getPacketType();
+	s += packet.getPacketType();
 
 	// Print the packet separation char
 	s += CHAR_PACKET_SEPARATOR;
 
 	// Print the integer array, if it contains any items
-	int intSize = p.getIntegersCount();
+	int intSize = packet.getIntegersCount();
 	if(intSize > 0) {
 		// Print the integer type identifier
 		s += DATA_ARR_TYPE_INT;
@@ -39,7 +39,7 @@ String Protocol::serialize(Packet p) {
 		s += CHAR_PACKET_DATA_ARRAY_SEPARATOR;
 
 		// Get the integers
-		int *intArr = p.getIntegers();
+		int *intArr = packet.getIntegers();
 
 		// Print each number from the array
 		for(int i = 0; i < intSize; i++) {
@@ -53,7 +53,7 @@ String Protocol::serialize(Packet p) {
 	}
 
 	// Print the boolean array, if it contains any items
-	int boolSize = p.getBooleansCount();
+	int boolSize = packet.getBooleansCount();
 	if(boolSize > 0) {
 		// Print an array separator if any other array was being print before
 		if(intSize > 0)
@@ -68,7 +68,7 @@ String Protocol::serialize(Packet p) {
 		s += CHAR_PACKET_DATA_ARRAY_SEPARATOR;
 
 		// Get the booleans
-		bool *boolArr = p.getBooleans();
+		bool *boolArr = packet.getBooleans();
 
 		// Print each boolean from the array
 		for(int i = 0; i < boolSize; i++) {
@@ -82,7 +82,7 @@ String Protocol::serialize(Packet p) {
 	}
 
 	// Print the string array, if it contains any items
-	int strSize = p.getStringsCount();
+	int strSize = packet.getStringsCount();
 	if(strSize > 0) {
 		// Print an array separator if any other array was being print before
 		if(intSize > 0 || boolSize > 0)
@@ -97,7 +97,7 @@ String Protocol::serialize(Packet p) {
 		s += CHAR_PACKET_DATA_ARRAY_SEPARATOR;
 
 		// Get the strings
-		String *strArr = p.getStrings();
+		String *strArr = packet.getStrings();
 
 		// Print each string from the array
 		for(int i = 0; i < strSize; i++) {
@@ -117,15 +117,15 @@ String Protocol::serialize(Packet p) {
 	return s;
 }
 
-Packet Protocol::deserialize(String s) {
+Packet Protocol::deserialize(String str) {
 	// Trim the serialized string
-	s.trim();
+	str.trim();
 
 	// Split the serialized packet
-    uint8_t partsSize = (uint8_t) StringUtils::getCharacterCount(s, CHAR_PACKET_SEPARATOR);
+    uint8_t partsSize = (uint8_t) StringUtils::getCharacterCount(str, CHAR_PACKET_SEPARATOR);
     if(partsSize > 3)
         partsSize = 3;
-	String *parts = StringUtils::split(s, CHAR_PACKET_SEPARATOR, 3);
+	String *parts = StringUtils::split(str, CHAR_PACKET_SEPARATOR, 3);
 
     // DEBUG: Properly implement error checking!
 	// Make sure either two or three parts are available 
