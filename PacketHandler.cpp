@@ -27,7 +27,7 @@ void PacketHandler::sendPacket(String packet) {
 	// FIXME: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_BLINK);
 
 	// Convert the serialized packet into a char array
-	char * charArr = new char[packet.length() + 1];
+	char *charArr = new char[packet.length() + 1];
 	charArr[packet.length()] = 0;
 	memcpy(charArr, packet.c_str(), packet.length());
 
@@ -36,6 +36,9 @@ void PacketHandler::sendPacket(String packet) {
 	
     // Disable the activity LED
 	// FIXME: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_OFF);
+
+    // Delete the char array from memory
+    delete charArr;
 }
 
 void PacketHandler::receive(char c) {
@@ -68,9 +71,6 @@ void PacketHandler::receive(char c) {
 }
 
 void PacketHandler::receivedPacket(Packet packet) {
-    Serial.print("[MEMORY] Free RAM: ");
-    Serial.println(freeMemory());
-
     // Debug: Some code to print and debug the received packets!
     Serial.print("[PACKET] Packet received, type: ");
     Serial.println(packet.getPacketType());

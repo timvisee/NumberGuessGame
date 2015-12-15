@@ -11,17 +11,23 @@
 Packet::Packet() {
 	this->targetDeviceId = 0;
 	this->packetType = 0;
+    this->intArr = NULL;
 	this->intSize = 0;
+    this->boolArr = NULL;
 	this->boolSize = 0;
+    this->strArr = NULL;
 	this->strSize = 0;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType) {
 	this->targetDeviceId = targetDeviceId;
 	this->packetType = packetType;
-	this->intSize = 0;
-	this->boolSize = 0;
-	this->strSize = 0;
+    this->intArr = NULL;
+    this->intSize = 0;
+    this->boolArr = NULL;
+    this->boolSize = 0;
+    this->strArr = NULL;
+    this->strSize = 0;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType,
@@ -36,6 +42,13 @@ Packet::Packet(byte targetDeviceId, byte packetType,
 	this->boolArr = boolArr;
 	this->strSize = strSize;
 	this->strArr = strArr;
+}
+
+Packet::~Packet() {
+    // Free all memory used by the array pointers
+	delete[] intArr;
+    delete[] boolArr;
+    delete[] strArr;
 }
 
 byte Packet::getTargetDeviceId() {

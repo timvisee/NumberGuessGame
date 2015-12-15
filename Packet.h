@@ -60,6 +60,7 @@ public:
            uint8_t intSize, int * intArr,
            uint8_t boolSize, bool * boolArr,
            uint8_t strSize, String * strArr);
+	~Packet();
     byte getTargetDeviceId();
 	void setTargetDeviceId(byte uint8_t);
     byte getPacketType();

@@ -11,7 +11,6 @@
 
 #include <Arduino.h>
 #include <AltSoftSerial.h>
-#include <MemoryFree.h>
 #include "Globals.h"
 #include "Packet.h"
 #include "Protocol.h"

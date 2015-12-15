@@ -140,6 +140,9 @@ Packet Protocol::deserialize(String str) {
             Serial.println(parts[i]);
         }
 
+        // Delete the parts array from memory
+        delete[] parts;
+
         // Return the base packet
         return Packet();
     }
@@ -151,6 +154,9 @@ Packet Protocol::deserialize(String str) {
         Serial.print(" - ");
         Serial.println(parts[0]);
 
+        // Delete the parts array from memory
+        delete[] parts;
+
         // Return the base packet
         return Packet();
     }
@@ -161,6 +167,9 @@ Packet Protocol::deserialize(String str) {
 
         Serial.print(" - ");
         Serial.println(parts[1]);
+
+        // Delete the parts array from memory
+        delete[] parts;
 
         // Return the base packet
         return Packet();
@@ -216,6 +225,16 @@ Packet Protocol::deserialize(String str) {
             if(arrPartsSize < arrSize + 2) {
                 // Show an error message, and return the default packet
                 Serial.println("[ERROR] Malformed packet. Missing elements in data array!");
+
+                // Delete all dynamic arrays from memory
+                delete[] parts;
+                delete[] arrParts;
+                delete[] dataParts;
+                delete[] intArr;
+                delete[] boolArr;
+                delete[] strArr;
+
+                // Return the base packet
                 return Packet();
             }
 
@@ -233,8 +252,17 @@ Packet Protocol::deserialize(String str) {
 			if(arrType == DATA_ARR_TYPE_STR)
 				for(int i = 0; i < arrSize; i++)
 					strArr[strSize++] = arrParts[i + 2];
+
+            // Delete the parts array from memory
+            delete[] arrParts;
 		}
+
+        // Delete the data parts array from memory
+        delete[] dataParts;
 	}
+
+    // Delete the parts array from memory
+    delete[] parts;
 
 	// Construct and return a new packet
 	return Packet(

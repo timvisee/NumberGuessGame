@@ -225,6 +225,10 @@ void Core::update() {
 
         // Reset the timer
         testPacketTimer.start();
+
+        // Print the available memory to the console
+        Serial.print("[MEMORY] Free RAM: ");
+        Serial.println(freeMemory());
     }
 }
 
