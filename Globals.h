@@ -14,7 +14,7 @@
 /**
  * Screen LED count.
  */
-const short SCREEN_LED_COUNT = 4;
+const int SCREEN_LED_COUNT = 4;
 
 /**
  * Screen LED pins.
@@ -29,7 +29,7 @@ const bool SCREEN_LED_ANALOG = true;
 /**
  * Green LED pin.
  */
-const uint8_t GREEN_LED_PIN = 12;
+const int GREEN_LED_PIN = 12;
 
 /**
  * Define whether the green LED is analog or digital.
@@ -39,7 +39,7 @@ const bool GREEN_LED_ANALOG = false;
 /**
  * Red LED pin.
  */
-const uint8_t RED_LED_PIN = 13;
+const int RED_LED_PIN = 13;
 
 /**
  * Define whether the green LED is analog or digital.
@@ -49,7 +49,7 @@ const bool RED_LED_ANALOG = false;
 /**
  * Button pin.
  */
-const uint8_t BUTTON_PIN = 2;
+const int BUTTON_PIN = 2;
 
 /**
  * The delay in milliseconds for the game to start.
@@ -64,12 +64,12 @@ const int PULSE_DURATION = 1000;
 /**
  * Pulse brightness lowest.
  */
-const uint8_t PULSE_BRIGHTNESS_LOW = 8;
+const int PULSE_BRIGHTNESS_LOW = 8;
 
 /**
  * Pulse brightness highest.
  */
-const uint8_t PULSE_BRIGHTNESS_HIGH = 80;
+const int PULSE_BRIGHTNESS_HIGH = 80;
 
 /**
  * The time in milliseconds to show the answer.
@@ -84,12 +84,12 @@ const int INPUT_TIMEOUT = 2000;
 /**
  * The feedback low brightness value.
  */
-const uint8_t FEEDBACK_BRIGHTNESS_LOW = 0;
+const int FEEDBACK_BRIGHTNESS_LOW = 0;
 
 /**
  * The feedback high brightness value.
  */
-const uint8_t FEEDBACK_BRIGHTNESS_HIGH = 80;
+const int FEEDBACK_BRIGHTNESS_HIGH = 80;
 
 /**
  * The feedback visible duration in milliseconds.
