@@ -61,7 +61,7 @@ void PacketHandler::receive(char c) {
 }
 
 void PacketHandler::receivedPacket(Packet packet) {
-    Serial.print("[MEMORY] Free RAM:" );
+    Serial.print("[MEMORY] Free RAM: ");
     Serial.println(freeMemory());
 
     // Debug: Some code to print and debug the received packets!
