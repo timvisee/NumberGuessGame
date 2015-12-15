@@ -27,8 +27,10 @@ void Core::setup() {
     // Initial startup delay
     delay(200);
 
-    // Enable all serial connections
-    Serial.begin(SERIAL_USB_BAUD);
+    // Initialize the logger
+    Log::init();
+
+    // Enable the serial connection for multiplayer
     con.begin(SERIAL_MULTIPLAYER_BAUD);
 
     // Set the proper stream in the packet handler

@@ -97,11 +97,11 @@ void PacketHandler::receivedPacket(Packet packet) {
     // Handle the packet
     switch(packet.getPacketType()) {
 	case Protocol::PACKET_TYPE_CONNECTION_REQUEST:
-        Serial.println("Got a connection request!");
+        Log::info("Received connection request.");
 		break;
 
 	default:
-        Serial.println("[WARNING] Received unknown packet!");
+        Log::warning("Received unknown packet!");
 		break;
 	}
 

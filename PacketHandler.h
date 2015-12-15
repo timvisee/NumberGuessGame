@@ -12,6 +12,7 @@
 #include <Arduino.h>
 #include <AltSoftSerial.h>
 #include "Globals.h"
+#include "Log.h"
 #include "Packet.h"
 #include "Protocol.h"
 
