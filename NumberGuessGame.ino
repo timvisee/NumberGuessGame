@@ -9,9 +9,6 @@
  * - AltSoftSerial:
  *   Requires manual installation on the system, see:
  *   https://github.com/PaulStoffregen/AltSoftSerial
- * - StandardCplusplus:
- *   Requires manual installation on the system, see:
- *   https://github.com/maniacbug/StandardCplusplus
  * - MemoryFree:
  *   Requires manual installation on the system, see:
  *   https://github.com/maniacbug/MemoryFree

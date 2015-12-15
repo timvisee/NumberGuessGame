@@ -3,12 +3,10 @@
 
 #include <Arduino.h>
 #include <AltSoftSerial.h>
-#include <StandardCplusplus.h>
-#include <vector>
+#include <MemoryFree.h>
 #include "Globals.h"
 #include "Packet.h"
 #include "Protocol.h"
-
 
 class PacketHandler {
 private:

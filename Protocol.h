@@ -1,13 +1,10 @@
 #ifndef SWAIProtocol_h
 #define SWAIProtocol_h
 
-#include "Arduino.h"
+#include <Arduino.h>
+#include <SoftwareSerial.h>
 #include "Packet.h"
 #include "StringUtils.h"
-#include "Stream.h"
-#include "StandardCplusplus.h"
-#include <SoftwareSerial.h>
-#include <vector>
 
 class Protocol {
 public:

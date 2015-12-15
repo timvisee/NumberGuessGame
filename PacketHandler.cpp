@@ -1,4 +1,3 @@
-#include <MemoryFree/MemoryFree.h>
 #include "PacketHandler.h"
 
 // Initialize class members
@@ -71,7 +70,8 @@ void PacketHandler::receivedPacket(Packet packet) {
     Serial.println("Strings:");
     for(int i = 0; i < packet.getStringsCount(); i++) {
         Serial.print(" - ");
-        Serial.println(packet.getStrings().at(i));
+        // FIXME: Return the proper value:
+        // Serial.println(packet.getStrings().at(i));
     }
 
     // TODO: Actually handle all received packets here!

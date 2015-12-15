@@ -6,7 +6,6 @@
  * @website http://timvisee.com/
  */
 
-#include <Arduino.h>
 #include "Button.h"
 
 Button::Button(uint8_t pin) {

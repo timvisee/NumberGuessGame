@@ -9,6 +9,8 @@
 #ifndef NUMBERGUESSGAME_BUTTON_H
 #define NUMBERGUESSGAME_BUTTON_H
 
+#include <Arduino.h>
+
 /**
  * Button class.
  */

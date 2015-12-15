@@ -9,10 +9,7 @@
 #ifndef NUMBERGUESSGAME_STRINGUTILS_H
 #define NUMBERGUESSGAME_STRINGUTILS_H
 
-#include "Arduino.h"
-#include "StandardCplusplus.h"
-#include <ctype.h>
-#include <vector>
+#include <Arduino.h>
 
 /**
  * StringUtils class.
@@ -28,7 +25,7 @@ public:
      *
      * @return A vector of string parts.
      */
-    static std::vector<String> split(String str, char splitChar);
+    static String *split(String str, char splitChar);
 
     /**
      * Split a string by the specified split character.
@@ -40,7 +37,7 @@ public:
      *
      * @return A vector of string parts.
      */
-    static std::vector<String> split(String str, char splitChar, int max);
+    static String *split(String str, char splitChar, int max);
 
 	/**
 	 * Get the number of specific characters in a string.

@@ -10,8 +10,6 @@
 #define NUMBERGUESSGAME_PACKET_H
 
 #include <Arduino.h>
-#include <StandardCplusplus.h>
-#include <vector>
 
 class Packet {
 private:
