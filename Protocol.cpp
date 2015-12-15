@@ -136,8 +136,9 @@ Packet Protocol::deserialize(String str) {
         Serial.println(" packets)");
 
         for(int i = 0; i < partsSize; i++) {
-            Serial.print(" - ");
-            Serial.println(parts[i]);
+            Serial.print(" - '");
+            Serial.print(parts[i]);
+            Serial.println("'");
         }
 
         // Delete the parts array from memory
@@ -151,8 +152,9 @@ Packet Protocol::deserialize(String str) {
         // Show an error message
         Serial.println("[ERROR] Malformed packet! (part 0 not numeric)");
 
-        Serial.print(" - ");
-        Serial.println(parts[0]);
+        Serial.print(" - '");
+        Serial.print(parts[0]);
+        Serial.println("'");
 
         // Delete the parts array from memory
         delete[] parts;
@@ -165,8 +167,9 @@ Packet Protocol::deserialize(String str) {
         // Show an error message
         Serial.println("[ERROR] Malformed packet! (part 1 not numeric)");
 
-        Serial.print(" - ");
-        Serial.println(parts[1]);
+        Serial.print(" - '");
+        Serial.print(parts[1]);
+        Serial.println("'");
 
         // Delete the parts array from memory
         delete[] parts;
