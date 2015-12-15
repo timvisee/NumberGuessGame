@@ -78,8 +78,7 @@ void PacketHandler::receivedPacket(Packet packet) {
     Serial.println("Strings:");
     for(int i = 0; i < packet.getStringsCount(); i++) {
         Serial.print(" - ");
-        // FIXME: Return the proper value:
-        // Serial.println(packet.getStrings().at(i));
+        Serial.println(packet.getStrings()[i]);
     }
 
     // TODO: Actually handle all received packets here!

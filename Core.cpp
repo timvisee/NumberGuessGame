@@ -214,21 +214,24 @@ void Core::update() {
         // Create a test packet
         Packet testPacket(2, 3);
 
-        // Create a vector with a string and add it to the packet
-        // FIXME: Use an array here, in the code below that has been commented out
-//        std::vector<String> strs;
-//        strs.push_back("Str!");
-//        testPacket.setStrings(strs);
+        // Create an array with a string for testing purposes
+        String *strArr = new String[1];
+        strArr[0] = "Hello, World!";
+        testPacket.setStrings(strArr, 1);
 
         // Send the actual packet
         PacketHandler::sendPacket(testPacket);
+
+        // Delete the string array from memory
+        delete[] strArr;
 
         // Reset the timer
         testPacketTimer.start();
 
         // Print the available memory to the console
-        Serial.print("[MEMORY] Free RAM: ");
-        Serial.println(freeMemory());
+        Serial.print("[MEMORY] Report: ");
+        Serial.print(freeMemory());
+        Serial.println(" bytes available");
     }
 }
 

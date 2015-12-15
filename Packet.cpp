@@ -46,9 +46,10 @@ Packet::Packet(byte targetDeviceId, byte packetType,
 
 Packet::~Packet() {
     // Free all memory used by the array pointers
-	delete[] intArr;
-    delete[] boolArr;
-    delete[] strArr;
+    // TODO: Should we enable this again? Or are these arrays already deleted after the packet definition?
+//	  delete[] intArr;
+//    delete[] boolArr;
+//    delete[] strArr;
 }
 
 byte Packet::getTargetDeviceId() {
