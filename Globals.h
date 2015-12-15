@@ -14,7 +14,7 @@
 /**
  * Screen LED count.
  */
-const int SCREEN_LED_COUNT = 4;
+const short SCREEN_LED_COUNT = 4;
 
 /**
  * Screen LED pins.
@@ -29,7 +29,7 @@ const bool SCREEN_LED_ANALOG = true;
 /**
  * Green LED pin.
  */
-const int GREEN_LED_PIN = 12;
+const uint8_t GREEN_LED_PIN = 12;
 
 /**
  * Define whether the green LED is analog or digital.
@@ -39,7 +39,7 @@ const bool GREEN_LED_ANALOG = false;
 /**
  * Red LED pin.
  */
-const int RED_LED_PIN = 13;
+const uint8_t RED_LED_PIN = 13;
 
 /**
  * Define whether the green LED is analog or digital.
@@ -49,7 +49,7 @@ const bool RED_LED_ANALOG = false;
 /**
  * Button pin.
  */
-const int BUTTON_PIN = 2;
+const uint8_t BUTTON_PIN = 2;
 
 /**
  * The delay in milliseconds for the game to start.
@@ -64,12 +64,12 @@ const int PULSE_DURATION = 1000;
 /**
  * Pulse brightness lowest.
  */
-const int PULSE_BRIGHTNESS_LOW = 8;
+const uint8_t PULSE_BRIGHTNESS_LOW = 8;
 
 /**
  * Pulse brightness highest.
  */
-const int PULSE_BRIGHTNESS_HIGH = 80;
+const uint8_t PULSE_BRIGHTNESS_HIGH = 80;
 
 /**
  * The time in milliseconds to show the answer.
@@ -84,12 +84,12 @@ const int INPUT_TIMEOUT = 2000;
 /**
  * The feedback low brightness value.
  */
-const int FEEDBACK_BRIGHTNESS_LOW = 0;
+const uint8_t FEEDBACK_BRIGHTNESS_LOW = 0;
 
 /**
  * The feedback high brightness value.
  */
-const int FEEDBACK_BRIGHTNESS_HIGH = 80;
+const uint8_t FEEDBACK_BRIGHTNESS_HIGH = 80;
 
 /**
  * The feedback visible duration in milliseconds.
@@ -110,15 +110,5 @@ const int SERIAL_USB_BAUD = 9600;
  * The multiplayer serial baud rate.
  */
 const int SERIAL_MULTIPLAYER_BAUD = 19200;
-
-/**
- * The serial RX (receive) pin used for multiplayer functionality.
- */
-const int SERIAL_RX_PIN = 7;
-
-/**
- * The serial TX (transmit) pin used for multiplayer functionality.
- */
-const int SERIAL_TX_PIN = 8;
 
 #endif //NUMBERGUESSGAME_GLOBALS_H
