@@ -4,12 +4,17 @@
  *
  *
  * This project requires some external libraries to be installed, in the Arduino libraries directory.
+ * - Arduino:
+ *   The default Arduino libraries, installed with the Arduino installer.
  * - AltSoftSerial:
  *   Requires manual installation on the system, see:
  *   https://github.com/PaulStoffregen/AltSoftSerial
  * - StandardCplusplus:
  *   Requires manual installation on the system, see:
  *   https://github.com/maniacbug/StandardCplusplus
+ * - MemoryFree:
+ *   Requires manual installation on the system, see:
+ *   https://github.com/maniacbug/MemoryFree
  *
  *
  * @author Tim Visee
