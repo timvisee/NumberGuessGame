@@ -15,8 +15,8 @@ String *StringUtils::split(String str, char splitChar) {
 String *StringUtils::split(String str, char splitChar, int max) {
     // Count the number of elements the array will have
     uint8_t splitParts = (uint8_t) StringUtils::getCharacterCountEscaped(str, splitChar);
-    if(splitParts > 3)
-        splitParts = 3;
+    if(splitParts > max && max >= 0)
+        splitParts = (uint8_t) max;
 
     // Create a vector of string to add all parts into
 	String *parts = new String[splitParts];
@@ -51,7 +51,7 @@ String *StringUtils::split(String str, char splitChar, int max) {
             idx = str.indexOf(splitChar, (unsigned int) beginIdx);
 
             // If the last part must be added now, set the index to infinity
-            if(max != -1 && (partsIndex + 1) >= max - 1) {
+            if(max != -1 && (partsIndex + 1) >= max) {
                 idx = -1;
                 break;
             }
