@@ -215,9 +215,10 @@ void Core::update() {
         Packet testPacket(2, 3);
 
         // Create a vector with a string and add it to the packet
-        std::vector<String> strs;
-        strs.push_back("Str!");
-        testPacket.setStrings(strs);
+        // FIXME: Use an array here, in the code below that has been commented out
+//        std::vector<String> strs;
+//        strs.push_back("Str!");
+//        testPacket.setStrings(strs);
 
         // Send the actual packet
         PacketHandler::sendPacket(testPacket);
