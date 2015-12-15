@@ -12,7 +12,7 @@
 class Protocol {
 public:
     static String serialize(Packet p);
-	static Packet deserialize(String s);
+    static Packet deserialize(String s);
 
     static const char CHAR_PACKET_BEGIN = 0x01;
     static const char CHAR_PACKET_END = 0x02;
