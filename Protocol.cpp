@@ -265,10 +265,5 @@ Packet Protocol::deserialize(String str) {
     delete[] parts;
 
 	// Construct and return a new packet
-	return Packet(
-		targetDeviceId, packetType,
-		intSize, intArr,
-		boolSize, boolArr,
-        strSize, strArr
-		);
+	return Packet(targetDeviceId, packetType, intArr, intSize, boolArr, boolSize, strArr, strSize);
 }

@@ -79,10 +79,8 @@ public:
      * @param strArr The string array.
      * @param strSize The size of the string array.
      */
-	Packet(byte targetDeviceId, byte packetType,
-           uint8_t intSize, int * intArr,
-           uint8_t boolSize, bool * boolArr,
-           uint8_t strSize, String * strArr);
+    Packet(byte targetDeviceId, byte packetType, int *intArr, uint8_t intSize, bool *boolArr, uint8_t boolSize,
+String *strArr, uint8_t strSize);
 
     /**
      * Destructor.

@@ -30,10 +30,8 @@ Packet::Packet(byte targetDeviceId, byte packetType) {
     this->strSize = 0;
 }
 
-Packet::Packet(byte targetDeviceId, byte packetType,
-			   uint8_t intSize, int * intArr,
-			   uint8_t boolSize, bool * boolArr,
-			   uint8_t strSize, String * strArr) {
+Packet::Packet(byte targetDeviceId, byte packetType, int *intArr, uint8_t intSize, bool *boolArr, uint8_t boolSize,
+               String *strArr, uint8_t strSize) {
 	this->targetDeviceId = targetDeviceId;
 	this->packetType = packetType;
 	this->intSize = intSize;
