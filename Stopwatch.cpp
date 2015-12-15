@@ -9,15 +9,15 @@
 #include "Stopwatch.h"
 
 Stopwatch::Stopwatch() {
-    reset();
+    this->time = -1L;
 }
 
 Stopwatch::Stopwatch(bool start) {
     // Start the stopwatch, or initialize
     if(start)
-        start();
+        this->time = millis();
     else
-        reset();
+        this->time = -1L;
 }
 
 void Stopwatch::start() {
