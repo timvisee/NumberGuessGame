@@ -28,7 +28,7 @@ Led::Led(uint8_t pin, bool analogMode) {
     this->toTime = -1;
     this->brightness = 0;
 
-    // Set the button pin
+    // Set the LED pin
     this->pin = pin;
 }
 
@@ -65,7 +65,7 @@ void Led::update() {
     unsigned long timeDelta = (unsigned long) (this->toTime - this->fromTime);
 
     // Get the brightness delta
-    uint8_t brightnessDelta = this->toBrightness - this->fromBrightness;
+    int brightnessDelta = this->toBrightness - this->fromBrightness;
 
     // Calculate the delta position
     int timeDeltaPos = (int) min(max(millis() - this->fromTime, 0), timeDelta);
