@@ -82,6 +82,16 @@ public:
      * @return True if all characters are numeric (digits), false otherwise.
      */
     static bool isNumeric(String str, int len);
+
+    /**
+     * Format a long value to have a minimum of the specified number of digits.
+     *
+     * @param number The number to format.
+     * @param minDigits Minimum of digits.
+     *
+     * @return Formatted string.
+     */
+    static String formatLong(long number, uint8_t minDigits);
 };
 
 #endif // NUMBERGUESSGAME_STRINGUTILS_H

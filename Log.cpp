@@ -22,7 +22,7 @@ void Log::init() {
 
 void Log::log(String msg) {
     // Log the message to the console
-    Serial.println(msg);
+    Serial.println(StringUtils::formatLong(millis(), 7) + " " + msg);
 }
 
 void Log::log(String prefix, String msg) {

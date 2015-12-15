@@ -115,3 +115,15 @@ bool StringUtils::isNumeric(String str, int len) {
     // All characters are a digit, return trues
     return true;
 }
+
+String StringUtils::formatLong(long number, uint8_t minDigits) {
+    // Convert the number to a string
+    String str = String(number);
+
+    // Prefix the required number of zero's
+    while(str.length() < minDigits)
+        str = "0" + str;
+
+    // Return the string
+    return str;
+}
