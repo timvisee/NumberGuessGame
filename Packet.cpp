@@ -8,6 +8,11 @@
 
 #include "Packet.h"
 
+Packet::Packet() {
+	this->targetDeviceId = 0;
+	this->packetType = 0;
+}
+
 Packet::Packet(int targetDeviceId, int packetType) {
 	this->targetDeviceId = targetDeviceId;
 	this->packetType = packetType;

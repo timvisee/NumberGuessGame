@@ -15,6 +15,7 @@
 
 class Packet {
 public:
+	Packet();
 	Packet(int targetDeviceId, int packetType);
 	Packet(int targetDeviceId, int packetType,
 		   std::vector<int> ints,
