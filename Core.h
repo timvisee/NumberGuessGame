@@ -80,6 +80,7 @@ public:
     void showNumber(int number);
     void showNumber(int number, int brightness, int duration);
     long generateRandomNumber();
+    void memoryReport();
 };
 
 #endif //NUMBERGUESSGAME_CORE_H

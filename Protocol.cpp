@@ -131,15 +131,7 @@ Packet Protocol::deserialize(String str) {
 	// Make sure either two or three parts are available
 	if(partsSize < 2 || partsSize > 3) {
         // Show an error message
-        Serial.print("[ERROR] Malformed packet! (");
-        Serial.print(partsSize);
-        Serial.println(" packets)");
-
-        for(int i = 0; i < partsSize; i++) {
-            Serial.print(" - '");
-            Serial.print(parts[i]);
-            Serial.println("'");
-        }
+        Log::error("[PROTOCOL] Malformed packet! Doesn't contain correct number of packet parts.");
 
         // Delete the parts array from memory
         delete[] parts;
@@ -150,11 +142,7 @@ Packet Protocol::deserialize(String str) {
 
     if(!StringUtils::isNumeric(parts[0])) {
         // Show an error message
-        Serial.println("[ERROR] Malformed packet! (part 0 not numeric)");
-
-        Serial.print(" - '");
-        Serial.print(parts[0]);
-        Serial.println("'");
+        Log::error("[PROTOCOL] Malformed packet! Target device ID is not numeric.");
 
         // Delete the parts array from memory
         delete[] parts;
@@ -165,11 +153,7 @@ Packet Protocol::deserialize(String str) {
 
     if(!StringUtils::isNumeric(parts[1])) {
         // Show an error message
-        Serial.println("[ERROR] Malformed packet! (part 1 not numeric)");
-
-        Serial.print(" - '");
-        Serial.print(parts[1]);
-        Serial.println("'");
+        Log::error("[PROTOCOL] Malformed packet! Packet type is not numeric.");
 
         // Delete the parts array from memory
         delete[] parts;
@@ -226,6 +210,9 @@ Packet Protocol::deserialize(String str) {
 
             // Make sure the array doesn't go out of bound
             if(arrPartsSize < arrSize + 2) {
+                // Show an error message
+                Log::error("[PROTOCOL] Malformed packet! Invalid data array size.");
+
                 // Delete all dynamic arrays from memory
                 delete[] parts;
                 delete[] arrParts;

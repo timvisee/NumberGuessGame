@@ -29,17 +29,25 @@ void Core::setup() {
 
     // Initialize the logger
     Log::init();
+    Log::info("Init");
+    Log::debug("Dbg on");
+
+    // Show a startup message
+    Log::info("Strt...");
 
     // Enable the serial connection for multiplayer
+    Log::debug("Strt mp con...");
     con.begin(SERIAL_MULTIPLAYER_BAUD);
 
     // Set the proper stream in the packet handler
     PacketHandler::setConnectionStream(con);
 
     // Randomize the random seed
+    Log::debug("Rndmzng...");
     Random::randomize();
 
     // Set up the answer LED pins
+    Log::debug("Stp LEDs...");
     for(int i = 0; i < SCREEN_LED_COUNT; i++)
         screenLeds[i].setupPin();
 
@@ -49,16 +57,23 @@ void Core::setup() {
     statusLed.setupPin();
 
     // Set up the button pin
+    Log::debug("Stp btn...");
     button.setupPin();
 
     // Show a startup animation
+    Log::debug("Anim...");
     showStartupAnimation();
 
     // Wait a little before starting
+    Log::debug("Waiting...");
     smartDelay(START_DELAY);
 
     // Connect to the other Arduino
+    Log::debug("Con...");
     connect();
+
+    // Show a success message
+    Log::info("Strt");
 }
 
 void Core::loop() {
@@ -180,7 +195,7 @@ void Core::connect() {
     }
 }
 
-Timer testPacketTimer(3000, false);
+Timer memoryReportTimer(5000, true);
 
 /**
  * Update method, should be called often to update things like the animation controllers of the LEDs.
@@ -212,45 +227,12 @@ void Core::update() {
     }
 
     // DEBUG: Send a test packet
-    if(testPacketTimer.isFinished()) {
-        // Create a test packet
-        Packet packet(2, 3);
-
-        // Create an array with a string for testing purposes
-        int *intArr = new int[3];
-        intArr[0] = 3;
-        intArr[1] = -9;
-        intArr[2] = 29;
-        packet.setIntegers(intArr, 3);
-
-        // Create an array with a string for testing purposes
-        bool *boolArr = new bool[3];
-        boolArr[0] = true;
-        boolArr[1] = false;
-        boolArr[1] = false;
-        packet.setBooleans(boolArr, 3);
-
-        // Create an array with a string for testing purposes
-        String *strArr = new String[4];
-        strArr[0] = "A";
-        strArr[1] = "B";
-        strArr[2] = "";
-        strArr[3] = "CDEFG";
-        packet.setStrings(strArr, 4);
-
-        // Send the actual packet
-        PacketHandler::sendPacket(packet);
-
-        // Destroy the packet and it's data arrays
-        packet.destroy();
-
+    if(memoryReportTimer.isFinished()) {
         // Reset the timer
-        testPacketTimer.start();
+        memoryReportTimer.start();
 
-        // Print the available memory to the console
-        Serial.print("[MEMORY] Report: ");
-        Serial.print(freeMemory());
-        Serial.println(" bytes available");
+        // Report memory
+        memoryReport();
     }
 }
 
@@ -351,4 +333,8 @@ void Core::showNumber(int number, int brightness, int duration) {
  */
 long Core::generateRandomNumber() {
     return Random::nextInt((int) (pow(2, SCREEN_LED_COUNT) - 1)) + 1;
+}
+
+void Core::memoryReport() {
+    Log::info("M> " + String(freeMemory()) + " B");
 }

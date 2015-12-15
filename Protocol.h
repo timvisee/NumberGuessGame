@@ -11,6 +11,7 @@
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
+#include "Log.h"
 #include "Packet.h"
 #include "StringUtils.h"
 

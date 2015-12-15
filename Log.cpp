@@ -6,20 +6,18 @@
  * @website http://timvisee.com/
  */
 
+#include <MemoryFree.h>
 #include "Log.h"
 
-const String Log::INFO_PREFIX = "[INFO] ";
-const String Log::WARNING_PREFIX = "[WARNING] ";
-const String Log::ERROR_PREFIX = "[ERROR] ";
-const String Log::DEBUG_PREFIX = "[DEBUG] ";
+const String Log::INFO_PREFIX = "I> ";
+const String Log::WARNING_PREFIX = "W> ";
+const String Log::ERROR_PREFIX = "E> ";
+const String Log::DEBUG_PREFIX = "D> ";
 bool Log::debugMode = false;
 
 void Log::init() {
     // Begin the serial connection, with the proper baud rate
     Serial.begin(SERIAL_USB_BAUD);
-
-    // Show a status message
-    Log::info("Logger initialized!");
 
     // Enable/disable the debug mode
     Log::setDebug(DEBUG);
@@ -27,7 +25,8 @@ void Log::init() {
 
 void Log::log(String msg) {
     // Log the message to the console
-    Serial.println(StringUtils::formatLong(millis(), 7) + " " + msg);
+    Serial.println(msg);
+    Serial.flush();
 }
 
 void Log::log(String prefix, String msg) {
@@ -57,14 +56,5 @@ bool Log::isDebug() {
 }
 
 void Log::setDebug(bool debug) {
-    // Show a status message
-    if(!debug)
-        Log::debug("Debug mode has been disabled!");
-
-    // Set the debug mode flag
     Log::debugMode = debug;
-
-    // Show a status message
-    if(debug)
-        Log::debug("Debug mode has been enabled!");
 }

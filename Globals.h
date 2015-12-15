@@ -110,7 +110,7 @@ const int USER_INPUT_VISIBLE_DURATION = 1000;
 /**
  * The USB serial baud rate.
  */
-const int SERIAL_USB_BAUD = 9600;
+const int SERIAL_USB_BAUD = 19200;
 
 /**
  * The multiplayer serial baud rate.
