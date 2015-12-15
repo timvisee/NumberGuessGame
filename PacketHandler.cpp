@@ -1,3 +1,4 @@
+#include <MemoryFree/MemoryFree.h>
 #include "PacketHandler.h"
 
 // Initialize class members
@@ -60,17 +61,18 @@ void PacketHandler::receive(char c) {
 }
 
 void PacketHandler::receivedPacket(Packet packet) {
-    // Debug: Some code to print and debug the received packets!
-    Serial.print("Target device ID: ");
-    Serial.println(packet.getTargetDeviceId());
+    Serial.print("[MEMORY] Free RAM:" );
+    Serial.println(freeMemory());
 
-    Serial.print("Type: ");
+    // Debug: Some code to print and debug the received packets!
+    Serial.print("[PACKET] Packet received, type: ");
     Serial.println(packet.getPacketType());
 
-    if(packet.getPacketType() == 3)
-        Serial.println(packet.getStrings().at(0));
-
-
+    Serial.println("Strings:");
+    for(int i = 0; i < packet.getStringsCount(); i++) {
+        Serial.print(" - ");
+        Serial.println(packet.getStrings().at(i));
+    }
 
     // TODO: Actually handle all received packets here!
     /*switch(packet.getPacketType()) {

@@ -114,7 +114,7 @@ Packet Protocol::deserialize(String s) {
 	s.trim();
 
 	// Split the serialized packet
-	std::vector<String> parts = StringUtils::split(s, CHAR_PACKET_SEPARATOR);
+	std::vector<String> parts = StringUtils::split(s, CHAR_PACKET_SEPARATOR, 3);
 
     // DEBUG: Properly implement error checking!
 	// Make sure either two or three parts are available 
@@ -130,7 +130,7 @@ Packet Protocol::deserialize(String s) {
         }
 
         // Return the base packet
-        return Packet(0, 0);
+        return Packet();
     }
 
     if(!StringUtils::isNumeric(parts.at(0))) {
@@ -141,7 +141,7 @@ Packet Protocol::deserialize(String s) {
         Serial.println(parts.at(0));
 
         // Return the base packet
-        return Packet(0, 0);
+        return Packet();
     }
 
     if(!StringUtils::isNumeric(parts.at(1))) {
@@ -152,22 +152,14 @@ Packet Protocol::deserialize(String s) {
         Serial.println(parts.at(1));
 
         // Return the base packet
-        return Packet(0, 0);
+        return Packet();
     }
 
 	// Get the packet target device ID
 	int targetDeviceId = parts[0].toInt();
 
-    // DEBUG:
-    Serial.print("0: ");
-    Serial.println(parts.at(0));
-
 	// Get the packet ID
 	int packetType = parts[1].toInt();
-
-    // DEBUG:
-    Serial.print("1: ");
-    Serial.println(parts.at(1));
 
 	// Define the three 
 	std::vector<int> ints;
@@ -196,23 +188,34 @@ Packet Protocol::deserialize(String s) {
 			std::vector<String> arrParts = StringUtils::split(arrStr, CHAR_PACKET_DATA_ARRAY_SEPARATOR);
 
 			// Get the array type
-			String arrTypeStr = arrParts[0];
-			int arrType = (int) arrTypeStr.toInt();
+			String arrTypeStr = arrParts.at(0);
+            byte arrType = (byte) arrTypeStr.toInt();
+
+            // Get the size of the array
+            String arrSizeStr = arrParts.at(1);
+            int arrSize = (int) arrSizeStr.toInt();
+
+            // Make sure the array doesn't go out of bound
+            if(arrParts.size() < arrSize + 2) {
+                // Show an error message, and return the default packet
+                Serial.println("[ERROR] Malformed packet. Missing elements in data array!");
+                return Packet();
+            }
 
 			// Parse the integer arrays
 			if(arrType == DATA_ARR_TYPE_INT)
-				for(int i = 1; i < arrParts.size(); i++)
-					ints.push_back(arrParts[i].toInt());
+				for(int i = 0; i < arrSize; i++)
+					ints.push_back(arrParts[i + 2].toInt());
 
 			// Parse the boolean arrays
 			if(arrType == DATA_ARR_TYPE_BOOL)
-				for(int i = 1; i < arrParts.size(); i++)
-					bools.push_back(arrParts[i] == "1");
+				for(int i = 0; i < arrSize; i++)
+					bools.push_back(arrParts[i + 2] == "1");
 
 			// Parse the string arrays
 			if(arrType == DATA_ARR_TYPE_STR)
-				for(int i = 1; i < arrParts.size(); i++)
-					strs.push_back(arrParts[i]);
+				for(int i = 0; i < arrSize; i++)
+					strs.push_back(arrParts[i + 2]);
 		}
 	}
 

@@ -32,6 +32,7 @@ public:
 
     /**
      * Split a string by the specified split character.
+     * If the maximum number of parts is reached, the remaining string parts will be put into the last part of the vector.
      *
      * @param str String to split.
      * @param splitChar The character to split the string at.
