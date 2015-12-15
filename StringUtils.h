@@ -39,15 +39,27 @@ public:
      */
     static String *split(String str, char splitChar, int max);
 
-	/**
-	 * Get the number of specific characters in a string.
-	 *
-	 * @param str The string to count the characters in.
-	 * @param c Type of character to count.
-	 *
-	 * @return The number of characters, in the string.
-	 */
-	static int getCharacterCount(String str, char c);
+    /**
+     * Get the number of specific characters in a string.
+     *
+     * @param str The string to count the characters in.
+     * @param c Type of character to count.
+     * @param escapeChar True to escape characters prefixed with a backslash, false if not.
+     *
+     * @return The number of characters, in the string.
+     */
+    static int getCharacterCount(String str, char c, bool escapeChar);
+
+    /**
+     * Get the number of specific characters in a string.
+     *
+     * @param str The string to count the characters in.
+     * @param c Type of character to count.
+     * @param escapeChar The character used to escape chars prefixed with this character.
+     *
+     * @return The number of characters, in the string.
+     */
+    static int getCharacterCount(String str, char c, char escapeChar);
 
     /**
      * Check whether a string only contains numeric characters (digits).
