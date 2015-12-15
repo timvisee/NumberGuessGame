@@ -11,7 +11,7 @@
 
 #include <Arduino.h>
 #include "Globals.h"
-#include "StringUtils.h"
+#include "StringUtils.h"\
 
 /**
  * Log class.
@@ -33,6 +33,16 @@ private:
      * Prefix for error messages.
      */
     static const String ERROR_PREFIX;
+
+    /**
+     * Prefix for debug messages.
+     */
+    static const String DEBUG_PREFIX;
+
+    /**
+     * True to show debug messages, false to ignore them.
+     */
+    static bool debugMode;
 
 public:
     /**
@@ -75,6 +85,27 @@ public:
      * @param msg Message to log.
      */
     static void error(String msg);
+
+    /**
+     * Log an debug message to the console.
+     *
+     * @param msg Message to log.
+     */
+    static void debug(String msg);
+
+    /**
+     * Check whether debug mode is enabled.
+     *
+     * @return True if debug mode is enabled, false otherwise.
+     */
+    static bool isDebug();
+
+    /**
+     * Set whether the debug mode is enabled.
+     *
+     * @param debug True to enable the debug mode, false otherwise.
+     */
+    static void setDebug(bool debug);
 };
 
 #endif //NUMBERGUESSGAME_LOG_H

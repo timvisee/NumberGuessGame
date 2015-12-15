@@ -11,6 +11,8 @@
 const String Log::INFO_PREFIX = "[INFO] ";
 const String Log::WARNING_PREFIX = "[WARNING] ";
 const String Log::ERROR_PREFIX = "[ERROR] ";
+const String Log::DEBUG_PREFIX = "[DEBUG] ";
+bool Log::debugMode = false;
 
 void Log::init() {
     // Begin the serial connection, with the proper baud rate
@@ -18,6 +20,9 @@ void Log::init() {
 
     // Show a status message
     Log::info("Logger initialized!");
+
+    // Enable/disable the debug mode
+    Log::setDebug(DEBUG);
 }
 
 void Log::log(String msg) {
@@ -39,4 +44,27 @@ void Log::warning(String msg) {
 
 void Log::error(String msg) {
     Log::log(ERROR_PREFIX, msg);
+}
+
+void Log::debug(String msg) {
+    // Only show debug messages, if enabled
+    if(Log::debugMode)
+        Log::log(DEBUG_PREFIX, msg);
+}
+
+bool Log::isDebug() {
+    return Log::debugMode;
+}
+
+void Log::setDebug(bool debug) {
+    // Show a status message
+    if(!debug)
+        Log::debug("Debug mode has been disabled!");
+
+    // Set the debug mode flag
+    Log::debugMode = debug;
+
+    // Show a status message
+    if(debug)
+        Log::debug("Debug mode has been enabled!");
 }

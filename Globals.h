@@ -12,6 +12,12 @@
 #include <Arduino.h>
 
 /**
+ * Debug mode.
+ * True to enable, false to disable.
+ */
+const bool DEBUG = true;
+
+/**
  * Screen LED count.
  */
 const uint8_t SCREEN_LED_COUNT = 4;
