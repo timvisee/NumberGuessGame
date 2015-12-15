@@ -122,7 +122,7 @@ Packet Protocol::deserialize(String str) {
 	str.trim();
 
 	// Split the serialized packet
-    uint8_t partsSize = (uint8_t) StringUtils::getCharacterCount(str, CHAR_PACKET_SEPARATOR, true);
+    uint8_t partsSize = (uint8_t) StringUtils::getCharacterCountEscaped(str, CHAR_PACKET_SEPARATOR);
     if(partsSize > 3)
         partsSize = 3;
 	String *parts = StringUtils::split(str, CHAR_PACKET_SEPARATOR, 3);
@@ -187,7 +187,7 @@ Packet Protocol::deserialize(String str) {
 
 		// Split the data arrays into string parts
 		String *dataParts = StringUtils::split(dataStr, CHAR_PACKET_DATA_SEPARATOR);
-		uint8_t dataPartsSize = (uint8_t) StringUtils::getCharacterCount(dataStr, CHAR_PACKET_DATA_SEPARATOR, true);
+		uint8_t dataPartsSize = (uint8_t) StringUtils::getCharacterCountEscaped(dataStr, CHAR_PACKET_DATA_SEPARATOR);
 
 		// Parse each array
 		for(int dataIndex = 0; dataIndex < dataPartsSize; dataIndex++) {
@@ -201,7 +201,8 @@ Packet Protocol::deserialize(String str) {
 
 			// Split the array string
 			String *arrParts = StringUtils::split(arrStr, CHAR_PACKET_DATA_ARRAY_SEPARATOR);
-            uint8_t arrPartsSize = (uint8_t) StringUtils::getCharacterCount(arrStr, CHAR_PACKET_DATA_ARRAY_SEPARATOR, true);
+            uint8_t arrPartsSize = (uint8_t) StringUtils::getCharacterCountEscaped(arrStr,
+                                                                                   CHAR_PACKET_DATA_ARRAY_SEPARATOR);
 
 			// Get the array type
 			String arrTypeStr = arrParts[0];

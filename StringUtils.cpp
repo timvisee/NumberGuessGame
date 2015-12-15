@@ -14,7 +14,7 @@ String *StringUtils::split(String str, char splitChar) {
 
 String *StringUtils::split(String str, char splitChar, int max) {
     // Count the number of elements the array will have
-    uint8_t splitParts = (uint8_t) StringUtils::getCharacterCount(str, splitChar, true);
+    uint8_t splitParts = (uint8_t) StringUtils::getCharacterCountEscaped(str, splitChar);
     if(splitParts > 3)
         splitParts = 3;
 
@@ -73,14 +73,12 @@ String *StringUtils::split(String str, char splitChar, int max) {
 	return parts;
 }
 
-int StringUtils::getCharacterCount(String str, char c, bool escapeChar) {
+int StringUtils::getCharacterCountEscaped(String str, char c) {
     // TODO: Make a constant of this escape char!
-    if(escapeChar)
-        return StringUtils::getCharacterCount(str, c, '\\');
-    return StringUtils::getCharacterCount(str, c, (char) 0x00);
+    return StringUtils::getCharacterCountEscaped(str, c, '\\');
 }
 
-int StringUtils::getCharacterCount(String str, char c, char escapeChar) {
+int StringUtils::getCharacterCountEscaped(String str, char c, char escapeChar) {
     // Create a variable to store the character count in
 	int charCount = 0;
 
@@ -89,7 +87,7 @@ int StringUtils::getCharacterCount(String str, char c, char escapeChar) {
     // Compare each character in the string to the countable character, add the character if it is equal
     for(int i = 0; i < str.length(); i++)
         if(str.charAt((unsigned int) i) == c)
-            if(i > 0 && str.charAt((unsigned int) i - 1) != c)
+            if(i > 0 && str.charAt((unsigned int) i - 1) != escapeChar)
                 charCount++;
 
     // Return the number of characters

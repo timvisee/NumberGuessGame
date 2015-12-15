@@ -48,7 +48,7 @@ public:
      *
      * @return The number of characters, in the string.
      */
-    static int getCharacterCount(String str, char c, bool escapeChar);
+    static int getCharacterCountEscaped(String str, char c);
 
     /**
      * Get the number of specific characters in a string.
@@ -59,7 +59,7 @@ public:
      *
      * @return The number of characters, in the string.
      */
-    static int getCharacterCount(String str, char c, char escapeChar);
+    static int getCharacterCountEscaped(String str, char c, char escapeChar);
 
     /**
      * Check whether a string only contains numeric characters (digits).
