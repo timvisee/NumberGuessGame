@@ -67,9 +67,8 @@ void PacketHandler::receive(char data) {
         else if(data == Protocol::CHAR_PACKET_BEGIN)
             PacketHandler::buff = "";
 
-        else {
+        else
             PacketHandler::buff.concat(data);
-        }
     }
 }
 

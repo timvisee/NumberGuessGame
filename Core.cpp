@@ -68,12 +68,12 @@ void Core::setup() {
     Log::debug("Waiting...");
     smartDelay(START_DELAY);
 
-    // Connect to the other Arduino
-    Log::debug("Con...");
-    connect();
-
     // Show a success message
     Log::info("Strt");
+
+    // Connect to the other Arduino
+    Log::info("Con...");
+    connect();
 }
 
 void Core::loop() {
