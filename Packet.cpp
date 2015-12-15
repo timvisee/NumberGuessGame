@@ -8,18 +8,20 @@
 
 #include "Packet.h"
 
-uint8_t Packet::intSize = 0;
-uint8_t Packet::boolSize = 0;
-uint8_t Packet::strSize = 0;
-
 Packet::Packet() {
 	this->targetDeviceId = 0;
 	this->packetType = 0;
+	this->intSize = 0;
+	this->boolSize = 0;
+	this->strSize = 0;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType) {
 	this->targetDeviceId = targetDeviceId;
 	this->packetType = packetType;
+	this->intSize = 0;
+	this->boolSize = 0;
+	this->strSize = 0;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType,
