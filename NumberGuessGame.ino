@@ -4,8 +4,9 @@
  *
  *
  * This project requires some external libraries to be installed, in the Arduino libraries directory.
- * - SoftwareSerial:
- *   Installed with the default Arduino package, since 1.0.
+ * - AltSoftSerial:
+ *   Requires manual installation on the system, see:
+ *   https://github.com/PaulStoffregen/AltSoftSerial
  * - StandardCplusplus:
  *   Requires manual installation on the system, see:
  *   https://github.com/maniacbug/StandardCplusplus
