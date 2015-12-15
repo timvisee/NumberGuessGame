@@ -16,17 +16,61 @@
 #include "Packet.h"
 #include "Protocol.h"
 
+/**
+ * PacketHandler class.
+ */
 class PacketHandler {
 private:
+	/**
+	 * Serial connection used for communication.
+	 */
 	static AltSoftSerial con;
+
+	/**
+	 * Whether to skip parsing the next received byte.
+	 */
 	static bool skipNext;
+
+	/**
+	 * The current received buffer.
+	 */
 	static String buff;
 
 public:
+	/**
+	 * Set the current connection stream.
+	 *
+	 * @param con The connection stream.
+	 */
 	static void setConnectionStream(AltSoftSerial &con);
+
+	/**
+	 * Send a packet.
+	 *
+	 * @param Packet to send.
+	 */
 	static void sendPacket(Packet packet);
+
+	/**
+	 * Send a packet as a string.
+	 *
+	 * @param Packet to send.
+	 */
 	static void sendPacket(String packet);
+
+	/**
+	 * Called when a byte is received.
+	 *
+	 * @param c Received byte.
+	 */
+	// TODO: Change the c param to a byte?
 	static void receive(char c);
+
+	/**
+	 * Called when a full packet is received.
+	 *
+	 * @param packet The received packet.
+	 */
 	static void receivedPacket(Packet packet);
 };
 
