@@ -39,7 +39,7 @@ private:
     /**
      * The lock delay, in milliseconds.
      */
-    long lockDelay;
+    int lockDelay;
 
     /**
      * The lock until in milliseconds, represents millis().
@@ -100,14 +100,14 @@ public:
      *
      * @return Lock delay.
      */
-    long getLockDelay();
+    int getLockDelay();
 
     /**
      * Set the lock delay in milliseconds.
      *
      * @param lockDelay The lock delay.
      */
-    void setLockDelay(long lockDelay);
+    void setLockDelay(int lockDelay);
 
     /**
      * Get the locked until time in milliseconds.

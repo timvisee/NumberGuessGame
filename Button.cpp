@@ -76,11 +76,11 @@ bool Button::isReleasedOnce() {
     return state;
 }
 
-long Button::getLockDelay() {
+int Button::getLockDelay() {
     return this->lockDelay;
 }
 
-void Button::setLockDelay(long lockDelay) {
+void Button::setLockDelay(int lockDelay) {
     this->lockDelay = lockDelay;
 }
 
