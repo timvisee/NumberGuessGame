@@ -41,18 +41,18 @@ void PacketHandler::sendPacket(String packet) {
     delete charArr;
 }
 
-void PacketHandler::receive(char c) {
+void PacketHandler::receive(char data) {
     if(PacketHandler::skipNext) {
-        PacketHandler::buff.concat(c);
+        PacketHandler::buff.concat(data);
         PacketHandler::skipNext = false;
 
     } else {
 		// Check whether the next character should be skipped due to a backslash
-        if(c == '\\')
+        if(data == '\\')
             PacketHandler::skipNext = true;
 
 		// Check whether the current packet is ending
-        else if(c == Protocol::CHAR_PACKET_END) {
+        else if(data == Protocol::CHAR_PACKET_END) {
             // Deserialize the packet and call a method to handle the received packet
             PacketHandler::receivedPacket(Protocol::deserialize(PacketHandler::buff));
 
@@ -61,11 +61,11 @@ void PacketHandler::receive(char c) {
         }
 
 		// Check whether a new packet is beginning
-        else if(c == Protocol::CHAR_PACKET_BEGIN)
+        else if(data == Protocol::CHAR_PACKET_BEGIN)
             PacketHandler::buff = "";
 
         else {
-            PacketHandler::buff.concat(c);
+            PacketHandler::buff.concat(data);
         }
     }
 }

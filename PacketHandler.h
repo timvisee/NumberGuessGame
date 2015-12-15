@@ -62,8 +62,7 @@ public:
      *
      * @param c Received byte.
      */
-    // TODO: Change the c param to a byte?
-    static void receive(char c);
+    static void receive(char data);
 
     /**
      * Called when a full packet is received.
