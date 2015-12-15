@@ -45,11 +45,6 @@ public:
     static const char CHAR_PACKET_DATA_ARRAY_SEPARATOR = 0x05;
 
     /**
-     * ID to define an unknown array type.
-     */
-    static const uint8_t DATA_ARR_TYPE_UNKNOWN = 0x00; // FIXME: Keep this one?
-
-    /**
      * ID to define the integer array type.
      */
     static const uint8_t DATA_ARR_TYPE_INT = 0x01;
