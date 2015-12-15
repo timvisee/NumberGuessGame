@@ -36,11 +36,11 @@ String *StringUtils::split(String str, char splitChar, int max) {
     }
 
     String arg;
-    char charBuffer[16];
+    char charBuffer[str.length()];
 
     while(idx != -1) {
         arg = str.substring((unsigned int) beginIdx, (unsigned int) idx);
-        arg.toCharArray(charBuffer, 16);
+        arg.toCharArray(charBuffer, str.length());
 
         // add error handling for atoi:
         // TODO: Use atoi method? Like: http://stackoverflow.com/a/11916125/1000145
