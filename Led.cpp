@@ -8,8 +8,8 @@
 
 #include "Led.h"
 
-const int Led::BRIGHTNESS_LOW = 0;
-const int Led::BRIGHTNESS_HIGH = 255;
+const uint8_t Led::BRIGHTNESS_LOW = 0;
+const uint8_t Led::BRIGHTNESS_HIGH = 255;
 const uint8_t Led::STATUS_LED_PIN = 13;
 const bool Led::STATUS_LED_ANALOG = false;
 
@@ -62,19 +62,19 @@ void Led::update() {
         return;
 
     // Get the time delta
-    long timeDelta = this->toTime - this->fromTime;
+    unsigned long timeDelta = (unsigned long) (this->toTime - this->fromTime);
 
     // Get the brightness delta
-    int brightnessDelta = this->toBrightness - this->fromBrightness;
+    uint8_t brightnessDelta = this->toBrightness - this->fromBrightness;
 
     // Calculate the delta position
-    long timeDeltaPos = min(max(millis() - this->fromTime, 0), timeDelta);
+    int timeDeltaPos = (int) min(max(millis() - this->fromTime, 0), timeDelta);
 
     // Calculate the current time factor
-    double factor = (double) timeDeltaPos / (double) timeDelta;
+    float factor = (float) timeDeltaPos / (float) timeDelta;
 
     // Determine the brightness value
-    int brightness = (int) (this->fromBrightness + (brightnessDelta * factor));
+    uint8_t brightness = (uint8_t) (this->fromBrightness + (brightnessDelta * factor));
 
     // Set the brightness of the led
     this->setBrightness(brightness);
@@ -96,11 +96,11 @@ void Led::setState(bool state) {
         this->fade(state ? BRIGHTNESS_HIGH : BRIGHTNESS_LOW);
 }
 
-void Led::fade(int brightness) {
+void Led::fade(uint8_t brightness) {
     this->fade(brightness, this->getFadeDuration());
 }
 
-void Led::fade(int brightness, int duration) {
+void Led::fade(uint8_t brightness, int duration) {
     // Set the animation variables
     this->fromBrightness = this->getBrightness();
     this->toBrightness = brightness;
@@ -118,11 +118,11 @@ bool Led::isFading() {
     return (this->toTime > millis() && this->brightness != this->toBrightness);
 }
 
-int Led::getBrightness() {
+uint8_t Led::getBrightness() {
     return this->brightness;
 }
 
-void Led::setBrightness(int brightness) {
+void Led::setBrightness(uint8_t brightness) {
     // Store the brightness
     this->brightness = brightness;
 

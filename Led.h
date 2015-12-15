@@ -19,12 +19,12 @@ public:
     /**
      * Constant for the lowest brightness value of the LED.
      */
-    static const int BRIGHTNESS_LOW;
+    static const uint8_t BRIGHTNESS_LOW;
 
     /**
      * Constant for the highest brightness value of the LED.
      */
-    static const int BRIGHTNESS_HIGH;
+    static const uint8_t BRIGHTNESS_HIGH;
 
     /**
      * Status LED pin.
@@ -62,12 +62,12 @@ private:
     /**
      * Animation field: From brightness.
      */
-    int fromBrightness;
+    uint8_t fromBrightness;
 
     /**
      * Animation field: To brightness.
      */
-    int toBrightness;
+    uint8_t toBrightness;
 
     /**
      * Animation field: From time.
@@ -82,7 +82,7 @@ private:
     /**
      * The current brightness of the LED, this field is animated.
      */
-    int brightness;
+    uint8_t brightness;
 
 public:
     /**
@@ -162,7 +162,7 @@ public:
      *
      * @param brightness The brightness.
      */
-    void fade(int brightness);
+    void fade(uint8_t brightness);
 
     /**
      * Fade the LED if it's in analog mode to the specified brightness with the specified delay.
@@ -170,7 +170,7 @@ public:
      * @param brightness The brightness.
      * @param duration The fade duration.
      */
-    void fade(int brightness, int duration);
+    void fade(uint8_t brightness, int duration);
 
     /**
      * Check whether the LED is currently fading or animating.
@@ -183,13 +183,13 @@ public:
      * Get the current brightness level of the LED.
      * This value is animated.
      */
-    int getBrightness();
+    uint8_t getBrightness();
 
     /**
      * Set the current brightness level of the LED.
      * This value might be overwritten if the LED is currently being animated.
      */
-    void setBrightness(int brightness);
+    void setBrightness(uint8_t brightness);
 };
 
 #endif //NUMBERGUESSGAME_LED_H
