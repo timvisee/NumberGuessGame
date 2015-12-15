@@ -13,7 +13,7 @@ Core::Core() :
         redLed(RED_LED_PIN, RED_LED_ANALOG),
         statusLed(Led::STATUS_LED_PIN, Led::STATUS_LED_ANALOG),
         button(BUTTON_PIN),
-        con(SERIAL_RX_PIN, SERIAL_TX_PIN) {
+        con() {
 
     // Initialize the screen LED array
     this->screenLeds = new Led[SCREEN_LED_COUNT];
@@ -151,31 +151,31 @@ void Core::loop() {
  * Connect to a second Arduino, before starting a game.
  */
 void Core::connect() {
-    // Set up a timer to connect
-    Timer connectTimer(0);
-    connectTimer.start(0);
-
-    // Loop and ask for a connection request, until a connection has been made
-    while(false) {
-        // Send a new connection request if one hasn't been send for half a second
-        if(connectTimer.isFinished()) {
-            // Enable the green status LED
-            greenLed.setState(true);
-
-            // Send a connection request
-            con.print("C");
-
-            // Restart the connect timer
-            connectTimer.start(1000);
-
-            smartDelay(100);
-
-            greenLed.setState(false);
-        }
-
-        // Update everything
-        update();
-    }
+//    // Set up a timer to connect
+//    Timer connectTimer(0);
+//    connectTimer.start(0);
+//
+//    // Loop and ask for a connection request, until a connection has been made
+//    while(true) {
+//        // Send a new connection request if one hasn't been send for half a second
+//        if(connectTimer.isFinished()) {
+//            // Enable the green status LED
+//            greenLed.setState(true);
+//
+//            // Send a connection request
+//            con.print("C");
+//
+//            // Restart the connect timer
+//            connectTimer.start(1000);
+//
+//            smartDelay(100);
+//
+//            greenLed.setState(false);
+//        }
+//
+//        // Update everything
+//        update();
+//    }
 }
 
 Timer testPacketTimer(3000, true);
@@ -185,7 +185,7 @@ Timer testPacketTimer(3000, true);
  */
 void Core::update() {
     // Update the screen LEDs
-    for(int i = 0; i < SCREEN_LED_COUNT; i++)
+    for(short i = 0; i < SCREEN_LED_COUNT; i++)
         screenLeds[i].update();
 
     // Update the green and red LED
