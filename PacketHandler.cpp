@@ -107,7 +107,7 @@ void PacketHandler::receivedPacket(Packet packet) {
 //            Log::info("Con acptd");
 
             // Make sure the device isn't connected already and is in multiplayer mode
-            if(ConnectionManager::isConnected() || !ConnectionManager::isMultiplayer())
+            if(!ConnectionManager::isMultiplayer())
                 break;
 
             // Set the connected and master flag

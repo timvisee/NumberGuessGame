@@ -67,10 +67,6 @@ void Core::setup() {
 //    Log::debug("Anim...");
     showStartupAnimation();
 
-    // Wait a little before starting
-//    Log::debug("Waiting...");
-    smartDelay(START_DELAY);
-
     // Show a success message
 //    Log::info("Strt");
 
@@ -174,7 +170,7 @@ void Core::loop() {
 void Core::connect() {
     // Set up a timer to connect
     Timer connectTimer(0);
-    connectTimer.start(0);
+    connectTimer.start(1);
     connectTimerWait.start();
 
     // Loop and ask for a connection request, until a connection has been made
@@ -249,7 +245,7 @@ void Core::connect() {
     LedManager::screenLeds[2].setState(false);
 
     // Wait a second before starting the game
-    smartDelay(1000);
+    smartDelay(START_DELAY);
 }
 
 /**
