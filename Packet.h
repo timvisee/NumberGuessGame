@@ -53,8 +53,6 @@ private:
      */
     String * strArr;
 
-    bool a;
-
 public:
     /**
      * Constructor.

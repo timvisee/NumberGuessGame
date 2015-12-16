@@ -17,8 +17,6 @@ Packet::Packet() {
 	this->boolSize = 0;
     this->strArr = NULL;
 	this->strSize = 0;
-
-	this->a = false;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType) {
@@ -30,14 +28,10 @@ Packet::Packet(byte targetDeviceId, byte packetType) {
     this->boolSize = 0;
     this->strArr = NULL;
     this->strSize = 0;
-
-	this->a = false;
 }
 
 Packet::Packet(byte targetDeviceId, byte packetType, int *intArr, uint8_t intSize, bool *boolArr, uint8_t boolSize,
                String *strArr, uint8_t strSize) {
-	this->a = false;
-
 	this->setTargetDeviceId(targetDeviceId);
 	this->setPacketType(packetType);
 	this->setIntegers(intArr, intSize);
@@ -130,9 +124,6 @@ void Packet::setStrings(String * strArr, uint8_t size) {
     // Set the array and it's size
 	this->strArr = strArr;
 	this->strSize = size;
-
-	if(this->strSize > 0)
-		this->a = true;
 }
 
 uint8_t Packet::getArrayCount() {
