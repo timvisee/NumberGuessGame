@@ -6,7 +6,6 @@
  * @website http://timvisee.com/
  */
 
-#include <MemoryFree.h>
 #include "Log.h"
 
 const String Log::INFO_PREFIX = "I> ";
@@ -14,13 +13,25 @@ const String Log::WARNING_PREFIX = "W> ";
 const String Log::ERROR_PREFIX = "E> ";
 const String Log::DEBUG_PREFIX = "D> ";
 bool Log::debugMode = false;
+bool Log::logInit = false;
 
 void Log::init() {
+    // Make sure the logger hasn't been initialized already
+    if(Log::isInit())
+        return;
+
     // Begin the serial connection, with the proper baud rate
     Serial.begin(SERIAL_USB_BAUD);
 
     // Enable/disable the debug mode
     Log::setDebug(DEBUG);
+
+    // Set the initialization flag
+    Log::logInit = true;
+}
+
+bool Log::isInit() {
+    return Log::logInit;
 }
 
 void Log::log(String msg) {

@@ -44,11 +44,21 @@ private:
      */
     static bool debugMode;
 
+    /**
+     * Remember whether the Log class is initialized.
+     */
+    static bool logInit;
+
 public:
     /**
      * Initialize.
      */
     static void init();
+
+    /**
+     * Check whether the class is initialized or not. This is required before using the logger.
+     */
+    static bool isInit();
 
     /**
      * Log a message to the console.

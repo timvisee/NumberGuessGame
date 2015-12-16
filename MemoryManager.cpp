@@ -15,6 +15,9 @@ void MemoryManager::reportMemory() {
     // Get the current memory available (bytes)
     int memFree = freeMemory();
 
+    // Initialize the logger if it hasn't been initialized yet
+    Log::init();
+
     // Report the number of available memory
     Log::info("M> " + String(memFree) + " bytes free");
 }
