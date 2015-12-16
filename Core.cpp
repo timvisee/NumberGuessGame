@@ -81,7 +81,7 @@ void Core::setup() {
     connect();
 }
 
-void Core::loop() {
+void Core::gameLogic() {
     // Show the slide animation before showing the number
     showSlideAnimation();
     smartDelay(400);
@@ -176,7 +176,7 @@ void Core::loop() {
     }
 
     // Measure the input duration
-    long userInputDuration = inputStopwatch.getTime();
+//    long userInputDuration = inputStopwatch.getTime();
 
     // Stop the timer
     timer.stop();
@@ -278,7 +278,13 @@ void Core::loop() {
     // Wait a second before showing the input
     smartDelay(1000);
 
-    if(ConnectionManager::hasWonGame()) {
+    // Determine whether the user has won
+    bool hasWon = (userAnswer == gameNumber);
+    if(ConnectionManager::isMultiplayer())
+        hasWon = ConnectionManager::hasWonGame();
+
+    // Show the result
+    if(hasWon) {
         // Turn on the green LED if available
         LedManager::greenLed.setState(true);
         smartDelay(250);

@@ -62,8 +62,11 @@ public:
     /**
      * Called each loop.
      */
-    void loop();
+    void gameLogic();
 
+    /**
+     * Connect to an arduino when in multiplayer mode.
+     */
     void connect();
     void update();
     void smartDelay(int delay);
