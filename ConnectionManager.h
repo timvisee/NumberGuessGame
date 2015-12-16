@@ -52,9 +52,24 @@ private:
      */
     static long otherInputDuration;
 
+    /**
+     * True if the result has been received.
+     */
     static bool receivedResult;
+
+    /**
+     * If this device won.
+     */
     static bool gameResultWin;
+
+    /**
+     * The answer of this device.
+     */
     static uint8_t resultAnswerSelf;
+
+    /**
+     * The answer of the other device.
+     */
     static uint8_t resultAnswerOther;
 
 public:
@@ -114,42 +129,124 @@ public:
      */
     static void setConnected(bool connected);
 
+    /**
+     * Get the current game number.
+     *
+     * @return Game number.
+     */
     static uint8_t getGameNumber();
 
+    /**
+     * Has a game number been set.
+     *
+     * @return True if set, false otherwise.
+     */
     static bool hasGameNumber();
 
+    /**
+     * Set the current game number.
+     *
+     * @param gameNumber Game number.
+     */
     static void setGameNumber(uint8_t gameNumber);
 
+    /**
+     * Reset the current game number.
+     */
     static void resetGameNumber();
 
+    /**
+     * Get the answer the other device has entered, if available.
+     *
+     * @return Other's input.
+     */
     static uint8_t getOtherInputAnswer();
 
+    /**
+     * Check whether the input of the other device is available.
+     *
+     * @return True if available, false otherwise.
+     */
     static bool hasOtherInputAnswer();
 
+    /**
+     * Set the input that the other device has entered.
+     *
+     * @param otherInputAnswer Other's input.
+     */
     static void setOtherInputAnswer(uint8_t otherInputAnswer);
 
+    /**
+     * Reset the input that the other device has entered.
+     */
     static void resetOtherInputAnswer();
 
+    /**
+     * Get the duration it took for the other device to input.
+     *
+     * @return Input duration of other device.
+     */
     static long getOtherInputDuration();
 
+    /**
+     * Check whether the input duration of the other device has been set.
+     *
+     * @return True if set, false otherwise.
+     */
     static bool hasOtherInputDuration();
 
+    /**
+     * Set the input duration of the other device.
+     *
+     * @param otherInputDuration Duration.
+     */
     static void setOtherInputDuration(long otherInputDuration);
 
+    /**
+     * Reset the input duration of the other device.
+     */
     static void resetOtherInputDuration();
 
-
-
+    /**
+     * Check whether results have been received.
+     *
+     * @return True if received, false otherwise.
+     */
     static bool hasReceivedResult();
 
+    /**
+     * Check whether this device won the game.
+     *
+     * @return True if the game has been won, false otherwise.
+     */
     static bool hasWonGame();
 
+    /**
+     * Get the result of this device, processed by the master.
+     *
+     * @return Result of self.
+     */
     static uint8_t getResultAnswerSelf();
 
+    /**
+     * Get the result of the other device, processed by the master.
+     *
+     * @return Result of master.
+     */
     static uint8_t getResultAnswerOther();
 
+    /**
+     * Set the current results.
+     *
+     * @param won True if won, false if not.
+     * @param answerSelf The answer this device has given.
+     * @param answerOther The answer the other device has given.
+     */
     static void setResult(bool won, uint8_t answerSelf, uint8_t answerOther);
 
+    /**
+     * Clear the current results.
+     */
     static void clearResult();
 };
 

@@ -323,8 +323,6 @@ void Core::gameLogic() {
 
     // Wait a little for the slave to catch up
     smartDelay(250);
-
-    // TODO: Does the result still work for singleplayer?
 }
 
 /**
