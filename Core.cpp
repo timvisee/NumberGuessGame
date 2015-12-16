@@ -97,6 +97,7 @@ void Core::loop() {
 
     // Use a while loop to handle the button presses
     while(!timer.isFinished() || answer <= 0) {
+        // TODO: Remove this, or change it to use a different LED? (because the green and red
         // Pulse the green light
         if(!LedManager::greenLed.isFading()) {
             // Fade the lights in or out
@@ -193,9 +194,32 @@ void Core::connect() {
             LedManager::greenLed.setState(false);
         }
 
+        // Pulse the green light
+        if(!LedManager::screenLeds[1].isFading()) {
+            uint8_t brightness = LedManager::screenLeds[1].getBrightness();
+
+            // Fade the lights in or out
+            if(brightness <= PULSE_BRIGHTNESS_LOW) {
+                LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
+
+                // Only fade red out if it is currently on
+                if(brightness != Led::BRIGHTNESS_LOW)
+                    LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+
+            } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
+                LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+            }
+        }
+
         // Update everything
         update();
     }
+
+    // Turn the status LED off
+    LedManager::screenLeds[1].setState(false);
+
+    // Wait a second before starting the game
+    smartDelay(1000);
 }
 
 /**
