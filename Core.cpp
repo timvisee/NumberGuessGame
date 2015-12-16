@@ -69,6 +69,114 @@ void Core::setup() {
     connect();
 }
 
+/**
+ * Connect to a second Arduino, before starting a game.
+ */
+void Core::connect() {
+    // Set up a timer to connect
+    Timer connectTimer(2000, true);
+    connectTimerWait.start();
+
+    // Loop and ask for a connection request, until a connection has been made
+    while(ConnectionManager::isMultiplayer() && !ConnectionManager::isConnected() || !connectTimerWait.isFinished()) {
+        // Send a new connection request if one hasn't been send for half a second
+        if(connectTimer.isFinished()) {
+            // Set the connecting flag
+            ConnectionManager::setConnecting(true);
+
+            // Enable the green status LED
+            LedManager::greenLed.setState(true);
+
+            // Create a packet to send a connection request
+            Packet packet = Packet(1, Protocol::PACKET_TYPE_CONNECTION_REQUEST);
+            PacketHandler::sendPacket(packet);
+            packet.destroy();
+
+            // Restart the connect timer
+            connectTimer.start(1000);
+
+            LedManager::greenLed.setState(false);
+        }
+
+        // Pulse the green light
+        if(!LedManager::screenLeds[1].isFading()) {
+            uint8_t brightness = LedManager::screenLeds[1].getBrightness();
+
+            // Fade the lights in or out
+            if(brightness <= PULSE_BRIGHTNESS_LOW) {
+                LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
+
+                // Only fade red out if it is currently on
+                if(brightness == Led::BRIGHTNESS_LOW)
+                    LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+
+            } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
+                LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+            }
+        }
+
+        // Pulse the green light
+        if(!LedManager::screenLeds[2].isFading()) {
+            uint8_t brightness = LedManager::screenLeds[2].getBrightness();
+
+            // Fade the lights in or out
+            if(brightness <= PULSE_BRIGHTNESS_LOW) {
+                LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
+
+                // Only fade red out if it is currently on
+                if(brightness == Led::BRIGHTNESS_LOW)
+                    LedManager::screenLeds[2].fade(LedManager::screenLeds[1].getToBrightness(), LedManager::screenLeds[1].getFadeTimeLeft());
+
+            } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
+                LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+            }
+
+        } else if(!ConnectionManager::isMultiplayer())
+            LedManager::screenLeds[2].setState(false);
+
+        // Handle button presses to switch between single- and multiplayer
+        if(ButtonManager::button.isPressedOnce()) {
+            // Switch between single and multiplayer
+            ConnectionManager::setMultipayer(!ConnectionManager::isMultiplayer());
+
+            // Reset the timer
+            connectTimerWait.start();
+        }
+
+        // Update everything
+        updateLogic();
+    }
+
+    // Set the connecting flag
+    ConnectionManager::setConnecting(false);
+
+    // Turn the status LED off
+    LedManager::screenLeds[1].setState(false);
+    LedManager::screenLeds[2].setState(false);
+
+    // Wait a little before showing the device status
+    smartDelay(500);
+
+    // If multiplayer, show which device is the master
+    if(ConnectionManager::isMultiplayer()) {
+        // Turn on the status LEDs
+        LedManager::screenLeds[0].setState(true);
+        if(ConnectionManager::isMaster())
+            LedManager::screenLeds[1].setState(true);
+
+        // Wait a little
+        smartDelay(500);
+
+        // Turn off the status LEDs
+        LedManager::screenLeds[0].setState(false);
+        if(ConnectionManager::isMaster())
+            LedManager::screenLeds[1].setState(false);
+    }
+
+    // Wait a second before starting the game
+    smartDelay(START_DELAY);
+}
+
 void Core::gameLogic() {
     // Show the slide animation before showing the number
     playSlideAnimation();
@@ -311,114 +419,6 @@ void Core::gameLogic() {
 
     // Wait a little for the slave to catch up
     smartDelay(250);
-}
-
-/**
- * Connect to a second Arduino, before starting a game.
- */
-void Core::connect() {
-    // Set up a timer to connect
-    Timer connectTimer(2000, true);
-    connectTimerWait.start();
-
-    // Loop and ask for a connection request, until a connection has been made
-    while(ConnectionManager::isMultiplayer() && !ConnectionManager::isConnected() || !connectTimerWait.isFinished()) {
-        // Send a new connection request if one hasn't been send for half a second
-        if(connectTimer.isFinished()) {
-            // Set the connecting flag
-            ConnectionManager::setConnecting(true);
-
-            // Enable the green status LED
-            LedManager::greenLed.setState(true);
-
-            // Create a packet to send a connection request
-            Packet packet = Packet(1, Protocol::PACKET_TYPE_CONNECTION_REQUEST);
-            PacketHandler::sendPacket(packet);
-            packet.destroy();
-
-            // Restart the connect timer
-            connectTimer.start(1000);
-
-            LedManager::greenLed.setState(false);
-        }
-
-        // Pulse the green light
-        if(!LedManager::screenLeds[1].isFading()) {
-            uint8_t brightness = LedManager::screenLeds[1].getBrightness();
-
-            // Fade the lights in or out
-            if(brightness <= PULSE_BRIGHTNESS_LOW) {
-                LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
-
-                // Only fade red out if it is currently on
-                if(brightness == Led::BRIGHTNESS_LOW)
-                    LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
-
-            } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
-                LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
-            }
-        }
-
-        // Pulse the green light
-        if(!LedManager::screenLeds[2].isFading()) {
-            uint8_t brightness = LedManager::screenLeds[2].getBrightness();
-
-            // Fade the lights in or out
-            if(brightness <= PULSE_BRIGHTNESS_LOW) {
-                LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
-
-                // Only fade red out if it is currently on
-                if(brightness == Led::BRIGHTNESS_LOW)
-                    LedManager::screenLeds[2].fade(LedManager::screenLeds[1].getToBrightness(), LedManager::screenLeds[1].getFadeTimeLeft());
-
-            } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
-                LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
-            }
-
-        } else if(!ConnectionManager::isMultiplayer())
-            LedManager::screenLeds[2].setState(false);
-
-        // Handle button presses to switch between single- and multiplayer
-        if(ButtonManager::button.isPressedOnce()) {
-            // Switch between single and multiplayer
-            ConnectionManager::setMultipayer(!ConnectionManager::isMultiplayer());
-
-            // Reset the timer
-            connectTimerWait.start();
-        }
-
-        // Update everything
-        updateLogic();
-    }
-
-    // Set the connecting flag
-    ConnectionManager::setConnecting(false);
-
-    // Turn the status LED off
-    LedManager::screenLeds[1].setState(false);
-    LedManager::screenLeds[2].setState(false);
-
-    // Wait a little before showing the device status
-    smartDelay(500);
-
-    // If multiplayer, show which device is the master
-    if(ConnectionManager::isMultiplayer()) {
-        // Turn on the status LEDs
-        LedManager::screenLeds[0].setState(true);
-        if(ConnectionManager::isMaster())
-            LedManager::screenLeds[1].setState(true);
-
-        // Wait a little
-        smartDelay(500);
-
-        // Turn off the status LEDs
-        LedManager::screenLeds[0].setState(false);
-        if(ConnectionManager::isMaster())
-            LedManager::screenLeds[1].setState(false);
-    }
-
-    // Wait a second before starting the game
-    smartDelay(START_DELAY);
 }
 
 /**

@@ -60,14 +60,14 @@ public:
     void setup();
 
     /**
-     * Called each loop.
-     */
-    void gameLogic();
-
-    /**
      * Connect to an arduino when in multiplayer mode.
      */
     void connect();
+
+    /**
+     * Called each loop.
+     */
+    void gameLogic();
 
     /**
      * Method used to update all game logic.
