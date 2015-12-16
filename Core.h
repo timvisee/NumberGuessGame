@@ -21,6 +21,7 @@
 #include "PacketHandler.h"
 #include "Random.h"
 #include "Timer.h"
+#include "Stopwatch.h"
 
 /**
  * Core class.

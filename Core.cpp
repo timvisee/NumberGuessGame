@@ -126,6 +126,9 @@ void Core::loop() {
     smartDelay(ANSWER_VISIBLE_DURATION);
     showNumber(0);
 
+    // Start a stopwatch to measure the time the user takes to input
+    Stopwatch inputStopwatch = Stopwatch(true);
+
     // Start the timer
     Timer timer(INPUT_TIMEOUT);
     timer.start();
@@ -135,7 +138,7 @@ void Core::loop() {
 
     // Use a while loop to handle the button presses
     while(!timer.isFinished() || answer <= 0) {
-        // TODO: Remove this, or change it to use a different LED? (because the green and red
+        // TODO: Remove this, or change it to use a different LED? (because the green and red don't support analog anymore)
         // Pulse the green light
         if(!LedManager::greenLed.isFading()) {
             // Fade the lights in or out
@@ -171,6 +174,9 @@ void Core::loop() {
                 LedManager::screenLeds[i].fade(FEEDBACK_BRIGHTNESS_LOW, FEEDBACK_VISIBLE_DURATION);
         }
     }
+
+    // Measure the input duration
+    long userInputDuration = inputStopwatch.getTime();
 
     // Stop the timer
     timer.stop();
