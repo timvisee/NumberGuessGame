@@ -176,7 +176,7 @@ void Core::connect() {
     connectTimer.start(0);
 
     // Loop and ask for a connection request, until a connection has been made
-    while(true) {
+    while(ConnectionManager::isMultiplayer() && !ConnectionManager::isConnected()) {
         // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
             // Enable the green status LED

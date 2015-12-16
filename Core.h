@@ -17,6 +17,7 @@
 #include "Led.h"
 #include "ButtonManager.h"
 #include "Button.h"
+#include "ConnectionManager.h"
 #include "PacketHandler.h"
 #include "Random.h"
 #include "Timer.h"
