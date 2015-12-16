@@ -85,22 +85,36 @@ void PacketHandler::receivedPacket(Packet packet) {
 
     // Handle the packet
     switch(packet.getPacketType()) {
-	case Protocol::PACKET_TYPE_CONNECTION_REQUEST: {
-        Log::info("Con req");
+        case Protocol::PACKET_TYPE_CONNECTION_REQUEST: {
+//            Log::info("Con req");
 
-        // Make sure the device isn't connected already and is in multiplayer mode
-        if(ConnectionManager::isConnected() || !ConnectionManager::isMultiplayer())
+            // Make sure the device isn't connected already and is in multiplayer mode
+            if(ConnectionManager::isConnected() || !ConnectionManager::isMultiplayer())
+                break;
+
+            // Set the connected and master flag
+            ConnectionManager::setConnected(true);
+            ConnectionManager::setMaster(false);
+
+            // Send a connected packet
+            Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_CONNECTION_ACCEPT);
+            PacketHandler::sendPacket(connectPacket);
+            connectPacket.destroy();
             break;
+        }
 
-        // Set the connected flag to true
-        ConnectionManager::setConnected(true);
+        case Protocol::PACKET_TYPE_CONNECTION_ACCEPT: {
+//            Log::info("Con acptd");
 
-        // Send a connected packet
-        Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_CONNECTION_ACCEPT);
-        PacketHandler::sendPacket(connectPacket);
-        connectPacket.destroy();
-        break;
-    }
+            // Make sure the device isn't connected already and is in multiplayer mode
+            if(ConnectionManager::isConnected() || !ConnectionManager::isMultiplayer())
+                break;
+
+            // Set the connected and master flag
+            ConnectionManager::setConnected(true);
+            ConnectionManager::setMaster(true);
+            break;
+        }
 
 	default:
 //        Log::warning("P> Unknwn pckt!");
