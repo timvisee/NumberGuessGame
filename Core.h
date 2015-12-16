@@ -68,12 +68,42 @@ public:
      * Connect to an arduino when in multiplayer mode.
      */
     void connect();
-    void update();
+
+    /**
+     * Method used to update all game logic.
+     */
+    void updateLogic();
+
+    /**
+     * A smart delay method, to efficiently execute the update call while waiting.
+     */
     void smartDelay(int delay);
-    void showStartupAnimation();
-    void showSlideAnimation();
-    void showSeekAnimation();
+
+    /**
+     * Play the startup animation on the screen.
+     */
+    void playStartupAnimation();
+
+    /**
+     * Play the slide animation on the screen.
+     */
+    void playSlideAnimation();
+
+    /**
+     * Play the seek animation on the screen.
+     */
+    void playSeekAnimation();
+
+    /**
+     * Show a number on the screen.
+     */
     void showNumber(uint8_t number);
+
+    /**
+     * Generate a new game number.
+     *
+     * @return Generated number.
+     */
     uint8_t generateNewGameNumber();
 };
 

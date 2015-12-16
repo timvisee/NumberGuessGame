@@ -68,7 +68,7 @@ void Core::setup() {
 
     // Show a startup animation
 //    Log::debug("Anim...");
-    showStartupAnimation();
+    playStartupAnimation();
 
     // Show a success message
 //    Log::info("Strt");
@@ -83,7 +83,7 @@ void Core::setup() {
 
 void Core::gameLogic() {
     // Show the slide animation before showing the number
-    showSlideAnimation();
+    playSlideAnimation();
     smartDelay(400);
 
     // Reset the game number
@@ -114,7 +114,7 @@ void Core::gameLogic() {
     if(ConnectionManager::isMultiplayer() && !ConnectionManager::isMaster()) {
         // Wait for a number, and update in the meanwhile
         while(!ConnectionManager::hasGameNumber())
-            update();
+            updateLogic();
 
         // Get the number
         gameNumber = ConnectionManager::getGameNumber();
@@ -156,7 +156,7 @@ void Core::gameLogic() {
         }
 
         // Update everything
-        update();
+        updateLogic();
 
         // Handle button presses
         if(ButtonManager::button.isPressedOnce()) {
@@ -213,12 +213,12 @@ void Core::gameLogic() {
 
             // Wait for the results to be send, update in the meanwhile
             while(!ConnectionManager::hasReceivedResult())
-                update();
+                updateLogic();
 
         } else {
             // As master, wait for the result to be received, update in the meanwhile
             while(!ConnectionManager::hasOtherInputAnswer())
-                update();
+                updateLogic();
 
             // Store the values, reset them afterwards
             uint8_t otherUserInputAnswer = ConnectionManager::getOtherInputAnswer();
@@ -400,7 +400,7 @@ void Core::connect() {
         }
 
         // Update everything
-        update();
+        updateLogic();
     }
 
     // Set the connecting flag
@@ -436,7 +436,7 @@ void Core::connect() {
 /**
  * Update method, should be called often to update things like the animation controllers of the LEDs.
  */
-void Core::update() {
+void Core::updateLogic() {
     // Update the screen LEDs
     for(short i = 0; i < SCREEN_LED_COUNT; i++)
         LedManager::screenLeds[i].update();
@@ -485,21 +485,21 @@ void Core::smartDelay(int delay) {
 
     // Call the update method until the timer has passed the specified delay
     while(!timer.isFinished())
-        update();
+        updateLogic();
 }
 
 /**
  * Show the startup animation.
  */
-void Core::showStartupAnimation() {
+void Core::playStartupAnimation() {
     // Show the slide animation
-    showSeekAnimation();
+    playSeekAnimation();
 }
 
 /**
  * Show the slide animation.
  */
-void Core::showSlideAnimation() {
+void Core::playSlideAnimation() {
     // Enable the LEDs
     for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
         // Handle the LED
@@ -532,9 +532,9 @@ void Core::showSlideAnimation() {
 /**
  * Show the seek animation.
  */
-void Core::showSeekAnimation() {
+void Core::playSeekAnimation() {
     // Show the slide animation
-    showSlideAnimation();
+    playSlideAnimation();
 
     // Enable the LEDs
     for(int i = SCREEN_LED_COUNT + 1; i >= 0; i--) {
