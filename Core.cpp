@@ -134,10 +134,10 @@ void Core::loop() {
     timer.start();
 
     // Define a variable to store the number in the user has entered
-    uint8_t answer = 0;
+    uint8_t userAnswer = 0;
 
     // Use a while loop to handle the button presses
-    while(!timer.isFinished() || answer <= 0) {
+    while(!timer.isFinished() || userAnswer <= 0) {
         // TODO: Remove this, or change it to use a different LED? (because the green and red don't support analog anymore)
         // Pulse the green light
         if(!LedManager::greenLed.isFading()) {
@@ -161,7 +161,7 @@ void Core::loop() {
         // Handle button presses
         if(ButtonManager::button.isPressedOnce()) {
             // Increase the answer
-            answer++;
+            userAnswer++;
 
             // Reset the answer
             timer.start();
@@ -189,11 +189,11 @@ void Core::loop() {
     smartDelay(500);
 
     // Show the result the user has entered
-    showNumber(answer);
+    showNumber(userAnswer);
     smartDelay(USER_INPUT_VISIBLE_DURATION);
 
     // Verify the answer
-    if(gameNumber == answer)
+    if(gameNumber == userAnswer)
         LedManager::greenLed.setState(true);
     else
         LedManager::redLed.setState(true);
