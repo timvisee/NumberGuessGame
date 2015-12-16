@@ -82,6 +82,13 @@ void Core::setup() {
 }
 
 void Core::loop() {
+    // Show the slide animation before showing the number
+    showSlideAnimation();
+    smartDelay(400);
+
+    // Reset the game number
+    gameNumber = 0;
+
     // Generate a random number if this is the master when playing multiplayer
     if(!ConnectionManager::isMultiplayer() || ConnectionManager::isMaster())
         gameNumber = generateNewGameNumber();
@@ -97,9 +104,10 @@ void Core::loop() {
     }
 
     // Wait for a number to be received if this is the slave
-    if(ConnectionManager::isMaster() && !ConnectionManager::isMaster()) {
-        // Wait for a number
-        while(!ConnectionManager::hasGameNumber()) { }
+    if(ConnectionManager::isMultiplayer() && !ConnectionManager::isMaster()) {
+        // Wait for a number, and update in the meanwhile
+        while(!ConnectionManager::hasGameNumber())
+            update();
 
         // Get the number
         gameNumber = ConnectionManager::getGameNumber();
@@ -185,11 +193,6 @@ void Core::loop() {
     LedManager::greenLed.setState(false);
     LedManager::redLed.setState(false);
 
-    // Show the slide animation before continuing to the next wave
-    smartDelay(200);
-    showSlideAnimation();
-    smartDelay(400);
-
     // Wait a little for the slave to catch up
     smartDelay(250);
 }
@@ -199,14 +202,16 @@ void Core::loop() {
  */
 void Core::connect() {
     // Set up a timer to connect
-    Timer connectTimer(0);
-    connectTimer.start();
+    Timer connectTimer(2000, true);
     connectTimerWait.start();
 
     // Loop and ask for a connection request, until a connection has been made
     while(ConnectionManager::isMultiplayer() && !ConnectionManager::isConnected() || !connectTimerWait.isFinished()) {
         // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
+            // Set the connecting flag
+            ConnectionManager::setConnecting(true);
+
             // Enable the green status LED
             LedManager::greenLed.setState(true);
 
@@ -270,9 +275,31 @@ void Core::connect() {
         update();
     }
 
+    // Set the connecting flag
+    ConnectionManager::setConnecting(false);
+
     // Turn the status LED off
     LedManager::screenLeds[1].setState(false);
     LedManager::screenLeds[2].setState(false);
+
+    // Wait a little before showing the device status
+    smartDelay(500);
+
+    // If multiplayer, show which device is the master
+    if(ConnectionManager::isMultiplayer()) {
+        // Turn on the status LEDs
+        LedManager::screenLeds[0].setState(true);
+        if(ConnectionManager::isMaster())
+            LedManager::screenLeds[1].setState(true);
+
+        // Wait a little
+        smartDelay(500);
+
+        // Turn off the status LEDs
+        LedManager::screenLeds[0].setState(false);
+        if(ConnectionManager::isMaster())
+            LedManager::screenLeds[1].setState(false);
+    }
 
     // Wait a second before starting the game
     smartDelay(START_DELAY);
