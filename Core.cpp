@@ -9,7 +9,7 @@
 #include "Core.h"
 #include "MemoryManager.h"
 
-Core::Core() : con() {
+Core::Core() : con(), connectTimerWait(2000, false) {
     // Initialize the screen LED array
     LedManager::screenLeds = new Led[SCREEN_LED_COUNT];
 
@@ -175,9 +175,10 @@ void Core::connect() {
     // Set up a timer to connect
     Timer connectTimer(0);
     connectTimer.start(0);
+    connectTimerWait.start();
 
     // Loop and ask for a connection request, until a connection has been made
-    while(ConnectionManager::isMultiplayer() && !ConnectionManager::isConnected()) {
+    while(ConnectionManager::isMultiplayer() && !ConnectionManager::isConnected() || !connectTimerWait.isFinished()) {
         // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
             // Enable the green status LED
@@ -203,12 +204,40 @@ void Core::connect() {
                 LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
 
                 // Only fade red out if it is currently on
-                if(brightness != Led::BRIGHTNESS_LOW)
+                if(brightness == Led::BRIGHTNESS_LOW)
                     LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
 
             } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
                 LedManager::screenLeds[1].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
             }
+        }
+
+        // Pulse the green light
+        if(!LedManager::screenLeds[2].isFading()) {
+            uint8_t brightness = LedManager::screenLeds[2].getBrightness();
+
+            // Fade the lights in or out
+            if(brightness <= PULSE_BRIGHTNESS_LOW) {
+                LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
+
+                // Only fade red out if it is currently on
+                if(brightness == Led::BRIGHTNESS_LOW)
+                    LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+
+            } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
+                LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+            }
+
+        } else if(!ConnectionManager::isMultiplayer())
+            LedManager::screenLeds[2].setState(false);
+
+        // Handle button presses to switch between single- and multiplayer
+        if(ButtonManager::button.isPressedOnce()) {
+            // Switch between single and multiplayer
+            ConnectionManager::setMultipayer(!ConnectionManager::isMultiplayer());
+
+            // Reset the timer
+            connectTimerWait.start();
         }
 
         // Update everything
@@ -217,6 +246,7 @@ void Core::connect() {
 
     // Turn the status LED off
     LedManager::screenLeds[1].setState(false);
+    LedManager::screenLeds[2].setState(false);
 
     // Wait a second before starting the game
     smartDelay(1000);

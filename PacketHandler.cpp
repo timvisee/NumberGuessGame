@@ -81,8 +81,8 @@ void PacketHandler::receivedPacket(Packet packet) {
 	case Protocol::PACKET_TYPE_CONNECTION_REQUEST: {
         Log::info("Con req");
 
-        // Make sure the device isn't connected already
-        if(ConnectionManager::isConnected())
+        // Make sure the device isn't connected already and is in multiplayer mode
+        if(ConnectionManager::isConnected() || !ConnectionManager::isMultiplayer())
             break;
 
         // Set the connected flag to true

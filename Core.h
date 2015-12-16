@@ -32,6 +32,8 @@ private:
      */
     AltSoftSerial con;
 
+    Timer connectTimerWait;
+
 public:
     /**
      * Constructor.
