@@ -10,6 +10,9 @@
 #include "MemoryManager.h"
 
 Core::Core() : con(), connectTimerWait(2000, false) {
+    // Set the started flag
+    this->started = false;
+
     // Initialize the screen LED array
     LedManager::screenLeds = new Led[SCREEN_LED_COUNT];
 
@@ -69,6 +72,9 @@ void Core::setup() {
 
     // Show a success message
 //    Log::info("Strt");
+
+    // The device has been started, update the flag
+    this->started = true;
 
     // Connect to the other Arduino
 //    Log::info("Con...");
@@ -194,7 +200,7 @@ void Core::loop() {
 void Core::connect() {
     // Set up a timer to connect
     Timer connectTimer(0);
-    connectTimer.start(1);
+    connectTimer.start();
     connectTimerWait.start();
 
     // Loop and ask for a connection request, until a connection has been made
@@ -287,6 +293,13 @@ void Core::update() {
     // Update the button state
     ButtonManager::button.update();
 
+    // Update the memory manager
+    MemoryManager::update();
+
+    // Only update the following if the device is started
+    if(!this->started)
+        return;
+
     // Handle received data from the multiplayer connection
     // TODO: Only if multiplayer is enabled?
     while(con.available()) {
@@ -300,9 +313,6 @@ void Core::update() {
         // Disable the activity light
         LedManager::statusLed.setState(false);
     }
-
-    // Update the memory manager
-    MemoryManager::update();
 }
 
 /**

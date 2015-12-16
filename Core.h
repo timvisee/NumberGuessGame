@@ -42,6 +42,11 @@ private:
      */
     uint8_t gameNumber;
 
+    /**
+     * Flag whether the device has been fully started or not.
+     */
+    bool started;
+
 public:
     /**
      * Constructor.
