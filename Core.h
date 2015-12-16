@@ -71,9 +71,7 @@ public:
     void showSlideAnimation();
     void showSeekAnimation();
     void showNumber(uint8_t number);
-    void showNumber(uint8_t number, uint8_t brightness, int duration);
     uint8_t generateNewGameNumber();
-    void memoryReport();
 };
 
 #endif //NUMBERGUESSGAME_CORE_H

@@ -231,10 +231,10 @@ void Core::loop() {
             bool slaveWin = (otherUserInputAnswer == gameNumber);
 
             // If both players are correct, choose the fastest
-            if(masterWin && slaveWin) {
-                masterWin = (userInputDuration >= otherUserInputDuration);
-                slaveWin = (userInputDuration < otherUserInputDuration);
-            }
+//            if(masterWin && slaveWin) {
+//                masterWin = (userInputDuration >= otherUserInputDuration);
+//                slaveWin = (userInputDuration < otherUserInputDuration);
+//            }
 
             // Create the packet
             Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_GAME_RESULTS);
@@ -272,10 +272,18 @@ void Core::loop() {
     smartDelay(500);
 
     // Show the result the user has entered
-    showNumber(ConnectionManager::getResultAnswerOther());
+    showNumber(userAnswer);
     smartDelay(USER_INPUT_VISIBLE_DURATION);
 
+    // Wait a second before showing the input
+    smartDelay(1000);
+
     if(ConnectionManager::hasWonGame()) {
+        // Turn on the green LED if available
+        LedManager::greenLed.setState(true);
+        smartDelay(250);
+
+        // Animate the screen
         for(uint8_t j = 0; j < 3; j++) {
             for(uint8_t i = 0; i < SCREEN_LED_COUNT; i++)
                 LedManager::screenLeds[i].setState(true);
@@ -284,28 +292,28 @@ void Core::loop() {
                 LedManager::screenLeds[i].setState(false);
             smartDelay(250);
         }
+
+        // Turn off the green LED
+        smartDelay(250);
+        LedManager::greenLed.setState(false);
+
     } else {
+        // Turn on the red LED if available
+        LedManager::redLed.setState(true);
+        smartDelay(250);
+
+        // Animate the screen
         for(uint8_t i = 0; i < SCREEN_LED_COUNT; i++)
-            LedManager::screenLeds[i].fade(150, 500);
+            LedManager::screenLeds[i].fade(80, 500);
         smartDelay(500);
         for(uint8_t i = 0; i < SCREEN_LED_COUNT; i++)
             LedManager::screenLeds[i].fade(0, 1000);
         smartDelay(1000);
+
+        // Turn off the red LED
+        smartDelay(250);
+        LedManager::redLed.setState(false);
     }
-
-//    // Verify the answer
-//    if(gameNumber == userAnswer)
-//        LedManager::greenLed.setState(true);
-//    else
-//        LedManager::redLed.setState(true);
-
-    // Wait before turning all LEDs off again
-    smartDelay(1500);
-
-//    // Disable all LEDs
-//    showNumber(0);
-//    LedManager::greenLed.setState(false);
-//    LedManager::redLed.setState(false);
 
     // Wait a little for the slave to catch up
     smartDelay(250);
@@ -566,33 +574,10 @@ void Core::showNumber(uint8_t number) {
 }
 
 /**
- * Show a number, using the four LEDs, with a custom brightness and fade duration.
- *
- * @param number The number to show the LEDs for.
- * @param brightness The target brightness.
- * @param duration The target duration in milliseconds.
- */
-void Core::showNumber(uint8_t number, uint8_t brightness, int duration) {
-    for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
-        // Turn the LED on or off, based on the number with the specified brightness and duration
-        if(number & 1)
-            LedManager::screenLeds[i].fade(brightness, duration);
-        else
-            LedManager::screenLeds[i].setState(false);
-
-        number /= 2;
-    }
-}
-
-/**
  * Generate a random number, that is suitable for the number of available LEDs.
  *
  * @return Random number.
  */
 uint8_t Core::generateNewGameNumber() {
     return (uint8_t) Random::nextInt((int) (pow(2, SCREEN_LED_COUNT) - 1)) + 1;
-}
-
-void Core::memoryReport() {
-    Log::info("M> " + String(freeMemory()) + " B");
 }
