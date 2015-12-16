@@ -24,7 +24,4 @@ public:
     static Button button;
 };
 
-// Initialize static field
-Button ButtonManager::button = NULL;
-
 #endif //NUMBERGUESSGAME_BUTTONMANAGER_H

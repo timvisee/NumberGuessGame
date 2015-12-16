@@ -39,10 +39,4 @@ public:
     static Led statusLed;
 };
 
-// Initialize static fields
-Led *LedManager::screenLeds = new Led[4];
-Led LedManager::greenLed = Led();
-Led LedManager::redLed = Led();
-Led LedManager::statusLed = Led();
-
 #endif //NUMBERGUESSGAME_LEDMANAGER_H
