@@ -7,6 +7,7 @@
  */
 
 #include "Core.h"
+#include "MemoryManager.h"
 
 Core::Core() : con() {
     // Initialize the screen LED array
@@ -175,7 +176,7 @@ void Core::connect() {
     connectTimer.start(0);
 
     // Loop and ask for a connection request, until a connection has been made
-    while(false) {
+    while(true) {
         // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
             // Enable the green status LED
@@ -196,8 +197,6 @@ void Core::connect() {
         update();
     }
 }
-
-Timer memoryReportTimer(5000, true);
 
 /**
  * Update method, should be called often to update things like the animation controllers of the LEDs.
@@ -228,14 +227,8 @@ void Core::update() {
         LedManager::statusLed.setState(false);
     }
 
-    // DEBUG: Send a test packet
-    if(memoryReportTimer.isFinished()) {
-        // Reset the timer
-        memoryReportTimer.start();
-
-        // Report memory
-        memoryReport();
-    }
+    // Update the memory manager
+    MemoryManager::update();
 }
 
 /**
