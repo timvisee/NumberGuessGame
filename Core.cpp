@@ -173,7 +173,7 @@ void Core::connect() {
     connectTimer.start(0);
 
     // Loop and ask for a connection request, until a connection has been made
-    while(true) {
+    while(false) {
         // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
             // Enable the green status LED
@@ -259,7 +259,7 @@ void Core::smartDelay(int delay) {
  */
 void Core::showStartupAnimation() {
     // Show the slide animation
-    showSlideAnimation();
+    showSeekAnimation();
 }
 
 /**
@@ -282,6 +282,42 @@ void Core::showSlideAnimation() {
 
     // Disable the LEDs
     for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
+        // Handle the LED
+        if(i < SCREEN_LED_COUNT)
+            screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
+        else if(i == SCREEN_LED_COUNT)
+            greenLed.fade(Led::BRIGHTNESS_LOW, 250);
+        else if(i == SCREEN_LED_COUNT + 1)
+            redLed.fade(Led::BRIGHTNESS_LOW, 250);
+
+        // Wait a little before handling the next LED
+        smartDelay(75);
+    }
+}
+
+/**
+ * Show the seek animation.
+ */
+void Core::showSeekAnimation() {
+    // Show the slide animation
+    showSlideAnimation();
+
+    // Enable the LEDs
+    for(int i = SCREEN_LED_COUNT + 1; i >= 0; i--) {
+        // Handle the LED
+        if(i < SCREEN_LED_COUNT)
+            screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
+        else if(i == SCREEN_LED_COUNT)
+            greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
+        else if(i == SCREEN_LED_COUNT + 1)
+            redLed.fade(Led::BRIGHTNESS_HIGH, 250);
+
+        // Wait a little before handling the next LED
+        smartDelay(75);
+    }
+
+    // Disable the LEDs
+    for(int i = SCREEN_LED_COUNT + 1; i >= 0; i--) {
         // Handle the LED
         if(i < SCREEN_LED_COUNT)
             screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);

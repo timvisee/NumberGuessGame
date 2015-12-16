@@ -77,6 +77,7 @@ public:
     void smartDelay(int delay);
     void showStartupAnimation();
     void showSlideAnimation();
+    void showSeekAnimation();
     void showNumber(int number);
     void showNumber(int number, int brightness, int duration);
     long generateRandomNumber();
