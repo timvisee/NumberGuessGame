@@ -70,6 +70,11 @@ public:
      */
     static const int PACKET_TYPE_CONNECTION_REQUEST = 1;
 
+    /**
+     * Value to define the connection accept type.
+     */
+    static const int PACKET_TYPE_CONNECTION_ACCEPT = 2;
+
 	/**
 	 * Serialize a packet as a string.
 	 *

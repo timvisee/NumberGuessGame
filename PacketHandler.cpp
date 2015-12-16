@@ -78,9 +78,22 @@ void PacketHandler::receivedPacket(Packet packet) {
 
     // Handle the packet
     switch(packet.getPacketType()) {
-	case Protocol::PACKET_TYPE_CONNECTION_REQUEST:
+	case Protocol::PACKET_TYPE_CONNECTION_REQUEST: {
         Log::info("Con req");
-		break;
+
+        // Make sure the device isn't connected already
+        if(ConnectionManager::isConnected())
+            break;
+
+        // Set the connected flag to true
+        ConnectionManager::setConnected(true);
+
+        // Send a connected packet
+        Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_CONNECTION_ACCEPT);
+        PacketHandler::sendPacket(connectPacket);
+        connectPacket.destroy();
+        break;
+    }
 
 	default:
 //        Log::warning("P> Unknwn pckt!");
