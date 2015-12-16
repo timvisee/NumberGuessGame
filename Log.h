@@ -42,7 +42,7 @@ private:
     /**
      * True to show debug messages, false to ignore them.
      */
-    static bool debugMode;
+    static bool logDebug;
 
     /**
      * Remember whether the Log class is initialized.

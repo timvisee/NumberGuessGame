@@ -12,7 +12,7 @@ const String Log::INFO_PREFIX = "I> ";
 const String Log::WARNING_PREFIX = "W> ";
 const String Log::ERROR_PREFIX = "E> ";
 const String Log::DEBUG_PREFIX = "D> ";
-bool Log::debugMode = false;
+bool Log::logDebug = false;
 bool Log::logInit = false;
 
 void Log::init() {
@@ -58,14 +58,14 @@ void Log::error(String msg) {
 
 void Log::debug(String msg) {
     // Only show debug messages, if enabled
-    if(Log::debugMode)
+    if(Log::logDebug)
         Log::log(DEBUG_PREFIX, msg);
 }
 
 bool Log::isDebug() {
-    return Log::debugMode;
+    return Log::logDebug;
 }
 
 void Log::setDebug(bool debug) {
-    Log::debugMode = debug;
+    Log::logDebug = debug;
 }
