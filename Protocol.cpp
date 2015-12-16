@@ -170,11 +170,11 @@ Packet Protocol::deserialize(String str) {
 
 	// Define the three data arrays
 	uint8_t intSize = 0;
-	int * intArr = NULL;
+	int *intArr = NULL;
 	uint8_t boolSize = 0;
-	bool * boolArr = NULL;
+	bool *boolArr = NULL;
 	uint8_t strSize = 0;
-	String * strArr = NULL;
+	String *strArr = NULL;
 
 	// Check whether there's any extra data available
 	if(partsSize == 3) {
