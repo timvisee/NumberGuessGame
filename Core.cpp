@@ -95,11 +95,18 @@ void Core::loop() {
 
     // Send the number to the other client when playing multiplayer
     if(ConnectionManager::isMultiplayer() && ConnectionManager::isMaster()) {
+        // Create a packet to send the game start in
         Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_GAME_START);
+
+        // Create an array with the game number, add it to the packet
         int *intArr = new int[1];
         intArr[0] = (int) gameNumber;
         connectPacket.setIntegers(intArr, 1);
+
+        // Send the packet
         PacketHandler::sendPacket(connectPacket);
+
+        // Destroy the packet afterwards
         connectPacket.destroy();
     }
 
