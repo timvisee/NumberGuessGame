@@ -50,7 +50,7 @@ const bool GREEN_LED_ANALOG = false;
 /**
  * Red LED pin.
  */
-const uint8_t RED_LED_PIN = 13;
+const uint8_t RED_LED_PIN = 7;
 
 /**
  * Define whether the green LED is analog or digital.
