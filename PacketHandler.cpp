@@ -27,7 +27,7 @@ void PacketHandler::sendPacket(Packet packet) {
 
 void PacketHandler::sendPacket(String packet) {
     // Set the status of the activity LED
-	// FIXME: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_BLINK);
+    LedManager::statusLed.setState(true);
 
 	// Convert the serialized packet into a char array
 	char *charArr = new char[packet.length() + 1];
@@ -38,13 +38,17 @@ void PacketHandler::sendPacket(String packet) {
     PacketHandler::con.write(charArr);
 	
     // Disable the activity LED
-	// FIXME: sm.setActivityStatus(SWAIStatusManager::ACTIVITY_OFF);
+    LedManager::statusLed.setState(false);
 
     // Delete the char array from memory
     delete charArr;
 }
 
 void PacketHandler::receive(char data) {
+    // Enable the status LED
+    LedManager::statusLed.setState(false);
+
+    // Process the received data
     if(PacketHandler::skipNext) {
         PacketHandler::buff.concat(data);
         PacketHandler::skipNext = false;
@@ -70,6 +74,9 @@ void PacketHandler::receive(char data) {
         else
             PacketHandler::buff.concat(data);
     }
+
+    // Disable the status LED
+    LedManager::statusLed.setState(false);
 }
 
 void PacketHandler::receivedPacket(Packet packet) {

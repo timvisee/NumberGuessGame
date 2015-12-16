@@ -16,6 +16,7 @@
 #include "Packet.h"
 #include "Protocol.h"
 #include "ConnectionManager.h"
+#include "LedManager.h"
 
 /**
  * PacketHandler class.
