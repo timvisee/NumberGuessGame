@@ -35,25 +35,17 @@ void Core::setup() {
 
     // Initialize the logger
     Log::init();
-//    Log::info("Init");
-//    Log::debug("Dbg on");
-
-    // Show a startup message
-//    Log::info("Strt...");
 
     // Enable the serial connection for multiplayer
-//    Log::debug("Strt mp con...");
     con.begin(SERIAL_MULTIPLAYER_BAUD);
 
     // Set the proper stream in the packet handler
     PacketHandler::setConnectionStream(con);
 
     // Randomize the random seed
-//    Log::debug("Rndmzng...");
     Random::randomize();
 
     // Set up the answer LED pins
-//    Log::debug("Stp LEDs...");
     for(int i = 0; i < SCREEN_LED_COUNT; i++)
         LedManager::screenLeds[i].setupPin();
 
@@ -63,21 +55,17 @@ void Core::setup() {
     LedManager::statusLed.setupPin();
 
     // Set up the button pin
-//    Log::debug("Stp btn...");
     ButtonManager::button.setupPin();
 
     // Show a startup animation
-//    Log::debug("Anim...");
     playStartupAnimation();
 
     // Show a success message
-//    Log::info("Strt");
 
     // The device has been started, update the flag
     this->started = true;
 
     // Connect to the other Arduino
-//    Log::info("Con...");
     connect();
 }
 
