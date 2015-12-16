@@ -115,7 +115,7 @@ void Core::gameLogic() {
     showNumber(0);
 
     // Start a stopwatch to measure the time the user takes to input
-    Stopwatch inputStopwatch = Stopwatch(true);
+//    Stopwatch inputStopwatch = Stopwatch(true);
 
     // Start the timer
     Timer timer(INPUT_TIMEOUT);
