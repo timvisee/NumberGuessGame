@@ -86,8 +86,6 @@ void PacketHandler::receivedPacket(Packet packet) {
     // Handle the packet
     switch(packet.getPacketType()) {
         case Protocol::PACKET_TYPE_CONNECTION_REQUEST: {
-//            Log::info("Con req");
-
             // Make sure the device isn't connected already and is in multiplayer mode
             if(ConnectionManager::isConnected() || !ConnectionManager::isMultiplayer() || !ConnectionManager::isConnecting())
                 break;
@@ -104,8 +102,6 @@ void PacketHandler::receivedPacket(Packet packet) {
         }
 
         case Protocol::PACKET_TYPE_CONNECTION_ACCEPT: {
-//            Log::info("Con acptd");
-
             // Make sure the device isn't connected already and is in multiplayer mode
             if(!ConnectionManager::isMultiplayer() || !ConnectionManager::isConnecting())
                 break;
@@ -117,8 +113,6 @@ void PacketHandler::receivedPacket(Packet packet) {
         }
 
         case Protocol::PACKET_TYPE_GAME_START: {
-//            Log::info("Game start");
-
             // Make sure the device isn't connected already and is in multiplayer mode
             if(!ConnectionManager::isMultiplayer() || ConnectionManager::isMaster())
                 break;
@@ -129,7 +123,7 @@ void PacketHandler::receivedPacket(Packet packet) {
         }
 
 	default:
-//        Log::warning("P> Unknwn pckt!");
+        Log::warning("P> Unknwn pckt!");
 		break;
 	}
 
