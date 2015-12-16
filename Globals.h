@@ -122,4 +122,9 @@ const int SERIAL_USB_BAUD = 19200;
  */
 const int SERIAL_MULTIPLAYER_BAUD = 19200;
 
+/**
+ * String escape character.
+ */
+const char STRING_ESCAPE_CHAR = '\\';
+
 #endif //NUMBERGUESSGAME_GLOBALS_H

@@ -43,7 +43,6 @@ String *StringUtils::split(String str, char splitChar, int max) {
         arg.toCharArray(charBuffer, str.length());
 
         // add error handling for atoi:
-        // TODO: Use atoi method? Like: http://stackoverflow.com/a/11916125/1000145
         parts[partsIndex++] = (String) charBuffer;
         beginIdx = idx + 1;
 
@@ -66,7 +65,6 @@ String *StringUtils::split(String str, char splitChar, int max) {
         }
     }
 
-    // TODO: Should we still increase the partsIndex variable here?
     parts[partsIndex] = str.substring((unsigned int) beginIdx);
 
 	// Return the string vector
@@ -74,15 +72,12 @@ String *StringUtils::split(String str, char splitChar, int max) {
 }
 
 int StringUtils::getCharacterCountEscaped(String str, char c) {
-    // TODO: Make a constant of this escape char!
-    return StringUtils::getCharacterCountEscaped(str, c, '\\');
+    return StringUtils::getCharacterCountEscaped(str, c, STRING_ESCAPE_CHAR);
 }
 
 int StringUtils::getCharacterCountEscaped(String str, char c, char escapeChar) {
     // Create a variable to store the character count in
 	int charCount = 0;
-
-    // TODO: Properly handle ignored characters with a backslash?
 
     // Compare each character in the string to the countable character, add the character if it is equal
     for(int i = 0; i < str.length(); i++)

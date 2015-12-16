@@ -10,6 +10,7 @@
 #define NUMBERGUESSGAME_STRINGUTILS_H
 
 #include <Arduino.h>
+#include "Globals.h"
 
 /**
  * StringUtils class.
