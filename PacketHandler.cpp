@@ -9,7 +9,7 @@
 #include "PacketHandler.h"
 
 // Initialize class members
-AltSoftSerial PacketHandler::con = AltSoftSerial(); // TODO: Initialize something here?
+AltSoftSerial PacketHandler::con = AltSoftSerial();
 bool PacketHandler::skipNext = false;
 String PacketHandler::buff = "";
 
@@ -20,9 +20,6 @@ void PacketHandler::setConnectionStream(AltSoftSerial &con) {
 void PacketHandler::sendPacket(Packet packet) {
 	// Serialize and send the packet
     PacketHandler::sendPacket(Protocol::serialize(packet));
-
-    // Debug send packets
-//    Log::debug("P> S: " + String(packet.getPacketType()));
 }
 
 void PacketHandler::sendPacket(String packet) {
@@ -80,9 +77,6 @@ void PacketHandler::receive(char data) {
 }
 
 void PacketHandler::receivedPacket(Packet packet) {
-    // Debug received packets
-//    Log::debug("P> R: " + String(packet.getPacketType()));
-
     // Handle the packet
     switch(packet.getPacketType()) {
         case Protocol::PACKET_TYPE_CONNECTION_REQUEST: {
@@ -129,7 +123,6 @@ void PacketHandler::receivedPacket(Packet packet) {
 
             // Get and store the values
             ConnectionManager::setOtherInputAnswer((uint8_t) packet.getIntegers()[0]);
-//            ConnectionManager::setOtherInputDuration(packet.getStrings()[0].toInt());
             ConnectionManager::setOtherInputDuration(0);
             break;
         }
