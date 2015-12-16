@@ -19,7 +19,7 @@ void MemoryManager::reportMemory() {
     Log::init();
 
     // Report the number of available memory
-    //Log::info("M> " + String(memFree) + " b free");
+    // TODO: Log::info("M> " + String(memFree) + " b free"); Enable this again?
 }
 
 void MemoryManager::update() {

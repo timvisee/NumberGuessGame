@@ -150,7 +150,7 @@ void PacketHandler::receivedPacket(Packet packet) {
         }
 
 	default:
-        Log::warning("P> Unknwn pckt!");
+//        Log::warning("P> Unknwn pckt!");
 		break;
 	}
 
