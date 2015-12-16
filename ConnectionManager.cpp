@@ -11,6 +11,7 @@
 bool ConnectionManager::multiplayer = true;
 bool ConnectionManager::master = true;
 bool ConnectionManager::connected = false;
+uint8_t ConnectionManager::gameNumber = 0;
 
 bool ConnectionManager::isMultiplayer() {
     return ConnectionManager::multiplayer;
@@ -34,4 +35,20 @@ bool ConnectionManager::isConnected() {
 
 void ConnectionManager::setConnected(bool connected) {
     ConnectionManager::connected = connected;
+}
+
+uint8_t ConnectionManager::getGameNumber() {
+    return ConnectionManager::gameNumber;
+}
+
+bool ConnectionManager::hasGameNumber() {
+    return getGameNumber() > 0;
+}
+
+void ConnectionManager::setGameNumber(uint8_t gameNumber) {
+    ConnectionManager::gameNumber = gameNumber;
+}
+
+void ConnectionManager::resetGameNumber() {
+    ConnectionManager::setGameNumber(0);
 }

@@ -9,6 +9,8 @@
 #ifndef NUMBERGUESSGAME_CONNECTIONMANAGER_H
 #define NUMBERGUESSGAME_CONNECTIONMANAGER_H
 
+#include <stdint.h>
+
 /**
  * Connection manager class.
  */
@@ -29,6 +31,11 @@ private:
      * Connected flag.
      */
     static bool connected;
+
+    /**
+     * Get the game number of the last game.
+     */
+    static uint8_t gameNumber;
 
 public:
     /**
@@ -72,6 +79,14 @@ public:
      * @param connected True if connected, false otherwise.
      */
     static void setConnected(bool connected);
+
+    static uint8_t getGameNumber();
+
+    static bool hasGameNumber();
+
+    static void setGameNumber(uint8_t gameNumber);
+
+    static void resetGameNumber();
 };
 
 #endif //NUMBERGUESSGAME_CONNECTIONMANAGER_H

@@ -76,11 +76,32 @@ void Core::setup() {
 }
 
 void Core::loop() {
-    // Generate a random number
-    uint8_t num = generateNewGameNumber();
+    // Generate a random number if this is the master when playing multiplayer
+    if(!ConnectionManager::isMultiplayer() || ConnectionManager::isMaster())
+        gameNumber = generateNewGameNumber();
+
+    // Send the number to the other client when playing multiplayer
+    if(ConnectionManager::isMultiplayer() && ConnectionManager::isMaster()) {
+        Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_GAME_START);
+        int *intArr = new int[1];
+        intArr[0] = (int) gameNumber;
+        connectPacket.setIntegers(intArr, 1);
+        PacketHandler::sendPacket(connectPacket);
+        connectPacket.destroy();
+    }
+
+    // Wait for a number to be received if this is the slave
+    if(ConnectionManager::isMaster() && !ConnectionManager::isMaster()) {
+        // Wait for a number
+        while(!ConnectionManager::hasGameNumber()) { }
+
+        // Get the number
+        gameNumber = ConnectionManager::getGameNumber();
+        ConnectionManager::resetGameNumber();
+    }
 
     // Show the number as binary for the specified duration
-    showNumber(num);
+    showNumber(gameNumber);
     smartDelay(ANSWER_VISIBLE_DURATION);
     showNumber(0);
 
@@ -145,7 +166,7 @@ void Core::loop() {
     smartDelay(USER_INPUT_VISIBLE_DURATION);
 
     // Verify the answer
-    if(num == answer)
+    if(gameNumber == answer)
         LedManager::greenLed.setState(true);
     else
         LedManager::redLed.setState(true);
@@ -162,6 +183,9 @@ void Core::loop() {
     smartDelay(200);
     showSlideAnimation();
     smartDelay(400);
+
+    // Wait a little for the slave to catch up
+    smartDelay(250);
 }
 
 /**

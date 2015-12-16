@@ -116,6 +116,18 @@ void PacketHandler::receivedPacket(Packet packet) {
             break;
         }
 
+        case Protocol::PACKET_TYPE_GAME_START: {
+//            Log::info("Game start");
+
+            // Make sure the device isn't connected already and is in multiplayer mode
+            if(!ConnectionManager::isMultiplayer() || ConnectionManager::isMaster())
+                break;
+
+            // Get the game number
+            ConnectionManager::setGameNumber((uint8_t) packet.getIntegers()[0]);
+            break;
+        }
+
 	default:
 //        Log::warning("P> Unknwn pckt!");
 		break;

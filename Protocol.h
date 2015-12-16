@@ -75,6 +75,11 @@ public:
      */
     static const int PACKET_TYPE_CONNECTION_ACCEPT = 2;
 
+    /**
+     * Value to define the game start type.
+     */
+    static const int PACKET_TYPE_GAME_START = 3;
+
 	/**
 	 * Serialize a packet as a string.
 	 *

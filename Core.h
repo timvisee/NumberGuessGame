@@ -32,7 +32,15 @@ private:
      */
     AltSoftSerial con;
 
+    /**
+     * Timer to decide whether to continue in the connection method.
+     */
     Timer connectTimerWait;
+
+    /**
+     * The current game number.
+     */
+    uint8_t gameNumber;
 
 public:
     /**
