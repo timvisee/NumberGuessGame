@@ -18,6 +18,11 @@
 const bool DEBUG = true;
 
 /**
+ * Memory update timer, in milliseconds.
+ */
+const int MEMORY_REPORT_INTERVAL = 5000;
+
+/**
  * Screen LED count.
  */
 const uint8_t SCREEN_LED_COUNT = 4;
