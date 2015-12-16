@@ -8,10 +8,7 @@
 
 #include "Core.h"
 
-Core::Core() :
-        button(BUTTON_PIN),
-        con() {
-
+Core::Core() : con() {
     // Initialize the screen LED array
     LedManager::screenLeds = new Led[SCREEN_LED_COUNT];
 
@@ -23,6 +20,9 @@ Core::Core() :
     LedManager::greenLed = Led(GREEN_LED_PIN, GREEN_LED_ANALOG);
     LedManager::redLed = Led(RED_LED_PIN, RED_LED_ANALOG);
     LedManager::statusLed = Led(Led::STATUS_LED_PIN, Led::STATUS_LED_ANALOG);
+
+    // Initialize the button
+    ButtonManager::button = Button(BUTTON_PIN);
 }
 
 void Core::setup() {
@@ -60,7 +60,7 @@ void Core::setup() {
 
     // Set up the button pin
     Log::debug("Stp btn...");
-    button.setupPin();
+    ButtonManager::button.setupPin();
 
     // Show a startup animation
     Log::debug("Anim...");
@@ -116,7 +116,7 @@ void Core::loop() {
         update();
 
         // Handle button presses
-        if(button.isPressedOnce()) {
+        if(ButtonManager::button.isPressedOnce()) {
             // Increase the answer
             answer++;
 
@@ -179,7 +179,7 @@ void Core::connect() {
         // Send a new connection request if one hasn't been send for half a second
         if(connectTimer.isFinished()) {
             // Enable the green status LED
-            greenLed.setState(true);
+            LedManager::greenLed.setState(true);
 
             // Create a packet to send a connection request
             Packet packet = Packet(1, Protocol::PACKET_TYPE_CONNECTION_REQUEST);
@@ -189,7 +189,7 @@ void Core::connect() {
             // Restart the connect timer
             connectTimer.start(1000);
 
-            greenLed.setState(false);
+            LedManager::greenLed.setState(false);
         }
 
         // Update everything
@@ -212,7 +212,7 @@ void Core::update() {
     LedManager::redLed.update();
 
     // Update the button state
-    button.update();
+    ButtonManager::button.update();
 
     // Handle received data from the multiplayer connection
     // TODO: Only if multiplayer is enabled?

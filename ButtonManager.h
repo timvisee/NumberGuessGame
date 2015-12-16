@@ -6,8 +6,8 @@
  * @website http://timvisee.com/
  */
 
-#ifndef NUMBERGUESSGAME_LEDMANAGER_H
-#define NUMBERGUESSGAME_LEDMANAGER_H
+#ifndef NUMBERGUESSGAME_BUTTONMANAGER_H
+#define NUMBERGUESSGAME_BUTTONMANAGER_H
 
 #include <Arduino.h>
 #include "Globals.h"
@@ -18,7 +18,6 @@
  */
 class ButtonManager {
 public:
-
     /**
      * Main button instance.
      */
@@ -28,4 +27,4 @@ public:
 // Initialize static field
 Button ButtonManager::button = NULL;
 
-#endif //NUMBERGUESSGAME_LEDMANAGER_H
+#endif //NUMBERGUESSGAME_BUTTONMANAGER_H

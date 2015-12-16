@@ -15,6 +15,7 @@
 #include "Globals.h"
 #include "LedManager.h"
 #include "Led.h"
+#include "ButtonManager.h"
 #include "Button.h"
 #include "PacketHandler.h"
 #include "Random.h"
@@ -25,16 +26,9 @@
  */
 class Core {
 private:
-
-    /**
-     * Button instance.
-     */
-    Button button;
-
     /**
      * Software serial instance, to communicate to the other Arduino when doing a multiplayer game.
      */
-    // DEBUG: SoftwareSerial con;
     AltSoftSerial con;
 
 public:

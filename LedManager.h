@@ -18,7 +18,6 @@
  */
 class LedManager {
 public:
-
     /**
      * Screen LED instances.
      */
