@@ -190,6 +190,20 @@ public:
      * This value might be overwritten if the LED is currently being animated.
      */
     void setBrightness(uint8_t brightness);
+
+    /**
+     * Get the target brightness when fading.
+     *
+     * @return Target brightness.
+     */
+    uint8_t getToBrightness();
+
+    /**
+     * Get the time left for fading.
+     *
+     * @return Time left for fading.
+     */
+    int getFadeTimeLeft();
 };
 
 #endif //NUMBERGUESSGAME_LED_H

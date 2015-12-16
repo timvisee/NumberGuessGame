@@ -129,3 +129,11 @@ void Led::setBrightness(uint8_t brightness) {
     // Set the actual brightness
     analogWrite(this->pin, brightness);
 }
+
+uint8_t Led::getToBrightness() {
+    return this->toBrightness;
+}
+
+int Led::getFadeTimeLeft() {
+    return (int) (this->toTime - millis());
+}

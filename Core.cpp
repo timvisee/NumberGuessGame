@@ -218,7 +218,7 @@ void Core::connect() {
 
                 // Only fade red out if it is currently on
                 if(brightness == Led::BRIGHTNESS_LOW)
-                    LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+                    LedManager::screenLeds[2].fade(LedManager::screenLeds[1].getToBrightness(), LedManager::screenLeds[1].getFadeTimeLeft());
 
             } else if(brightness >= PULSE_BRIGHTNESS_HIGH) {
                 LedManager::screenLeds[2].fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
