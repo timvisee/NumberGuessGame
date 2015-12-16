@@ -181,33 +181,136 @@ void Core::loop() {
     // Stop the timer
     timer.stop();
 
-    // Turn of the green LED
+    // Turn off the pulsing LEDs
     LedManager::greenLed.setState(false);
     LedManager::redLed.setState(false);
+
+    // Clear the current results
+    ConnectionManager::clearResult();
+
+    // Do some extra stuff if playing multiplayer
+    if(ConnectionManager::isMultiplayer()) {
+        // As a slave, send the result to the master.
+        if(!ConnectionManager::isMaster()) {
+            // Create the packet
+            Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_GAME_ANSWER);
+
+            // Create an array with the answer, add it to the packet
+            int *intArr = new int[1];
+            intArr[0] = (int) userAnswer;
+            connectPacket.setIntegers(intArr, 1);
+
+            // Create an array with input duration, add it to the packet
+//            String *strArr = new String[1];
+//            strArr[0] = String(userInputDuration);
+//            connectPacket.setStrings(strArr, 1);
+
+            // Send the packet
+            PacketHandler::sendPacket(connectPacket);
+
+            // Destroy the packet afterwards
+            connectPacket.destroy();
+
+            // Wait for the results to be send, update in the meanwhile
+            while(!ConnectionManager::hasReceivedResult())
+                update();
+
+        } else {
+            // As master, wait for the result to be received, update in the meanwhile
+            while(!ConnectionManager::hasOtherInputAnswer())
+                update();
+
+            // Store the values, reset them afterwards
+            uint8_t otherUserInputAnswer = ConnectionManager::getOtherInputAnswer();
+            long otherUserInputDuration = ConnectionManager::getOtherInputDuration();
+            ConnectionManager::resetOtherInputAnswer();
+            ConnectionManager::resetOtherInputDuration();
+
+            // Determine which player wins
+            bool masterWin = (userAnswer == gameNumber);
+            bool slaveWin = (otherUserInputAnswer == gameNumber);
+
+            // If both players are correct, choose the fastest
+            if(masterWin && slaveWin) {
+                masterWin = (userInputDuration >= otherUserInputDuration);
+                slaveWin = (userInputDuration < otherUserInputDuration);
+            }
+
+            // Create the packet
+            Packet connectPacket = Packet(1, Protocol::PACKET_TYPE_GAME_RESULTS);
+
+            // Create an array with the answer, add it to the packet
+            int *intArr = new int[2];
+            intArr[0] = (int) userAnswer;
+            intArr[1] = (int) otherUserInputAnswer;
+            connectPacket.setIntegers(intArr, 2);
+
+            // Create an array with the answer, add it to the packet
+            bool *boolArr = new bool[2];
+            intArr[0] = (bool) masterWin;
+            intArr[1] = (bool) slaveWin;
+            connectPacket.setBooleans(boolArr, 2);
+
+            // Create an array with input duration, add it to the packet
+//            String *strArr = new String[2];
+//            strArr[0] = String(userInputDuration);
+//            strArr[1] = String(otherUserInputDuration);
+//            connectPacket.setStrings(strArr, 2);
+
+            // Send the packet
+            PacketHandler::sendPacket(connectPacket);
+
+            // Destroy the packet afterwards
+            connectPacket.destroy();
+
+            // Store the answers for this device
+            ConnectionManager::setResult(masterWin, userAnswer, otherUserInputAnswer);
+        }
+    }
 
     // Wait a second before showing the input
     smartDelay(500);
 
     // Show the result the user has entered
-    showNumber(userAnswer);
+    showNumber(ConnectionManager::getResultAnswerOther());
     smartDelay(USER_INPUT_VISIBLE_DURATION);
 
-    // Verify the answer
-    if(gameNumber == userAnswer)
-        LedManager::greenLed.setState(true);
-    else
-        LedManager::redLed.setState(true);
+    if(ConnectionManager::hasWonGame()) {
+        for(uint8_t j = 0; j < 3; j++) {
+            for(uint8_t i = 0; i < SCREEN_LED_COUNT; i++)
+                LedManager::screenLeds[i].setState(true);
+            smartDelay(250);
+            for(uint8_t i = 0; i < SCREEN_LED_COUNT; i++)
+                LedManager::screenLeds[i].setState(false);
+            smartDelay(250);
+        }
+    } else {
+        for(uint8_t i = 0; i < SCREEN_LED_COUNT; i++)
+            LedManager::screenLeds[i].fade(150, 500);
+        smartDelay(500);
+        for(uint8_t i = 0; i < SCREEN_LED_COUNT; i++)
+            LedManager::screenLeds[i].fade(0, 1000);
+        smartDelay(1000);
+    }
+
+//    // Verify the answer
+//    if(gameNumber == userAnswer)
+//        LedManager::greenLed.setState(true);
+//    else
+//        LedManager::redLed.setState(true);
 
     // Wait before turning all LEDs off again
     smartDelay(1500);
 
-    // Disable all LEDs
-    showNumber(0);
-    LedManager::greenLed.setState(false);
-    LedManager::redLed.setState(false);
+//    // Disable all LEDs
+//    showNumber(0);
+//    LedManager::greenLed.setState(false);
+//    LedManager::redLed.setState(false);
 
     // Wait a little for the slave to catch up
     smartDelay(250);
+
+    // TODO: Does the result still work for singleplayer?
 }
 
 /**

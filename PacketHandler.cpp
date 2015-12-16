@@ -122,6 +122,33 @@ void PacketHandler::receivedPacket(Packet packet) {
             break;
         }
 
+        case Protocol::PACKET_TYPE_GAME_ANSWER: {
+            // Multiplayer and slave
+            if(!ConnectionManager::isMultiplayer() || !ConnectionManager::isMaster())
+                break;
+
+            // Get and store the values
+            ConnectionManager::setOtherInputAnswer((uint8_t) packet.getIntegers()[0]);
+//            ConnectionManager::setOtherInputDuration(packet.getStrings()[0].toInt());
+            ConnectionManager::setOtherInputDuration(0);
+            break;
+        }
+
+        case Protocol::PACKET_TYPE_GAME_RESULTS: {
+            // Multiplayer and slave
+            if(!ConnectionManager::isMultiplayer() || ConnectionManager::isMaster())
+                break;
+
+            // Get the result values
+            bool resultWon = packet.getBooleans()[1];
+            uint8_t resultAnswerSelf = (uint8_t) packet.getIntegers()[1];
+            uint8_t resultAnswerOther = (uint8_t) packet.getIntegers()[0];
+
+            // Store the results
+            ConnectionManager::setResult(resultWon, resultAnswerSelf, resultAnswerOther);
+            break;
+        }
+
 	default:
         Log::warning("P> Unknwn pckt!");
 		break;

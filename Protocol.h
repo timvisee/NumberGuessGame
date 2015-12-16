@@ -80,6 +80,16 @@ public:
      */
     static const int PACKET_TYPE_GAME_START = 3;
 
+    /**
+     * Value to define the game answer type.
+     */
+    static const int PACKET_TYPE_GAME_ANSWER = 4;
+
+    /**
+     * Value to define the game results type.
+     */
+    static const int PACKET_TYPE_GAME_RESULTS = 5;
+
 	/**
 	 * Serialize a packet as a string.
 	 *

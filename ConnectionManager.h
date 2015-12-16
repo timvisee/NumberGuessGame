@@ -42,6 +42,21 @@ private:
      */
     static uint8_t gameNumber;
 
+    /**
+     * The input answer of the other device.
+     */
+    static uint8_t otherInputAnswer;
+
+    /**
+     * The input answer duration of the other device.
+     */
+    static long otherInputDuration;
+
+    static bool receivedResult;
+    static bool gameResultWin;
+    static uint8_t resultAnswerSelf;
+    static uint8_t resultAnswerOther;
+
 public:
     /**
      * Check whether multiplayer is enabled for this device.
@@ -106,6 +121,36 @@ public:
     static void setGameNumber(uint8_t gameNumber);
 
     static void resetGameNumber();
+
+    static uint8_t getOtherInputAnswer();
+
+    static bool hasOtherInputAnswer();
+
+    static void setOtherInputAnswer(uint8_t otherInputAnswer);
+
+    static void resetOtherInputAnswer();
+
+    static long getOtherInputDuration();
+
+    static bool hasOtherInputDuration();
+
+    static void setOtherInputDuration(long otherInputDuration);
+
+    static void resetOtherInputDuration();
+
+
+
+    static bool hasReceivedResult();
+
+    static bool hasWonGame();
+
+    static uint8_t getResultAnswerSelf();
+
+    static uint8_t getResultAnswerOther();
+
+    static void setResult(bool won, uint8_t answerSelf, uint8_t answerOther);
+
+    static void clearResult();
 };
 
 #endif //NUMBERGUESSGAME_CONNECTIONMANAGER_H

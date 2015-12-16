@@ -13,6 +13,12 @@ bool ConnectionManager::master = true;
 bool ConnectionManager::connecting = false;
 bool ConnectionManager::connected = false;
 uint8_t ConnectionManager::gameNumber = 0;
+uint8_t ConnectionManager::otherInputAnswer = 0;
+long ConnectionManager::otherInputDuration = 0;
+bool ConnectionManager::receivedResult = false;
+bool ConnectionManager::gameResultWin = false;
+uint8_t ConnectionManager::resultAnswerSelf = 0;
+uint8_t ConnectionManager::resultAnswerOther = 0;
 
 bool ConnectionManager::isMultiplayer() {
     return ConnectionManager::multiplayer;
@@ -60,4 +66,66 @@ void ConnectionManager::setGameNumber(uint8_t gameNumber) {
 
 void ConnectionManager::resetGameNumber() {
     ConnectionManager::setGameNumber(0);
+}
+
+uint8_t ConnectionManager::getOtherInputAnswer() {
+    return ConnectionManager::otherInputAnswer;
+}
+
+bool ConnectionManager::hasOtherInputAnswer() {
+    return getOtherInputAnswer() > 0;
+}
+
+void ConnectionManager::setOtherInputAnswer(uint8_t otherInputAnswer) {
+    ConnectionManager::otherInputAnswer = otherInputAnswer;
+}
+
+void ConnectionManager::resetOtherInputAnswer() {
+    ConnectionManager::setOtherInputAnswer(0);
+}
+
+long ConnectionManager::getOtherInputDuration() {
+    return ConnectionManager::otherInputDuration;
+}
+
+bool ConnectionManager::hasOtherInputDuration() {
+    return getOtherInputDuration() > 0;
+}
+
+void ConnectionManager::setOtherInputDuration(long otherInputDuration) {
+    ConnectionManager::otherInputDuration = otherInputDuration;
+}
+
+void ConnectionManager::resetOtherInputDuration() {
+    ConnectionManager::setOtherInputDuration(0);
+}
+
+bool ConnectionManager::hasReceivedResult() {
+    return ConnectionManager::receivedResult;
+}
+
+bool ConnectionManager::hasWonGame() {
+    return ConnectionManager::gameResultWin;
+}
+
+uint8_t ConnectionManager::getResultAnswerSelf() {
+    return ConnectionManager::resultAnswerSelf;
+}
+
+uint8_t ConnectionManager::getResultAnswerOther() {
+    return ConnectionManager::resultAnswerOther;
+}
+
+void ConnectionManager::setResult(bool won, uint8_t answerSelf, uint8_t answerOther) {
+    ConnectionManager::receivedResult = true;
+    ConnectionManager::gameResultWin = won;
+    ConnectionManager::resultAnswerSelf = answerSelf;
+    ConnectionManager::resultAnswerOther = answerOther;
+}
+
+void ConnectionManager::clearResult() {
+    ConnectionManager::receivedResult = false;
+    ConnectionManager::gameResultWin = false;
+    ConnectionManager::resultAnswerSelf = 0;
+    ConnectionManager::resultAnswerOther = 0;
 }
