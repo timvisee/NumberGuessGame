@@ -380,6 +380,10 @@ void Core::gameLogic() {
     if(ConnectionManager::isMultiplayer())
         hasWon = ConnectionManager::hasWonGame();
 
+    // FIXME: Minor tweak, in case the result breaks in packet transfer
+    if(ConnectionManager::isMultiplayer())
+        hasWon = (userAnswer == gameNumber);
+
     // Show the result
     if(hasWon) {
         // Turn on the green LED if available
