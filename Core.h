@@ -61,7 +61,7 @@ public:
     void showSeekAnimation();
     void showNumber(uint8_t number);
     void showNumber(uint8_t number, uint8_t brightness, int duration);
-    long generateRandomNumber();
+    uint8_t generateNewGameNumber();
     void memoryReport();
 };
 

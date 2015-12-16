@@ -80,7 +80,7 @@ void Core::setup() {
 
 void Core::loop() {
     // Generate a random number
-    int num = (int) generateRandomNumber();
+    uint8_t num = generateNewGameNumber();
 
     // Show the number as binary for the specified duration
     showNumber(num);
@@ -92,7 +92,7 @@ void Core::loop() {
     timer.start();
 
     // Define a variable to store the number in the user has entered
-    int answer = 0;
+    uint8_t answer = 0;
 
     // Use a while loop to handle the button presses
     while(!timer.isFinished() || answer <= 0) {
@@ -369,8 +369,8 @@ void Core::showNumber(uint8_t number, uint8_t brightness, int duration) {
  *
  * @return Random number.
  */
-long Core::generateRandomNumber() {
-    return Random::nextInt((int) (pow(2, SCREEN_LED_COUNT) - 1)) + 1;
+uint8_t Core::generateNewGameNumber() {
+    return (uint8_t) Random::nextInt((int) (pow(2, SCREEN_LED_COUNT) - 1)) + 1;
 }
 
 void Core::memoryReport() {
