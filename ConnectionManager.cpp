@@ -10,6 +10,7 @@
 
 bool ConnectionManager::multiplayer = true;
 bool ConnectionManager::master = true;
+bool ConnectionManager::connecting = false;
 bool ConnectionManager::connected = false;
 uint8_t ConnectionManager::gameNumber = 0;
 
@@ -27,6 +28,14 @@ bool ConnectionManager::isMaster() {
 
 void ConnectionManager::setMaster(bool master) {
     ConnectionManager::master = master;
+}
+
+bool ConnectionManager::isConnecting() {
+    return ConnectionManager::connecting;
+}
+
+void ConnectionManager::setConnecting(bool connecting) {
+    ConnectionManager::connecting = connecting;
 }
 
 bool ConnectionManager::isConnected() {

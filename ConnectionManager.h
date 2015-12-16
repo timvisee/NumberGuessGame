@@ -28,6 +28,11 @@ private:
     static bool master;
 
     /**
+     * Whether the device is currently waiting for a connection.
+     */
+    static bool connecting;
+
+    /**
      * Connected flag.
      */
     static bool connected;
@@ -65,6 +70,20 @@ public:
      * @param master True if master, false if not.
      */
     static void setMaster(bool master);
+
+    /**
+     * Whether the device is currently waiting to connect.
+     *
+     * @return True if connecting, false otherwise.
+     */
+    static bool isConnecting();
+
+    /**
+     * Set whether the device is currently waiting for a connection.
+     *
+     * @param connecting True if connecting, false if not.
+     */
+    static void setConnecting(bool connecting);
 
     /**
      * Check whether the device is connected to another device in the multiplayer network.
