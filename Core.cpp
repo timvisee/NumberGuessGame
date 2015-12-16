@@ -318,7 +318,7 @@ void Core::gameLogic() {
 
             // Store the values, reset them afterwards
             uint8_t otherUserInputAnswer = ConnectionManager::getOtherInputAnswer();
-            long otherUserInputDuration = ConnectionManager::getOtherInputDuration();
+//            long otherUserInputDuration = ConnectionManager::getOtherInputDuration();
             ConnectionManager::resetOtherInputAnswer();
             ConnectionManager::resetOtherInputDuration();
 
@@ -370,6 +370,7 @@ void Core::gameLogic() {
     // Show the result the user has entered
     showNumber(userAnswer);
     smartDelay(USER_INPUT_VISIBLE_DURATION);
+    showNumber(0);
 
     // Wait a second before showing the input
     smartDelay(1000);
