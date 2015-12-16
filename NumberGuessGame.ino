@@ -39,5 +39,5 @@ void setup() {
  */
 void loop() {
     // Route the loop call to the Core class
-    core.loop();
+    core.gameLogic();
 }
