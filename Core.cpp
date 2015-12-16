@@ -9,18 +9,20 @@
 #include "Core.h"
 
 Core::Core() :
-        greenLed(GREEN_LED_PIN, GREEN_LED_ANALOG),
-        redLed(RED_LED_PIN, RED_LED_ANALOG),
-        statusLed(Led::STATUS_LED_PIN, Led::STATUS_LED_ANALOG),
         button(BUTTON_PIN),
         con() {
 
     // Initialize the screen LED array
-    this->screenLeds = new Led[SCREEN_LED_COUNT];
+    LedManager::screenLeds = new Led[SCREEN_LED_COUNT];
 
     // Construct the screen LED instances
     for(int i = 0; i < SCREEN_LED_COUNT; i++)
-        screenLeds[i] = Led(SCREEN_LED_PINS[i], SCREEN_LED_ANALOG);
+        LedManager::screenLeds[i] = Led(SCREEN_LED_PINS[i], SCREEN_LED_ANALOG);
+
+    // Set up the other LEDs
+    LedManager::greenLed = Led(GREEN_LED_PIN, GREEN_LED_ANALOG);
+    LedManager::redLed = Led(RED_LED_PIN, RED_LED_ANALOG);
+    LedManager::statusLed = Led(Led::STATUS_LED_PIN, Led::STATUS_LED_ANALOG);
 }
 
 void Core::setup() {
@@ -49,12 +51,12 @@ void Core::setup() {
     // Set up the answer LED pins
     Log::debug("Stp LEDs...");
     for(int i = 0; i < SCREEN_LED_COUNT; i++)
-        screenLeds[i].setupPin();
+        LedManager::screenLeds[i].setupPin();
 
     // Set up all other LEDs
-    greenLed.setupPin();
-    redLed.setupPin();
-    statusLed.setupPin();
+    LedManager::greenLed.setupPin();
+    LedManager::redLed.setupPin();
+    LedManager::statusLed.setupPin();
 
     // Set up the button pin
     Log::debug("Stp btn...");
@@ -95,18 +97,18 @@ void Core::loop() {
     // Use a while loop to handle the button presses
     while(!timer.isFinished() || answer <= 0) {
         // Pulse the green light
-        if(!greenLed.isFading()) {
+        if(!LedManager::greenLed.isFading()) {
             // Fade the lights in or out
-            if(greenLed.getBrightness() <= PULSE_BRIGHTNESS_LOW) {
-                greenLed.fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
+            if(LedManager::greenLed.getBrightness() <= PULSE_BRIGHTNESS_LOW) {
+                LedManager::greenLed.fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
 
                 // Only fade red out if it is currently on
-                if(redLed.getBrightness() != Led::BRIGHTNESS_LOW)
-                    redLed.fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+                if(LedManager::redLed.getBrightness() != Led::BRIGHTNESS_LOW)
+                    LedManager::redLed.fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
 
-            } else if(greenLed.getBrightness() >= PULSE_BRIGHTNESS_HIGH) {
-                greenLed.fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
-                redLed.fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
+            } else if(LedManager::greenLed.getBrightness() >= PULSE_BRIGHTNESS_HIGH) {
+                LedManager::greenLed.fade(PULSE_BRIGHTNESS_LOW, PULSE_DURATION);
+                LedManager::redLed.fade(PULSE_BRIGHTNESS_HIGH, PULSE_DURATION);
             }
         }
 
@@ -123,10 +125,10 @@ void Core::loop() {
 
             // Show some feedback, a button is pressed
             for(int i = 0; i < SCREEN_LED_COUNT; i++)
-                screenLeds[i].fade(FEEDBACK_BRIGHTNESS_HIGH, FEEDBACK_VISIBLE_DURATION);
+                LedManager::screenLeds[i].fade(FEEDBACK_BRIGHTNESS_HIGH, FEEDBACK_VISIBLE_DURATION);
             smartDelay(FEEDBACK_VISIBLE_DURATION);
             for(int i = 0; i < SCREEN_LED_COUNT; i++)
-                screenLeds[i].fade(FEEDBACK_BRIGHTNESS_LOW, FEEDBACK_VISIBLE_DURATION);
+                LedManager::screenLeds[i].fade(FEEDBACK_BRIGHTNESS_LOW, FEEDBACK_VISIBLE_DURATION);
         }
     }
 
@@ -134,8 +136,8 @@ void Core::loop() {
     timer.stop();
 
     // Turn of the green LED
-    greenLed.setState(false);
-    redLed.setState(false);
+    LedManager::greenLed.setState(false);
+    LedManager::redLed.setState(false);
 
     // Wait a second before showing the input
     smartDelay(500);
@@ -146,17 +148,17 @@ void Core::loop() {
 
     // Verify the answer
     if(num == answer)
-        greenLed.setState(true);
+        LedManager::greenLed.setState(true);
     else
-        redLed.setState(true);
+        LedManager::redLed.setState(true);
 
     // Wait before turning all LEDs off again
     smartDelay(1500);
 
     // Disable all LEDs
     showNumber(0);
-    greenLed.setState(false);
-    redLed.setState(false);
+    LedManager::greenLed.setState(false);
+    LedManager::redLed.setState(false);
 
     // Show the slide animation before continuing to the next wave
     smartDelay(200);
@@ -203,11 +205,11 @@ Timer memoryReportTimer(5000, true);
 void Core::update() {
     // Update the screen LEDs
     for(short i = 0; i < SCREEN_LED_COUNT; i++)
-        screenLeds[i].update();
+        LedManager::screenLeds[i].update();
 
     // Update the green and red LED
-    greenLed.update();
-    redLed.update();
+    LedManager::greenLed.update();
+    LedManager::redLed.update();
 
     // Update the button state
     button.update();
@@ -216,14 +218,14 @@ void Core::update() {
     // TODO: Only if multiplayer is enabled?
     while(con.available()) {
         // Enable the activity light
-        statusLed.setState(true);
+        LedManager::statusLed.setState(true);
 
         // Handle the new data
         while(con.available())
             PacketHandler::receive((char) con.read());
 
         // Disable the activity light
-        statusLed.setState(false);
+        LedManager::statusLed.setState(false);
     }
 
     // DEBUG: Send a test packet
@@ -270,11 +272,11 @@ void Core::showSlideAnimation() {
     for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
         // Handle the LED
         if(i < SCREEN_LED_COUNT)
-            screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
+            LedManager::screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
         else if(i == SCREEN_LED_COUNT)
-            greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
+            LedManager::greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
         else if(i == SCREEN_LED_COUNT + 1)
-            redLed.fade(Led::BRIGHTNESS_HIGH, 250);
+            LedManager::redLed.fade(Led::BRIGHTNESS_HIGH, 250);
 
         // Wait a little before handling the next LED
         smartDelay(75);
@@ -284,11 +286,11 @@ void Core::showSlideAnimation() {
     for(int i = 0; i < SCREEN_LED_COUNT + 2; i++) {
         // Handle the LED
         if(i < SCREEN_LED_COUNT)
-            screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
+            LedManager::screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
         else if(i == SCREEN_LED_COUNT)
-            greenLed.fade(Led::BRIGHTNESS_LOW, 250);
+            LedManager::greenLed.fade(Led::BRIGHTNESS_LOW, 250);
         else if(i == SCREEN_LED_COUNT + 1)
-            redLed.fade(Led::BRIGHTNESS_LOW, 250);
+            LedManager::redLed.fade(Led::BRIGHTNESS_LOW, 250);
 
         // Wait a little before handling the next LED
         smartDelay(75);
@@ -306,11 +308,11 @@ void Core::showSeekAnimation() {
     for(int i = SCREEN_LED_COUNT + 1; i >= 0; i--) {
         // Handle the LED
         if(i < SCREEN_LED_COUNT)
-            screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
+            LedManager::screenLeds[i].fade(Led::BRIGHTNESS_HIGH, 250);
         else if(i == SCREEN_LED_COUNT)
-            greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
+            LedManager::greenLed.fade(Led::BRIGHTNESS_HIGH, 250);
         else if(i == SCREEN_LED_COUNT + 1)
-            redLed.fade(Led::BRIGHTNESS_HIGH, 250);
+            LedManager::redLed.fade(Led::BRIGHTNESS_HIGH, 250);
 
         // Wait a little before handling the next LED
         smartDelay(75);
@@ -320,11 +322,11 @@ void Core::showSeekAnimation() {
     for(int i = SCREEN_LED_COUNT + 1; i >= 0; i--) {
         // Handle the LED
         if(i < SCREEN_LED_COUNT)
-            screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
+            LedManager::screenLeds[i].fade(Led::BRIGHTNESS_LOW, 250);
         else if(i == SCREEN_LED_COUNT)
-            greenLed.fade(Led::BRIGHTNESS_LOW, 250);
+            LedManager::greenLed.fade(Led::BRIGHTNESS_LOW, 250);
         else if(i == SCREEN_LED_COUNT + 1)
-            redLed.fade(Led::BRIGHTNESS_LOW, 250);
+            LedManager::redLed.fade(Led::BRIGHTNESS_LOW, 250);
 
         // Wait a little before handling the next LED
         smartDelay(75);
@@ -336,9 +338,9 @@ void Core::showSeekAnimation() {
  *
  * @param number The number to show the LEDs for.
  */
-void Core::showNumber(int number) {
+void Core::showNumber(uint8_t number) {
     for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
-        screenLeds[i].setState((bool) (number & 1));
+        LedManager::screenLeds[i].setState((bool) (number & 1));
         number /= 2;
     }
 }
@@ -350,13 +352,13 @@ void Core::showNumber(int number) {
  * @param brightness The target brightness.
  * @param duration The target duration in milliseconds.
  */
-void Core::showNumber(int number, int brightness, int duration) {
+void Core::showNumber(uint8_t number, uint8_t brightness, int duration) {
     for(byte i = 0; i < SCREEN_LED_COUNT; i++) {
         // Turn the LED on or off, based on the number with the specified brightness and duration
         if(number & 1)
-            screenLeds[i].fade(brightness, duration);
+            LedManager::screenLeds[i].fade(brightness, duration);
         else
-            screenLeds[i].setState(false);
+            LedManager::screenLeds[i].setState(false);
 
         number /= 2;
     }

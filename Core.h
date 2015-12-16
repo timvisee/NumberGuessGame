@@ -13,37 +13,18 @@
 #include <AltSoftSerial.h>
 #include <MemoryFree.h>
 #include "Globals.h"
+#include "LedManager.h"
+#include "Led.h"
+#include "Button.h"
 #include "PacketHandler.h"
 #include "Random.h"
-#include "Button.h"
 #include "Timer.h"
-#include "Led.h"
 
 /**
  * Core class.
  */
 class Core {
 private:
-
-    /**
-     * Screen LED instances.
-     */
-    Led * screenLeds;
-
-    /**
-     * Green LED instance.
-     */
-    Led greenLed;
-
-    /**
-     * Red LED instance.
-     */
-    Led redLed;
-
-    /**
-     * Status LED instance.
-     */
-    Led statusLed;
 
     /**
      * Button instance.
@@ -78,8 +59,8 @@ public:
     void showStartupAnimation();
     void showSlideAnimation();
     void showSeekAnimation();
-    void showNumber(int number);
-    void showNumber(int number, int brightness, int duration);
+    void showNumber(uint8_t number);
+    void showNumber(uint8_t number, uint8_t brightness, int duration);
     long generateRandomNumber();
     void memoryReport();
 };
